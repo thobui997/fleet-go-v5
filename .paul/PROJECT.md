@@ -1,0 +1,166 @@
+# FleetGo System
+
+## What This Is
+
+A comprehensive, cloud-based passenger coach fleet and transportation management system built with React and Supabase. It streamlines back-office operations including vehicle tracking, route planning, trip scheduling, employee management, dynamic role-based access, and ticket booking for passenger transit logistics companies.
+
+## Core Value
+
+Digitize and automate the manual, fragmented processes of managing a passenger coach transportation company — centralize operations into a single source of truth, eliminate scheduling conflicts, optimize vehicle maintenance, and provide real-time financial and operational analytics.
+
+## Current State
+
+| Attribute | Value |
+|-----------|-------|
+| Type | Application |
+| Version | 0.0.0 |
+| Status | Initializing |
+| Last Updated | 2026-04-10 |
+
+## Requirements
+
+### Core Features
+
+- **Dashboard & Analytics:** Real-time statistics (revenue, fleet status, trip status, booking overview), quick views for recent bookings and upcoming trips
+- **Vehicle Management:** Fleet CRUD, maintenance logs, vehicle types & seat layout configuration (JSON-based visual seat maps)
+- **Route & Station Management:** Station CRUD, route definition with origin/destination/distance/duration/base price, drag-and-drop intermediate stops
+- **Employee & Role Management:** Dynamic role CRUD, staff records with role assignment, license expiry alerts (30-day warning)
+- **Trip Scheduling:** Trip creation with route/vehicle/time assignment, staff assignment with conflict validation (max 1 driver per trip, no overlapping schedules), calendar view, driver/assistant personal schedule view
+- **Customer & Ticketing:** Customer profiles with loyalty points, bookings with auto-generated codes (BKG-XXXXX), seat selection with double-booking prevention, optional QR codes
+- **Payment Management:** Transaction tracking linked to bookings, multiple payment methods (Cash/E-wallet/Bank Transfer), payment-booking status sync
+
+### Validated (Shipped)
+
+None yet.
+
+### Active (In Progress)
+
+None yet.
+
+### Planned (Next)
+
+- Phase 1: Foundation — Auth, layout, shared UI, Supabase setup
+- Phase 2: Fleet & Vehicle management
+- Phase 3: Route & Station management
+- Phase 4: Employee & Role management
+- Phase 5: Trip scheduling with calendar
+- Phase 6: Customer, Ticketing & Payment
+- Phase 7: Dashboard & Analytics
+
+### Out of Scope
+
+- Customer-facing mobile application or website for self-booking
+- Live GPS hardware tracking of passenger coaches on a map
+- Complex payroll and HR tax calculations
+
+## Target Users
+
+**Primary:** Back-office administrative staff
+- System Administrator: Full access, system settings, role management
+- Fleet Manager: Vehicle management module
+- Dispatcher/Scheduler: Routes, stations, employees, trip planning
+- Ticketing Agent: Ticketing, booking, payment processing
+
+**Secondary:** On-the-ground operational staff
+- Driver: View assigned trips, vehicle details, route schedules (read-only)
+- Assistant Driver: View assigned trips, passenger manifests, ticket verification
+
+## Context
+
+**Business Context:** Transportation companies currently rely on spreadsheets, paper tickets, and disjointed communication (Zalo/WhatsApp). High frequency of scheduling conflicts, lack of vehicle health visibility, manual ticketing causing revenue leakage, difficulty tracking profitability and fleet utilization.
+
+**Technical Context:** Serverless/BaaS monolith architecture. SPA frontend with Feature-Sliced Design v2.1. Supabase for backend (PostgreSQL, GoTrue auth, PostgREST APIs). JWT auth with dynamic RBAC via Supabase RLS policies.
+
+## Constraints
+
+### Technical Constraints
+
+- Node 18.x, React 18.x, TypeScript 5.x, Vite 5.x
+- Strict Feature-Sliced Design v2.1 architecture (no cross-imports, public API only, one-way data flow)
+- Supabase as sole backend (PostgreSQL, GoTrue, PostgREST)
+- Client-side caching via TanStack Query 5.x
+- Page loads under 1.5 seconds
+- Pagination for all list views (10/20/50/100)
+- 99.9% uptime target
+
+### Business Constraints
+
+- Web-based admin/staff portal only (no customer-facing app)
+- Role-Based Access Control via dynamic roles (not hardcoded)
+- Seat layout configuration must support multi-deck vehicles (sleeper coaches, limousines)
+
+### Compliance Constraints
+
+- JWT-based authentication required
+- Supabase RLS policies for data access control
+
+## Key Decisions
+
+| Decision | Rationale | Date | Status |
+|----------|-----------|------|--------|
+| Supabase as BaaS | Auto-generated APIs, built-in auth, PostgreSQL, reduces backend dev time | 2026-04-10 | Active |
+| Feature-Sliced Design v2.1 | Scalable architecture with clear module boundaries, one-way data flow | 2026-04-10 | Active |
+| Dynamic roles (not hardcoded) | Flexible permission assignments without code changes | 2026-04-10 | Active |
+| JSON-based seat layouts | Supports diverse vehicle types (sleeper, limousine) with upper/lower decks | 2026-04-10 | Active |
+| TanStack Query for state | Server-state management with caching, eliminates need for global state store | 2026-04-10 | Active |
+
+## Success Metrics
+
+| Metric | Target | Current | Status |
+|--------|--------|---------|--------|
+| Page load time | < 1.5 seconds | - | Not started |
+| Scheduling conflicts | Zero | - | Not started |
+| Double-booking incidents | Zero | - | Not started |
+| Fleet visibility | Real-time status for all vehicles | - | Not started |
+| Revenue tracking accuracy | Real-time dashboard | - | Not started |
+
+## Tech Stack / Tools
+
+| Layer | Technology | Notes |
+|-------|------------|-------|
+| Framework | React 18.x | SPA |
+| Language | TypeScript 5.x | Strict typing |
+| Build Tool | Vite 5.x | Fast dev/build |
+| Architecture | Feature-Sliced Design v2.1 | Strict layer boundaries |
+| Routing | React Router 6.x | Client-side routing |
+| State Management | TanStack Query 5.x | Server-state caching |
+| Forms | React Hook Form + Zod | Validation |
+| Styling | TailwindCSS 3.x + Shadcn/ui | Utility-first + component library |
+| Drag & Drop | @dnd-kit | Route stops ordering |
+| Dates | Day.js | Lightweight date handling |
+| Backend/DB/Auth | Supabase (PostgreSQL) | BaaS monolith |
+| Linting | ESLint | Code quality |
+| Formatting | Prettier | Code style |
+
+## Data Model (Core Relationships)
+
+- `Roles` (1:N) → `Users` (Dynamic role management)
+- `Users` (UUID, Auth) ↔ `Employees` (1:1)
+- `VehicleTypes` (1:1) → `SeatLayouts` (JSON seat map)
+- `VehicleTypes` (1:N) → `Vehicles`
+- `Vehicles` (1:N) → `MaintenanceLogs`
+- `Stations` (1:N) → `RouteStops` ← (N:1) `Routes`
+- `Routes` (1:N) → `Trips`
+- `Vehicles` (1:N) → `Trips`
+- `Trips` (1:N) → `TripStaff` ← (N:1) `Employees` (Join Table)
+- `Customers` (1:N) → `Bookings`
+- `Trips` (1:N) → `Bookings`
+- `Bookings` (1:N) → `Tickets`
+- `Bookings` (1:1) → `Payments`
+
+## Specialized Flows
+
+See: .paul/SPECIAL-FLOWS.md
+
+Quick Reference:
+- /frontend-design → UI components, page layouts, forms, dashboards, responsive design
+- /feature-sliced-design → Code organization, FSD architecture, layer boundaries
+
+## Links
+
+| Resource | URL |
+|----------|-----|
+| Repository | (To be configured) |
+
+---
+*Created: 2026-04-10*
