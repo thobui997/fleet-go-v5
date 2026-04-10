@@ -11,9 +11,9 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 Milestone: v0.1 MVP
 Phase: 1 of 7 (Foundation & Auth) — Planning
-Plan: 01-04 created, awaiting approval
-Status: PLAN created, ready for APPLY
-Last activity: 2026-04-10 — Created 01-04-PLAN.md
+Plan: 01-04 created + audited, awaiting approval
+Status: PLAN created + audited, ready for APPLY
+Last activity: 2026-04-10 — Enterprise audit on 01-04-PLAN.md
 
 ## Loop Position
 
@@ -39,6 +39,7 @@ Progress:
 - 2026-04-10: Enterprise audit on 01-03-PLAN.md. Applied 2 must-have (auth error mapping to Vietnamese, session loading flash prevention), 3 strongly-recommended (subscription cleanup pattern, double-submit prevention, AuthContextValue type export). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-01-PLAN.md. Applied 2 must-have (dark mode CSS vars, env validation), 3 strongly-recommended (error boundary, ESLint config clarity, cn utility path). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-02-PLAN.md. Applied 2 must-have (DataTable ColumnDef interface, CSS variable overwrite protection), 3 strongly-recommended (Toaster wiring, dayjs import fix, schema verification). Verdict: conditionally acceptable (now ready)
+- 2026-04-10: Enterprise audit on 01-04-PLAN.md. Applied 2 must-have (index.html in frontmatter, ROUTES constants for router paths), 4 strongly-recommended (NavLink ROUTES constants, logout error handling, body scroll lock, Escape key close). Verdict: conditionally acceptable (now ready)
 
 ### Deferred Issues
 None yet.
