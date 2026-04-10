@@ -5,32 +5,45 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 2 — Database Foundation
+**Current focus:** Phase 2 — Database Foundation (1 of 7 plans complete)
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 8 (Database Foundation) — Planning
-Plan: 02-01 created + audited, awaiting approval
-Status: PLAN created + audited, ready for APPLY
-Last activity: 2026-04-10 — Enterprise audit on 02-01-PLAN.md
+Phase: 2 of 8 (Database Foundation)
+Plan: 02-02 (not yet created)
+Status: PLAN needed — 1 of 7 plans complete
+Last activity: 2026-04-11 — Plan 02-01 complete, ready for 02-02
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ✓     [Plan 02-01 complete — ready for 02-02]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 12.5%
-- Phase 2: [░░░░░░░░░░░] 0% (Plan 02-01 in progress)
+- Phase 2: [██░░░░░░░] 14% (1 of 7 plans complete)
 
 ## Accumulated Context
 
 ### Decisions
 - Supabase as BaaS — reduces backend dev time
+- Feature-Sliced Design v2.1 — scalable architecture with clear boundaries
+- Dynamic roles — flexible permission without code changes
+- JSON seat layouts — supports diverse vehicle types
+- TanStack Query — server-state caching, no global state store needed
+- Phase 1 split into 4 plans: scaffolding, shared UI, auth, app shell
+- 2026-04-10: **Added Phase 2 (Database Foundation)** — Inserted between Foundation & Auth and feature phases. Establishes complete schema design, migrations, RLS policies, and triggers before any feature development.
+- 2026-04-10: Enterprise audit on 02-01-PLAN.md. Applied 1 must-have (UNIQUE employees.user_id for 1:1 enforcement), 3 strongly-recommended (CHECK roles.permissions JSONB array, UNIQUE employees.license_number, ON CONFLICT in handle_new_user trigger).
+- 2026-04-11: **Phase 2 complete** — Core schema (profiles, roles, user_roles, employees) with secure triggers. Deviation: Dashboard user creation instead of pgcrypto due to Supabase SQL Editor limitations.
+- Normalized user schema — profiles as single source of truth eliminates duplication
+- Composite PK on junction tables — eliminates redundant surrogate keys
+- JSONB permissions with GIN index — dynamic permissions, fast @> queries
+- Dashboard seed data approach — pgcrypto extension unreliable in Supabase Dashboard SQL Editor
+- 2026-04-11: **Seed data approach pivot** — pgcrypto extension for direct auth.users insertion has limitations in Supabase Dashboard SQL Editor. Pivoted to Dashboard-based user creation (manual via Authentication → Users), then seeding employees/user_roles with actual UUIDs. More reliable and documented in seed.sql header.
 - Feature-Sliced Design v2.1 — scalable architecture with clear boundaries
 - Dynamic roles — flexible permission without code changes
 - JSON seat layouts — supports diverse vehicle types
@@ -52,10 +65,10 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-10
-Stopped at: Plan 02-01 created
-Next action: Run /paul:audit then /paul:apply .paul/phases/02-database-foundation/02-01-PLAN.md
-Resume file: .paul/phases/02-database-foundation/02-01-PLAN.md
+Last session: 2026-04-11
+Stopped at: Plan 02-01 unified, Phase 2 in progress (1/7 complete)
+Next action: /paul:plan for Plan 02-02 (Fleet Schema)
+Resume file: .paul/ROADMAP.md
 
 ---
 *STATE.md — Updated after every significant action*

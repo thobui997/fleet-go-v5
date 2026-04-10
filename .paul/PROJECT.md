@@ -15,7 +15,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Type | Application |
 | Version | 0.1.0 |
 | Status | In Development |
-| Last Updated | 2026-04-10 |
+| Last Updated | 2026-04-11 |
 
 ## Requirements
 
@@ -38,14 +38,31 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
 - **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
 - **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
+- **Core User Schema:** profiles, roles, user_roles, employees tables with triggers — Plan 02-01 complete
+- **Architecture:** Feature-Sliced Design v2.1 with strict layer boundaries, public API exports — Phase 1
+- **Routing:** React Router 6.x with protected routes and outlet-based layouts — Phase 1
+- **State Management:** TanStack Query 5.x for server-state caching — Phase 1
+- **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
+- **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
+- **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
+- **Database Foundation:** Core schema (profiles, roles, user_roles, employees), triggers for auto-profile creation and timestamp management, JSONB permissions with GIN indexing — Phase 2
+- **Architecture:** Feature-Sliced Design v2.1 with strict layer boundaries, public API exports — Phase 1
+- **Routing:** React Router 6.x with protected routes and outlet-based layouts — Phase 1
+- **State Management:** TanStack Query 5.x for server-state caching — Phase 1
+- **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
+- **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
+- **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
 
 ### Active (In Progress)
 
 None yet.
 
+### Active (In Progress)
+
+- Phase 2: Database Foundation — Core schema complete (Plan 02-01), 6 plans remaining (Fleet, Route, Trip, Booking, RLS, Triggers)
+
 ### Planned (Next)
 
-- Phase 2: Database Foundation — Complete schema design, Supabase migrations, RLS policies, triggers for all entities
 - Phase 3: Vehicle Management — Vehicle types with JSON seat layouts, vehicle CRUD, maintenance logs
 - Phase 4: Route & Station management — Station CRUD, route definition with drag-and-drop stops
 - Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
@@ -109,6 +126,10 @@ None yet.
 | Dynamic roles (not hardcoded) | Flexible permission assignments without code changes | 2026-04-10 | Active |
 | JSON-based seat layouts | Supports diverse vehicle types (sleeper, limousine) with upper/lower decks | 2026-04-10 | Active |
 | TanStack Query for state | Server-state management with caching, eliminates need for global state store | 2026-04-10 | Active |
+| Normalized user schema | profiles as single source of truth eliminates duplication across tables | 2026-04-11 | Active |
+| Composite PK on junction tables | Eliminates redundant surrogate keys, enforces uniqueness naturally | 2026-04-11 | Active |
+| JSONB permissions with GIN index | Dynamic permissions without schema changes, fast @> queries | 2026-04-11 | Active |
+| Dashboard user creation for seed | pgcrypto extension unreliable in Supabase Dashboard SQL Editor | 2026-04-11 | Active |
 
 ## Success Metrics
 
@@ -169,4 +190,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-10 after Phase 1*
+*Last updated: 2026-04-11 after Phase 2, Plan 01*
