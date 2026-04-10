@@ -1,6 +1,6 @@
 {
   "statusLine": {
     "type": "command",
-    "command": ".claude/statusline.cjs"
+    "command": "node .claude/statusline.cjs"
   }
 }
