@@ -1,0 +1,18 @@
+export const ROUTES = {
+  HOME: '/',
+  LOGIN: '/login',
+  DASHBOARD: '/dashboard',
+  VEHICLES: '/vehicles',
+  VEHICLE_TYPES: '/vehicle-types',
+  MAINTENANCE: '/maintenance',
+  ROUTES: '/routes',
+  STATIONS: '/stations',
+  EMPLOYEES: '/employees',
+  ROLES: '/roles',
+  TRIPS: '/trips',
+  TRIP_CALENDAR: '/trips/calendar',
+  MY_SCHEDULE: '/my-schedule',
+  CUSTOMERS: '/customers',
+  BOOKINGS: '/bookings',
+  PAYMENTS: '/payments',
+} as const;
