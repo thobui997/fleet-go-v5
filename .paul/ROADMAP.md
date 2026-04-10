@@ -7,15 +7,15 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress
-Phases: 0 of 7 complete
+Status: In progress (1 of 7 phases complete)
+Phases: 1 of 7 complete
 
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
-| 1 | Foundation & Auth | 4 | Planning | - |
-| 2 | Vehicle Management | TBD | Not started | - |
+| 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
+| 2 | Vehicle Management | TBD | 🔵 Next | - |
 | 3 | Route & Station Management | TBD | Not started | - |
 | 4 | Employee & Role Management | TBD | Not started | - |
 | 5 | Trip Scheduling | TBD | Not started | - |
@@ -39,10 +39,10 @@ Phases: 0 of 7 complete
 - App shell layout (sidebar, header, navigation)
 
 **Plans:**
-- [ ] 01-01: Project Scaffolding & FSD Structure
-- [ ] 01-02: Shared UI Foundation
-- [ ] 01-03: Authentication System
-- [ ] 01-04: App Shell & Navigation
+- [x] 01-01: Project Scaffolding & FSD Structure
+- [x] 01-02: Shared UI Foundation
+- [x] 01-03: Authentication System
+- [x] 01-04: App Shell & Navigation
 
 ### Phase 2: Vehicle Management
 

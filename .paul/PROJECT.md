@@ -13,8 +13,8 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Attribute | Value |
 |-----------|-------|
 | Type | Application |
-| Version | 0.0.0 |
-| Status | Initializing |
+| Version | 0.1.0 |
+| Status | In Development |
 | Last Updated | 2026-04-10 |
 
 ## Requirements
@@ -31,7 +31,13 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 
 ### Validated (Shipped)
 
-None yet.
+- **Infrastructure & Tooling:** React 18.x, TypeScript 5.x, Vite 5.x, ESLint, Prettier — Phase 1
+- **Architecture:** Feature-Sliced Design v2.1 with strict layer boundaries, public API exports — Phase 1
+- **Routing:** React Router 6.x with protected routes and outlet-based layouts — Phase 1
+- **State Management:** TanStack Query 5.x for server-state caching — Phase 1
+- **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
+- **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
+- **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
 
 ### Active (In Progress)
 
@@ -39,13 +45,12 @@ None yet.
 
 ### Planned (Next)
 
-- Phase 1: Foundation — Auth, layout, shared UI, Supabase setup
-- Phase 2: Fleet & Vehicle management
-- Phase 3: Route & Station management
-- Phase 4: Employee & Role management
-- Phase 5: Trip scheduling with calendar
-- Phase 6: Customer, Ticketing & Payment
-- Phase 7: Dashboard & Analytics
+- Phase 2: Fleet & Vehicle management — Vehicle types with JSON seat layouts, vehicle CRUD, maintenance logs
+- Phase 3: Route & Station management — Station CRUD, route definition with drag-and-drop stops
+- Phase 4: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
+- Phase 5: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
+- Phase 6: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
+- Phase 7: Dashboard & Analytics — Real-time statistics, quick views, operational insights
 
 ### Out of Scope
 
@@ -163,4 +168,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Created: 2026-04-10*
+*Last updated: 2026-04-10 after Phase 1*

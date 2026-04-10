@@ -1,28 +1,51 @@
-import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@shared/auth';
 import { ROUTES } from '@shared/config/routes';
 import { LoginPage } from '@pages/login';
+import { AppLayout } from '@app/layouts';
+
+function PlaceholderPage({ title }: { title: string }) {
+  return (
+    <div className="flex items-center justify-center h-64">
+      <p className="text-muted-foreground text-lg">{title} — Coming Soon</p>
+    </div>
+  );
+}
 
 export const router = createBrowserRouter([
   {
-    path: '/login',
+    path: ROUTES.LOGIN,
     element: <LoginPage />,
   },
   {
     element: (
       <ProtectedRoute>
-        <Outlet />
+        <AppLayout />
       </ProtectedRoute>
     ),
     children: [
       {
-        path: '/',
+        index: true,
         element: <Navigate to={ROUTES.DASHBOARD} replace />,
       },
       {
-        path: '/dashboard',
+        path: ROUTES.DASHBOARD,
         element: <div>Dashboard — coming in Phase 7</div>,
       },
+      // Placeholder routes for all modules
+      { path: ROUTES.VEHICLES, element: <PlaceholderPage title="Vehicles" /> },
+      { path: ROUTES.VEHICLE_TYPES, element: <PlaceholderPage title="Vehicle Types" /> },
+      { path: ROUTES.MAINTENANCE, element: <PlaceholderPage title="Maintenance" /> },
+      { path: ROUTES.ROUTES, element: <PlaceholderPage title="Routes" /> },
+      { path: ROUTES.STATIONS, element: <PlaceholderPage title="Stations" /> },
+      { path: ROUTES.TRIPS, element: <PlaceholderPage title="Trips" /> },
+      { path: ROUTES.TRIP_CALENDAR, element: <PlaceholderPage title="Trip Calendar" /> },
+      { path: ROUTES.EMPLOYEES, element: <PlaceholderPage title="Employees" /> },
+      { path: ROUTES.ROLES, element: <PlaceholderPage title="Roles" /> },
+      { path: ROUTES.MY_SCHEDULE, element: <PlaceholderPage title="My Schedule" /> },
+      { path: ROUTES.CUSTOMERS, element: <PlaceholderPage title="Customers" /> },
+      { path: ROUTES.BOOKINGS, element: <PlaceholderPage title="Bookings" /> },
+      { path: ROUTES.PAYMENTS, element: <PlaceholderPage title="Payments" /> },
     ],
   },
 ]);
