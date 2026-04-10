@@ -2,25 +2,26 @@
 
 ## Overview
 
-Build a comprehensive passenger coach fleet management system, progressing from foundation (auth, layout, shared UI) through core domain modules (vehicles, routes, employees, trips) to customer-facing operations (ticketing, payments) and finally analytics. Each phase builds on the previous, delivering incremental value.
+Build a comprehensive passenger coach fleet management system, progressing from foundation (auth, layout, shared UI), through database schema design, to core domain modules (vehicles, routes, employees, trips), customer-facing operations (ticketing, payments), and finally analytics. Each phase builds on the previous, delivering incremental value.
 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (1 of 7 phases complete)
-Phases: 1 of 7 complete
+Status: In progress (1 of 8 phases complete)
+Phases: 1 of 8 complete
 
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
 | 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
-| 2 | Vehicle Management | TBD | 🔵 Next | - |
-| 3 | Route & Station Management | TBD | Not started | - |
-| 4 | Employee & Role Management | TBD | Not started | - |
-| 5 | Trip Scheduling | TBD | Not started | - |
-| 6 | Customer, Ticketing & Payment | TBD | Not started | - |
-| 7 | Dashboard & Analytics | TBD | Not started | - |
+| 2 | Database Foundation | TBD | 🔵 Next | - |
+| 3 | Vehicle Management | TBD | Not started | - |
+| 4 | Route & Station Management | TBD | Not started | - |
+| 5 | Employee & Role Management | TBD | Not started | - |
+| 6 | Trip Scheduling | TBD | Not started | - |
+| 7 | Customer, Ticketing & Payment | TBD | Not started | - |
+| 8 | Dashboard & Analytics | TBD | Not started | - |
 
 ## Phase Details
 
@@ -44,10 +45,33 @@ Phases: 1 of 7 complete
 - [x] 01-03: Authentication System
 - [x] 01-04: App Shell & Navigation
 
-### Phase 2: Vehicle Management
+### Phase 2: Database Foundation
+
+**Goal:** Complete database schema design, Supabase migrations, RLS policies, and triggers
+**Depends on:** Phase 1 (foundation, Supabase client)
+**Research:** Likely (Supabase migration patterns, trigger design)
+
+**Scope:**
+- Complete schema design for all entities (users, roles, vehicles, routes, stations, employees, trips, bookings, payments)
+- Supabase migration files with proper indexes and constraints
+- Row-Level Security (RLS) policies for all tables
+- Database triggers for automated behaviors (timestamps, status transitions, cascade operations)
+- Database functions for complex queries and business logic
+- Validation rules and constraints at database level
+
+**Plans:**
+- [ ] 02-01: Core Schema Design (users, roles, employees)
+- [ ] 02-02: Fleet Schema (vehicle_types, vehicles, maintenance_logs)
+- [ ] 02-03: Route Schema (stations, routes, route_stops)
+- [ ] 02-04: Trip Schema (trips, trip_staff)
+- [ ] 02-05: Booking Schema (customers, bookings, tickets, payments)
+- [ ] 02-06: RLS Policies & Security
+- [ ] 02-07: Triggers & Database Functions
+
+### Phase 3: Vehicle Management
 
 **Goal:** Fleet CRUD, vehicle types, seat layouts, maintenance logs
-**Depends on:** Phase 1 (foundation, auth, shared UI)
+**Depends on:** Phase 1 (foundation, auth, shared UI), Phase 2 (database schema)
 **Research:** Unlikely (CRUD operations)
 
 **Scope:**
@@ -56,10 +80,10 @@ Phases: 1 of 7 complete
 **Plans:**
 - [ ] TBD
 
-### Phase 3: Route & Station Management
+### Phase 4: Route & Station Management
 
 **Goal:** Station CRUD, route definition, drag-and-drop intermediate stops
-**Depends on:** Phase 2 (vehicle types for seat capacity)
+**Depends on:** Phase 1 (foundation), Phase 2 (database schema), Phase 3 (vehicle types for seat capacity reference)
 **Research:** Likely (@dnd-kit integration)
 
 **Scope:**
@@ -68,10 +92,10 @@ Phases: 1 of 7 complete
 **Plans:**
 - [ ] TBD
 
-### Phase 4: Employee & Role Management
+### Phase 5: Employee & Role Management
 
 **Goal:** Dynamic role CRUD, staff records, license expiry alerts
-**Depends on:** Phase 1 (auth system, shared UI)
+**Depends on:** Phase 1 (auth system, shared UI), Phase 2 (database schema)
 **Research:** Unlikely (CRUD + Supabase RLS)
 
 **Scope:**
@@ -80,10 +104,10 @@ Phases: 1 of 7 complete
 **Plans:**
 - [ ] TBD
 
-### Phase 5: Trip Scheduling
+### Phase 6: Trip Scheduling
 
 **Goal:** Trip creation, staff assignment with conflict validation, calendar view, driver schedule view
-**Depends on:** Phase 2 (vehicles), Phase 3 (routes), Phase 4 (employees)
+**Depends on:** Phase 2 (database schema), Phase 3 (vehicles), Phase 4 (routes), Phase 5 (employees)
 **Research:** Likely (calendar component, conflict detection logic)
 
 **Scope:**
@@ -92,10 +116,10 @@ Phases: 1 of 7 complete
 **Plans:**
 - [ ] TBD
 
-### Phase 6: Customer, Ticketing & Payment
+### Phase 7: Customer, Ticketing & Payment
 
 **Goal:** Customer profiles, bookings, seat selection, payments
-**Depends on:** Phase 2 (seat layouts), Phase 5 (trips)
+**Depends on:** Phase 2 (database schema), Phase 3 (seat layouts), Phase 6 (trips)
 **Research:** Likely (seat selection UI, QR code generation)
 
 **Scope:**
@@ -104,7 +128,7 @@ Phases: 1 of 7 complete
 **Plans:**
 - [ ] TBD
 
-### Phase 7: Dashboard & Analytics
+### Phase 8: Dashboard & Analytics
 
 **Goal:** Real-time statistics, fleet overview, booking overview, quick views
 **Depends on:** All prior phases (aggregates data from all modules)
@@ -118,3 +142,4 @@ Phases: 1 of 7 complete
 
 ---
 *Roadmap created: 2026-04-10*
+*Last updated: 2026-04-10 — Phase 2 (Database Foundation) inserted*

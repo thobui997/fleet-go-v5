@@ -45,12 +45,13 @@ None yet.
 
 ### Planned (Next)
 
-- Phase 2: Fleet & Vehicle management — Vehicle types with JSON seat layouts, vehicle CRUD, maintenance logs
-- Phase 3: Route & Station management — Station CRUD, route definition with drag-and-drop stops
-- Phase 4: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
-- Phase 5: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
-- Phase 6: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
-- Phase 7: Dashboard & Analytics — Real-time statistics, quick views, operational insights
+- Phase 2: Database Foundation — Complete schema design, Supabase migrations, RLS policies, triggers for all entities
+- Phase 3: Vehicle Management — Vehicle types with JSON seat layouts, vehicle CRUD, maintenance logs
+- Phase 4: Route & Station management — Station CRUD, route definition with drag-and-drop stops
+- Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
+- Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
+- Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
+- Phase 8: Dashboard & Analytics — Real-time statistics, quick views, operational insights
 
 ### Out of Scope
 

@@ -5,15 +5,15 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 2 — Vehicle Management
+**Current focus:** Phase 2 — Database Foundation (schema, migrations, RLS policies, triggers)
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 7 (Vehicle Management)
+Phase: 2 of 8 (Database Foundation)
 Plan: Not started
 Status: Ready to plan
-Last activity: 2026-04-10 — Phase 1 complete, transitioned to Phase 2
+Last activity: 2026-04-10 — Phase 1 complete, Phase 2 (Database Foundation) added, transitioned
 
 ## Loop Position
 
@@ -24,9 +24,9 @@ PLAN ──▶ APPLY ──▶ UNIFY
 ```
 
 Progress:
-- Milestone: [███░░░░░░░] 30%
+- Milestone: [██░░░░░░░░] 12.5%
 - Phase 1: [████████████] 100% complete
-- Phase 2: [░░░░░░░░░░░] 0% (0 of TBD plans)
+- Phase 2: [░░░░░░░░░░░] 0% (0 of ~7 plans expected)
 
 ## Accumulated Context
 
@@ -37,6 +37,7 @@ Progress:
 - JSON seat layouts — supports diverse vehicle types
 - TanStack Query — server-state caching, no global state store needed
 - Phase 1 split into 4 plans: scaffolding, shared UI, auth, app shell
+- 2026-04-10: **Added Phase 2 (Database Foundation)** — Inserted between Foundation & Auth and feature phases. Establishes complete schema design, migrations, RLS policies, and triggers before any feature development. This prevents rework from schema changes and ensures data model consistency across all dependent phases. All subsequent phases (3-8) renumbered accordingly.
 - 2026-04-10: Enterprise audit on 01-03-PLAN.md. Applied 2 must-have (auth error mapping to Vietnamese, session loading flash prevention), 3 strongly-recommended (subscription cleanup pattern, double-submit prevention, AuthContextValue type export). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-01-PLAN.md. Applied 2 must-have (dark mode CSS vars, env validation), 3 strongly-recommended (error boundary, ESLint config clarity, cn utility path). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-02-PLAN.md. Applied 2 must-have (DataTable ColumnDef interface, CSS variable overwrite protection), 3 strongly-recommended (Toaster wiring, dayjs import fix, schema verification). Verdict: conditionally acceptable (now ready)
@@ -52,8 +53,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-10
-Stopped at: Phase 1 complete, ready to plan Phase 2
-Next action: /paul:plan for Phase 2 (Vehicle Management)
+Stopped at: Phase 1 complete, Phase 2 (Database Foundation) added to roadmap
+Next action: /paul:plan for Phase 2 (Database Foundation)
 Resume file: .paul/ROADMAP.md
 
 ---
