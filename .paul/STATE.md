@@ -69,12 +69,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-11
-Stopped at: Loop 02-04 closed, ready for next plan
+Stopped at: Loop 02-04 closed, committed, ready for next plan
 Next action: Run /paul:plan to start plan 02-05 (RLS Policies)
-Resume file: .paul/phases/02-database-foundation/02-04-SUMMARY.md
+Resume file: .paul/HANDOFF-2026-04-11.md
+Git strategy: master (commits pushed locally, 13 ahead of origin)
 Resume context:
 - Phase 2 progress: 4 of 7 plans complete (57%)
 - Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04) schemas
+- Latest commit: 64edee5 feat(02-04): trip schema
 - Remaining: RLS Policies (02-05), Triggers (02-06), Validation (02-07)
 - Trip schema: trips, trip_staff tables with 1-driver enforcement via partial unique index
 
