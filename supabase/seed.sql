@@ -404,6 +404,215 @@ where v.license_plate = '51D-22222'
 on conflict (id) do nothing;
 
 -- ============================================================
+-- ROUTE SEED DATA
+-- ============================================================
+-- Route tables seed data: stations, routes, route_stops
+-- Run AFTER route schema migrations (20260411140000 and 20260411140001)
+-- ============================================================
+
+-- ============================================================
+-- STEP 1: Create Stations (10 stations)
+-- ============================================================
+insert into public.stations (name, code, address, city, province, latitude, longitude)
+values
+  ('Ben xe Giap Bat', 'HN-GB', 'Giap Bat, Hoang Mai', 'Ha Noi', 'Ha Noi', 20.963300, 105.850500),
+  ('Ben xe Nuoc Ngam', 'HN-NN', 'Ngoc Hoi, Thanh Tri', 'Ha Noi', 'Ha Noi', 20.941100, 105.826500),
+  ('Ben xe Mien Dong', 'HCM-MD', 'Binh Thanh', 'TP.HCM', 'TP.HCM', 10.814700, 106.693300),
+  ('Ben xe Trung Tam Da Nang', 'DN-TT', 'Son Tra', 'Da Nang', 'Da Nang', 16.054400, 108.202200),
+  ('Ben Xe Thanh Hoa', 'TH', 'Dong Son', 'Thanh Hoa', 'Thanh Hoa', 19.806800, 105.785000),
+  ('Ben Xe Vinh', 'NA-VINH', 'Vinh', 'Vinh', 'Nghe An', 18.675500, 105.693000),
+  ('Ben Xe Dong Hoi', 'QB-DH', 'Dong Hoi', 'Dong Hoi', 'Quang Binh', 17.470000, 106.620000),
+  ('Ben Xe Hue', 'TTH-HUE', 'Hue', 'Hue', 'Thua Thien Hue', 16.463700, 107.590900),
+  ('Ben Xe Quy Nhon', 'BDI-QN', 'Quy Nhon', 'Quy Nhon', 'Binh Dinh', 13.782000, 109.219500),
+  ('Ben Xe Nha Trang', 'KH-NT', 'Nha Trang', 'Nha Trang', 'Khanh Hoa', 12.238800, 109.196700)
+on conflict (name) do nothing;
+
+-- ============================================================
+-- STEP 2: Create Routes (4 routes)
+-- ============================================================
+-- Uses SELECT-based FK resolution to reference stations by name
+
+insert into public.routes (name, origin_station_id, destination_station_id, distance_km, estimated_duration, base_price)
+select
+  'Ha Noi → Da Nang',
+  (select id from public.stations where name = 'Ben xe Giap Bat'),
+  (select id from public.stations where name = 'Ben xe Trung Tam Da Nang'),
+  770.00,
+  '12 hours',
+  350000.00
+on conflict (name) do nothing;
+
+insert into public.routes (name, origin_station_id, destination_station_id, distance_km, estimated_duration, base_price)
+select
+  'Ha Noi → TP.HCM',
+  (select id from public.stations where name = 'Ben xe Nuoc Ngam'),
+  (select id from public.stations where name = 'Ben xe Mien Dong'),
+  1720.00,
+  '34 hours',
+  850000.00
+on conflict (name) do nothing;
+
+insert into public.routes (name, origin_station_id, destination_station_id, distance_km, estimated_duration, base_price)
+select
+  'Da Nang → TP.HCM',
+  (select id from public.stations where name = 'Ben xe Trung Tam Da Nang'),
+  (select id from public.stations where name = 'Ben xe Mien Dong'),
+  960.00,
+  '18 hours',
+  480000.00
+on conflict (name) do nothing;
+
+insert into public.routes (name, origin_station_id, destination_station_id, distance_km, estimated_duration, base_price)
+select
+  'Ha Noi → Vinh',
+  (select id from public.stations where name = 'Ben xe Giap Bat'),
+  (select id from public.stations where name = 'Ben Xe Vinh'),
+  300.00,
+  '5 hours',
+  180000.00
+on conflict (name) do nothing;
+
+-- ============================================================
+-- STEP 3: Create Route Stops (intermediate stops only)
+-- ============================================================
+-- Uses SELECT-based FK resolution for both route_id and station_id
+-- Route "Ha Noi → Da Nang" — 4 intermediate stops
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.stations where name = 'Ben Xe Thanh Hoa'),
+  1,
+  '2 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.stations where name = 'Ben Xe Vinh'),
+  2,
+  '4.5 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.stations where name = 'Ben Xe Dong Hoi'),
+  3,
+  '7 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.stations where name = 'Ben Xe Hue'),
+  4,
+  '10 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+-- Route "Ha Noi → TP.HCM" — 7 intermediate stops
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Thanh Hoa'),
+  1,
+  '2 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Vinh'),
+  2,
+  '4.5 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Dong Hoi'),
+  3,
+  '7 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Hue'),
+  4,
+  '10 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben xe Trung Tam Da Nang'),
+  5,
+  '12 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Quy Nhon'),
+  6,
+  '19 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Nha Trang'),
+  7,
+  '25 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+-- Route "Da Nang → TP.HCM" — 2 intermediate stops
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Da Nang → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Quy Nhon'),
+  1,
+  '5 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+insert into public.route_stops (route_id, station_id, stop_order, estimated_arrival, pickup_allowed, dropoff_allowed)
+select
+  (select id from public.routes where name = 'Da Nang → TP.HCM'),
+  (select id from public.stations where name = 'Ben Xe Nha Trang'),
+  2,
+  '9 hours',
+  true,
+  true
+on conflict (route_id, station_id) do nothing;
+
+-- Route "Ha Noi → Vinh" — 0 intermediate stops (direct route)
+-- No inserts for this route - tests direct route scenario
+
+-- ============================================================
 -- OPTIONAL: Create Users Directly via SQL
 -- ============================================================
 -- ONLY use this if you have pgcrypto extension enabled:

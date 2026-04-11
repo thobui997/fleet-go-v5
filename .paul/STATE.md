@@ -11,21 +11,21 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 Milestone: v0.1 MVP
 Phase: 2 of 8 (Database Foundation) — In Progress
-Plan: 02-02 complete, ready for next plan
-Status: Loop complete, ready for PLAN
-Last activity: 2026-04-11 — Completed Plan 02-02 (Fleet Schema)
+Plan: 02-03 complete
+Status: Loop closed, ready for next plan
+Last activity: 2026-04-11 — Completed 02-03 Route Schema (SUMMARY created)
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
+  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 12.5%
-- Phase 2: [███░░░░░░] 28% (2 of 7 plans complete)
+- Phase 2: [████░░░░░] 42% (3 of 7 plans complete)
 
 ## Accumulated Context
 
@@ -39,6 +39,7 @@ Progress:
 - 2026-04-10: **Added Phase 2 (Database Foundation)** — Inserted between Foundation & Auth and feature phases. Establishes complete schema design, migrations, RLS policies, and triggers before any feature development.
 - 2026-04-10: Enterprise audit on 02-01-PLAN.md. Applied 1 must-have (UNIQUE employees.user_id for 1:1 enforcement), 3 strongly-recommended (CHECK roles.permissions JSONB array, UNIQUE employees.license_number, ON CONFLICT in handle_new_user trigger).
 - 2026-04-11: Enterprise audit on 02-02-PLAN.md. Applied 3 strongly-recommended (CHECK seat_layout JSONB object type, explicit ON CONFLICT targets in seed, SELECT-based FK resolution instead of CTE RETURNING). Verdict: conditionally acceptable (now ready)
+- 2026-04-11: Enterprise audit on 02-03-PLAN.md. Applied 1 must-have (latitude/longitude range CHECK on stations), 1 strongly-recommended (empty string CHECK on stations.name and routes.name). Verdict: conditionally acceptable (now ready)
 - Normalized user schema — profiles as single source of truth eliminates duplication
 - Composite PK on junction tables — eliminates redundant surrogate keys
 - JSONB permissions with GIN index — dynamic permissions, fast @> queries
@@ -66,13 +67,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-11
-Stopped at: Plan 02-02 complete
-Next action: /paul:plan for Plan 02-03 (Route Schema)
-Resume file: .paul/phases/02-database-foundation/02-02-SUMMARY.md
+Stopped at: Plan 02-03 complete (loop closed)
+Next action: Plan 02-04 (Trip Schema: trips, trip_staff)
+Resume file: .paul/phases/02-database-foundation/02-03-SUMMARY.md
 Resume context:
-- Phase 2 progress: 2 of 7 plans complete (28%)
-- Fleet schema delivered with JSONB validation, idempotent seeding
-- Next: 02-03 Route Schema (stations, routes, route_stops)
+- Phase 2 progress: 3 of 7 plans complete (43%)
+- Route schema done: stations, routes, route_stops tables with seed data
+- Next: Create 02-04-PLAN.md for Trip Schema (trips, trip_staff with conflict detection)
 
 ---
 *STATE.md — Updated after every significant action*

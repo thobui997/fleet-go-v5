@@ -8,14 +8,14 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 
 **v0.1 MVP** (v0.1.0)
 Status: In progress (1 of 8 phases complete, 1 in progress)
-Phases: 1 of 8 complete, Phase 2 in progress (1 of 7 plans done)
+Phases: 1 of 8 complete, Phase 2 in progress (3 of 7 plans done)
 
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
 |-------|------|-------|--------|-----------|
 | 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
-| 2 | Database Foundation | 7 | 🔵 In Progress | 1/7 done |
+| 2 | Database Foundation | 7 | 🔵 In Progress | 2/7 done |
 | 3 | Vehicle Management | TBD | Next | - |
 | 4 | Route & Station Management | TBD | Not started | - |
 | 5 | Employee & Role Management | TBD | Not started | - |
@@ -61,8 +61,8 @@ Phases: 1 of 8 complete, Phase 2 in progress (1 of 7 plans done)
 
 **Plans:**
 - [x] 02-01: Core Schema Design (users, roles, employees)
-- [ ] 02-02: Fleet Schema (vehicle_types, vehicles, maintenance_logs)
-- [ ] 02-03: Route Schema (stations, routes, route_stops)
+- [x] 02-02: Fleet Schema (vehicle_types, vehicles, maintenance_logs)
+- [x] 02-03: Route Schema (stations, routes, route_stops)
 - [ ] 02-04: Trip Schema (trips, trip_staff)
 - [ ] 02-05: Booking Schema (customers, bookings, tickets, payments)
 - [ ] 02-06: RLS Policies & Security
@@ -142,4 +142,4 @@ Phases: 1 of 8 complete, Phase 2 in progress (1 of 7 plans done)
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-11 — Phase 2 (Database Foundation) in progress (1/7 plans complete)*
+*Last updated: 2026-04-11 — Phase 2 (Database Foundation) in progress (3/7 plans complete)*
