@@ -128,6 +128,282 @@ values
 on conflict do nothing;
 
 -- ============================================================
+-- FLEET SEED DATA
+-- ============================================================
+-- Fleet tables seed data: vehicle types, vehicles, maintenance logs
+-- Run AFTER fleet schema migrations (20260411130000 and 20260411130001)
+-- ============================================================
+
+-- ============================================================
+-- STEP 1: Create Vehicle Types
+-- ============================================================
+insert into public.vehicle_types (name, description, seat_layout, total_floors, total_seats, amenities)
+values
+  (
+    'Giuong nam 40 cho',
+    'Xe giuong nam 40 cho 2 tang',
+    '{"floors": 2, "rows": 10, "cols_per_floor": 20, "seat_ids": ["1A","1B","2A","2B","3A","3B","4A","4B","5A","5B","6A","6B","7A","7B","8A","8B","9A","9B","10A","10B","11A","11B","12A","12B","13A","13B","14A","14B","15A","15B","16A","16B","17A","17B","18A","18B","19A","19B","20A","20B"]}'::jsonb,
+    2,
+    40,
+    '["wifi", "charging", "ac", "blanket"]'::jsonb
+  ),
+  (
+    'Limousine 24 cho',
+    'Xe Limousine 24 cho 1 tang',
+    '{"floors": 1, "rows": 8, "cols_per_floor": 3, "seat_ids": ["1A","1B","1C","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C","6A","6B","6C","7A","7B","7C","8A","8B","8C"]}'::jsonb,
+    1,
+    24,
+    '["wifi", "charging", "ac", "tv", "water"]'::jsonb
+  ),
+  (
+    'Ghe ngoi 29 cho',
+    'Xe ghe ngoi 29 cho 1 tang',
+    '{"floors": 1, "rows": 8, "cols_per_floor": 4, "seat_ids": ["1A","1B","1C","1D","2A","2B","2C","2D","3A","3B","3C","3D","4A","4B","4C","4D","5A","5B","5C","5D","6A","6B","6C","6D","7A","7B","7C","7D","8A","8B","8C"]}'::jsonb,
+    1,
+    29,
+    '["ac", "charging"]'::jsonb
+  ),
+  (
+    'Giuong nam VIP 22 cho',
+    'Xe giuong nam VIP 22 cho 2 tang',
+    '{"floors": 2, "rows": 6, "cols_per_floor": 11, "seat_ids": ["1A","1B","2A","2B","3A","3B","4A","4B","5A","5B","6A","6B","7A","7B","8A","8B","9A","9B","10A","10B","11A","11B"]}'::jsonb,
+    2,
+    22,
+    '["wifi", "charging", "ac", "tv", "blanket", "curtain"]'::jsonb
+  ),
+  (
+    'Cabin 11 cho',
+    'Xe Cabin 11 cho 1 tang',
+    '{"floors": 1, "rows": 11, "cols_per_floor": 1, "seat_ids": ["1","2","3","4","5","6","7","8","9","10","11"]}'::jsonb,
+    1,
+    11,
+    '["wifi", "charging", "ac", "tv", "water", "snack"]'::jsonb
+  )
+on conflict (name) do nothing;
+
+-- ============================================================
+-- STEP 2: Create Vehicles
+-- ============================================================
+-- Uses SELECT-based FK resolution to reference vehicle types by name
+-- This works correctly with ON CONFLICT DO NOTHING on re-runs
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51A-12345',
+  null,
+  2022,
+  'active',
+  185000,
+  '2025-02-15',
+  '2025-08-15',
+  'Xe chinh truc, tot'
+from public.vehicle_types vt
+where vt.name = 'Giuong nam 40 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51A-12346',
+  null,
+  2023,
+  'active',
+  125000,
+  '2025-03-01',
+  '2025-09-01',
+  'Xe moi, het bao hanh'
+from public.vehicle_types vt
+where vt.name = 'Giuong nam 40 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51B-67890',
+  null,
+  2021,
+  'active',
+  280000,
+  '2025-01-20',
+  '2025-07-20',
+  null
+from public.vehicle_types vt
+where vt.name = 'Limousine 24 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51B-67891',
+  null,
+  2024,
+  'active',
+  52000,
+  '2025-03-10',
+  '2025-09-10',
+  'Xe moi, chua bao duong lan dau'
+from public.vehicle_types vt
+where vt.name = 'Limousine 24 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51C-11111',
+  null,
+  2020,
+  'active',
+  310000,
+  '2025-02-01',
+  '2025-08-01',
+  null
+from public.vehicle_types vt
+where vt.name = 'Ghe ngoi 29 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51C-11112',
+  null,
+  2019,
+  'maintenance',
+  345000,
+  '2025-03-05',
+  '2025-04-05',
+  'Dang bao duong dai ky'
+from public.vehicle_types vt
+where vt.name = 'Ghe ngoi 29 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51D-22222',
+  null,
+  2024,
+  'active',
+  78000,
+  '2025-02-20',
+  '2025-08-20',
+  'Xe VIP phuc vu tuyen Ha Noi - Da Nang'
+from public.vehicle_types vt
+where vt.name = 'Giuong nam VIP 22 cho'
+on conflict (license_plate) do nothing;
+
+insert into public.vehicles (vehicle_type_id, license_plate, vin_number, year_manufactured, status, current_mileage, last_maintenance_date, next_maintenance_date, notes)
+select
+  vt.id,
+  '51E-33333',
+  null,
+  2019,
+  'retired',
+  420000,
+  '2024-10-15',
+  null,
+  'Xe cu, da ngung hoat dong'
+from public.vehicle_types vt
+where vt.name = 'Cabin 11 cho'
+on conflict (license_plate) do nothing;
+
+-- ============================================================
+-- STEP 3: Create Maintenance Logs
+-- ============================================================
+-- Uses SELECT-based FK resolution to reference vehicles by license plate
+-- This works correctly with ON CONFLICT DO NOTHING on re-runs
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'routine',
+  'Bao duong dinh ky: thay dau, kiem tra phanh, kiem tra lop',
+  2500000.00,
+  'Tai Hien - Garage Xe Khach',
+  '2025-02-15',
+  '2025-08-15',
+  185000,
+  null
+from public.vehicles v
+where v.license_plate = '51A-12345'
+on conflict (id) do nothing;
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'repair',
+  'Thay hop so bi chay',
+  15000000.00,
+  'Tai Hien - Garage Xe Khach',
+  '2025-01-20',
+  '2025-07-20',
+  278000,
+  'Can canh bao hanh'
+from public.vehicles v
+where v.license_plate = '51B-67890'
+on conflict (id) do nothing;
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'routine',
+  'Bao duong 5000km: thay nhot, kiem tra may',
+  1500000.00,
+  'VinFast Service Center',
+  '2025-03-10',
+  '2025-09-10',
+  52000,
+  'Xe moi, lan dau bao duong'
+from public.vehicles v
+where v.license_plate = '51B-67891'
+on conflict (id) do nothing;
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'inspection',
+  'Kiem tra dinh ky hang nam',
+  500000.00,
+  'Dang kiem Hanoi',
+  '2025-02-01',
+  '2026-02-01',
+  310000,
+  'Dat yeu cau an toan'
+from public.vehicles v
+where v.license_plate = '51C-11111'
+on conflict (id) do nothing;
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'emergency',
+  'Su co benh giua duong: thay lop xe bi phat',
+  800000.00,
+  'Cuu ho gia thong 24/7',
+  '2025-03-05',
+  '2025-04-05',
+  344500,
+  null
+from public.vehicles v
+where v.license_plate = '51C-11112'
+on conflict (id) do nothing;
+
+insert into public.maintenance_logs (vehicle_id, type, description, cost, performed_by, performed_at, next_due_date, odometer_reading, notes)
+select
+  v.id,
+  'routine',
+  'Bao duong sau 20000km: thay nhot, kiem tra dieu hoa',
+  3200000.00,
+  'Tai Hien - Garage Xe Khach',
+  '2025-02-20',
+  '2025-08-20',
+  78000,
+  null
+from public.vehicles v
+where v.license_plate = '51D-22222'
+on conflict (id) do nothing;
+
+-- ============================================================
 -- OPTIONAL: Create Users Directly via SQL
 -- ============================================================
 -- ONLY use this if you have pgcrypto extension enabled:

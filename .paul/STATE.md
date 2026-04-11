@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 8 (Database Foundation)
-Plan: 02-02 (not yet created)
-Status: PLAN needed — 1 of 7 plans complete
-Last activity: 2026-04-11 — Plan 02-01 complete, ready for 02-02
+Phase: 2 of 8 (Database Foundation) — In Progress
+Plan: 02-02 complete, ready for next plan
+Status: Loop complete, ready for PLAN
+Last activity: 2026-04-11 — Completed Plan 02-02 (Fleet Schema)
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Plan 02-01 complete — ready for 02-02]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 12.5%
-- Phase 2: [██░░░░░░░] 14% (1 of 7 plans complete)
+- Phase 2: [███░░░░░░] 28% (2 of 7 plans complete)
 
 ## Accumulated Context
 
@@ -38,7 +38,7 @@ Progress:
 - Phase 1 split into 4 plans: scaffolding, shared UI, auth, app shell
 - 2026-04-10: **Added Phase 2 (Database Foundation)** — Inserted between Foundation & Auth and feature phases. Establishes complete schema design, migrations, RLS policies, and triggers before any feature development.
 - 2026-04-10: Enterprise audit on 02-01-PLAN.md. Applied 1 must-have (UNIQUE employees.user_id for 1:1 enforcement), 3 strongly-recommended (CHECK roles.permissions JSONB array, UNIQUE employees.license_number, ON CONFLICT in handle_new_user trigger).
-- 2026-04-11: **Phase 2 complete** — Core schema (profiles, roles, user_roles, employees) with secure triggers. Deviation: Dashboard user creation instead of pgcrypto due to Supabase SQL Editor limitations.
+- 2026-04-11: Enterprise audit on 02-02-PLAN.md. Applied 3 strongly-recommended (CHECK seat_layout JSONB object type, explicit ON CONFLICT targets in seed, SELECT-based FK resolution instead of CTE RETURNING). Verdict: conditionally acceptable (now ready)
 - Normalized user schema — profiles as single source of truth eliminates duplication
 - Composite PK on junction tables — eliminates redundant surrogate keys
 - JSONB permissions with GIN index — dynamic permissions, fast @> queries
@@ -66,15 +66,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-11
-Stopped at: Plan 02-01 complete, committed, paused
-Next action: /paul:plan for Plan 02-02 (Fleet Schema)
-Resume file: .paul/HANDOFF-2026-04-11.md
+Stopped at: Plan 02-02 complete
+Next action: /paul:plan for Plan 02-03 (Route Schema)
+Resume file: .paul/phases/02-database-foundation/02-02-SUMMARY.md
 Resume context:
-- Phase 2 Database Foundation: 1 of 7 plans complete (14%)
-- Core schema delivered: profiles, roles, user_roles, employees with triggers
-- Deviation noted: Dashboard user creation instead of pgcrypto
-- Git commits: e426a34 (core schema), a2bde43 (gitignore)
-- Next plan: 02-02 Fleet Schema (vehicle_types, vehicles, maintenance_logs)
+- Phase 2 progress: 2 of 7 plans complete (28%)
+- Fleet schema delivered with JSONB validation, idempotent seeding
+- Next: 02-03 Route Schema (stations, routes, route_stops)
 
 ---
 *STATE.md — Updated after every significant action*
