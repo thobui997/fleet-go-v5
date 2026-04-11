@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 8 (Database Foundation) — In Progress
-Plan: 02-03 complete
-Status: Loop closed, ready for next plan
-Last activity: 2026-04-11 — Completed 02-03 Route Schema (SUMMARY created)
+Phase: 2 of 8 (Database Foundation) — Execution
+Plan: 02-04 executed, awaiting UNIFY
+Status: APPLY complete, SUMMARY created
+Last activity: 2026-04-11 — Executed 02-04 Trip Schema plan
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
+  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 12.5%
-- Phase 2: [████░░░░░] 42% (3 of 7 plans complete)
+- Phase 2: [█████░░░░] 57% (4 of 7 plans complete)
 
 ## Accumulated Context
 
@@ -40,6 +40,8 @@ Progress:
 - 2026-04-10: Enterprise audit on 02-01-PLAN.md. Applied 1 must-have (UNIQUE employees.user_id for 1:1 enforcement), 3 strongly-recommended (CHECK roles.permissions JSONB array, UNIQUE employees.license_number, ON CONFLICT in handle_new_user trigger).
 - 2026-04-11: Enterprise audit on 02-02-PLAN.md. Applied 3 strongly-recommended (CHECK seat_layout JSONB object type, explicit ON CONFLICT targets in seed, SELECT-based FK resolution instead of CTE RETURNING). Verdict: conditionally acceptable (now ready)
 - 2026-04-11: Enterprise audit on 02-03-PLAN.md. Applied 1 must-have (latitude/longitude range CHECK on stations), 1 strongly-recommended (empty string CHECK on stations.name and routes.name). Verdict: conditionally acceptable (now ready)
+- 2026-04-11: Enterprise audit on 02-04-PLAN.md. Applied 0 must-have, 3 strongly-recommended (composite index vehicle_id+departure_time, COMMENT ON INDEX for partial unique index, cleaned up Task 3 action). Verdict: conditionally acceptable (now ready)
+- 2026-04-11: Plan 02-04 execution — Fixed ambiguous column reference in trip_staff seed inserts (`select id` → `select t.id`). Root cause: joining trips/routes/vehicles (all have `id` columns) required table qualifier.
 - Normalized user schema — profiles as single source of truth eliminates duplication
 - Composite PK on junction tables — eliminates redundant surrogate keys
 - JSONB permissions with GIN index — dynamic permissions, fast @> queries
@@ -67,13 +69,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-11
-Stopped at: Plan 02-03 complete (loop closed)
-Next action: Plan 02-04 (Trip Schema: trips, trip_staff)
-Resume file: .paul/phases/02-database-foundation/02-03-SUMMARY.md
+Stopped at: Loop 02-04 closed, ready for next plan
+Next action: Run /paul:plan to start plan 02-05 (RLS Policies)
+Resume file: .paul/phases/02-database-foundation/02-04-SUMMARY.md
 Resume context:
-- Phase 2 progress: 3 of 7 plans complete (43%)
-- Route schema done: stations, routes, route_stops tables with seed data
-- Next: Create 02-04-PLAN.md for Trip Schema (trips, trip_staff with conflict detection)
+- Phase 2 progress: 4 of 7 plans complete (57%)
+- Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04) schemas
+- Remaining: RLS Policies (02-05), Triggers (02-06), Validation (02-07)
+- Trip schema: trips, trip_staff tables with 1-driver enforcement via partial unique index
 
 ---
 *STATE.md — Updated after every significant action*

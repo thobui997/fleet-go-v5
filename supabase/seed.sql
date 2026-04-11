@@ -668,3 +668,232 @@ on conflict (id) do nothing;
 -- After running the above, the trigger auto-creates profiles.
 -- Then you can run Steps 2 and 3 with the deterministic UUIDs.
 */
+
+-- ============================================================
+-- TRIP SEED DATA
+-- ============================================================
+-- Trip tables seed data: trips, trip_staff
+-- Run AFTER trip schema migrations (20260411150000 and 20260411150001)
+-- ============================================================
+
+-- ============================================================
+-- STEP 1: Create Trips (6 trips)
+-- ============================================================
+-- Uses INSERT ... SELECT ... WHERE NOT EXISTS pattern for idempotency
+-- Deduplicates by route_id + vehicle_id + departure_time combination
+
+-- Trip 1: Ha Noi → Da Nang, scheduled
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, notes)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.vehicles where license_plate = '51A-12345'),
+  '2026-04-15 06:00:00+07',
+  '2026-04-15 18:00:00+07',
+  'scheduled',
+  null,
+  null
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Ha Noi → Da Nang')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51A-12345')
+    and departure_time = '2026-04-15 06:00:00+07'
+);
+
+-- Trip 2: Ha Noi → TP.HCM, scheduled
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, notes)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.vehicles where license_plate = '51B-67890'),
+  '2026-04-15 07:00:00+07',
+  '2026-04-16 17:00:00+07',
+  'scheduled',
+  null,
+  null
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Ha Noi → TP.HCM')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51B-67890')
+    and departure_time = '2026-04-15 07:00:00+07'
+);
+
+-- Trip 3: Da Nang → TP.HCM, scheduled, with price override
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, notes)
+select
+  (select id from public.routes where name = 'Da Nang → TP.HCM'),
+  (select id from public.vehicles where license_plate = '51B-67891'),
+  '2026-04-16 08:00:00+07',
+  '2026-04-17 02:00:00+07',
+  'scheduled',
+  450000.00,
+  'Khuyen mai gia tet'
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Da Nang → TP.HCM')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51B-67891')
+    and departure_time = '2026-04-16 08:00:00+07'
+);
+
+-- Trip 4: Ha Noi → Vinh, completed
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, actual_arrival_time, notes)
+select
+  (select id from public.routes where name = 'Ha Noi → Vinh'),
+  (select id from public.vehicles where license_plate = '51C-11111'),
+  '2026-04-10 06:00:00+07',
+  '2026-04-10 11:00:00+07',
+  'completed',
+  null,
+  '2026-04-10 11:15:00+07',
+  null
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Ha Noi → Vinh')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51C-11111')
+    and departure_time = '2026-04-10 06:00:00+07'
+);
+
+-- Trip 5: Ha Noi → Da Nang, completed, with price override
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, actual_arrival_time, notes)
+select
+  (select id from public.routes where name = 'Ha Noi → Da Nang'),
+  (select id from public.vehicles where license_plate = '51D-22222'),
+  '2026-04-12 20:00:00+07',
+  '2026-04-13 08:00:00+07',
+  'completed',
+  400000.00,
+  '2026-04-13 08:30:00+07',
+  'Chuyen VIP'
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Ha Noi → Da Nang')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51D-22222')
+    and departure_time = '2026-04-12 20:00:00+07'
+);
+
+-- Trip 6: Ha Noi → TP.HCM, cancelled
+insert into public.trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status, price_override, actual_arrival_time, notes)
+select
+  (select id from public.routes where name = 'Ha Noi → TP.HCM'),
+  (select id from public.vehicles where license_plate = '51A-12346'),
+  '2026-04-14 08:00:00+07',
+  '2026-04-15 18:00:00+07',
+  'cancelled',
+  null,
+  null,
+  'Huy do thoi tiet xau'
+where not exists (
+  select 1 from public.trips
+  where route_id = (select id from public.routes where name = 'Ha Noi → TP.HCM')
+    and vehicle_id = (select id from public.vehicles where license_plate = '51A-12346')
+    and departure_time = '2026-04-14 08:00:00+07'
+);
+
+-- ============================================================
+-- STEP 2: Create Trip Staff Assignments (9 assignments)
+-- ============================================================
+-- Uses INSERT ... SELECT ... ON CONFLICT DO NOTHING for idempotency
+-- References trips by (route+vehicle+departure) and employees by user_id UUID
+
+-- Assignment 1: Trip 1 (HN→DN, Apr 15) → Bao Pham (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → Da Nang' and v.license_plate = '51A-12345' and t.departure_time = '2026-04-15 06:00:00+07'),
+  (select id from public.employees where user_id = '7577d2c3-341c-4594-bc55-2fd3dc84cb70'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 2: Trip 1 (HN→DN, Apr 15) → Mai Dang (assistant)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → Da Nang' and v.license_plate = '51A-12345' and t.departure_time = '2026-04-15 06:00:00+07'),
+  (select id from public.employees where user_id = '33a51e9d-39a3-4eaf-add1-38e5dce1d666'),
+  'assistant'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 3: Trip 2 (HN→HCM, Apr 15) → Tuan Hoang (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → TP.HCM' and v.license_plate = '51B-67890' and t.departure_time = '2026-04-15 07:00:00+07'),
+  (select id from public.employees where user_id = '74de290a-5869-42cc-956e-311fd747c368'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 4: Trip 3 (DN→HCM, Apr 16) → Nhan Vo (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Da Nang → TP.HCM' and v.license_plate = '51B-67891' and t.departure_time = '2026-04-16 08:00:00+07'),
+  (select id from public.employees where user_id = '4c52fb14-8ab9-45c9-8289-1d2c120ae60c'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 5: Trip 3 (DN→HCM, Apr 16) → Mai Dang (assistant)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Da Nang → TP.HCM' and v.license_plate = '51B-67891' and t.departure_time = '2026-04-16 08:00:00+07'),
+  (select id from public.employees where user_id = '33a51e9d-39a3-4eaf-add1-38e5dce1d666'),
+  'assistant'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 6: Trip 4 (HN→Vinh, completed) → Bao Pham (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → Vinh' and v.license_plate = '51C-11111' and t.departure_time = '2026-04-10 06:00:00+07'),
+  (select id from public.employees where user_id = '7577d2c3-341c-4594-bc55-2fd3dc84cb70'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 7: Trip 5 (HN→DN, completed) → Tuan Hoang (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → Da Nang' and v.license_plate = '51D-22222' and t.departure_time = '2026-04-12 20:00:00+07'),
+  (select id from public.employees where user_id = '74de290a-5869-42cc-956e-311fd747c368'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 8: Trip 5 (HN→DN, completed) → Mai Dang (assistant)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → Da Nang' and v.license_plate = '51D-22222' and t.departure_time = '2026-04-12 20:00:00+07'),
+  (select id from public.employees where user_id = '33a51e9d-39a3-4eaf-add1-38e5dce1d666'),
+  'assistant'
+on conflict (trip_id, employee_id) do nothing;
+
+-- Assignment 9: Trip 6 (HN→HCM, cancelled) → Nhan Vo (driver)
+insert into public.trip_staff (trip_id, employee_id, role)
+select
+  (select t.id from public.trips t
+   join public.routes r on t.route_id = r.id
+   join public.vehicles v on t.vehicle_id = v.id
+   where r.name = 'Ha Noi → TP.HCM' and v.license_plate = '51A-12346' and t.departure_time = '2026-04-14 08:00:00+07'),
+  (select id from public.employees where user_id = '4c52fb14-8ab9-45c9-8289-1d2c120ae60c'),
+  'driver'
+on conflict (trip_id, employee_id) do nothing;
+
+-- ============================================================
+-- Trip seed data complete
+-- ============================================================
+-- 6 trips, 9 trip_staff assignments created
+-- ============================================================
