@@ -15,7 +15,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Type | Application |
 | Version | 0.1.0 |
 | Status | In Development |
-| Last Updated | 2026-04-11 |
+| Last Updated | 2026-04-14 |
 
 ## Requirements
 
@@ -48,7 +48,6 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 
 ### Planned (Next)
 
-- Phase 3: Vehicle Management — Vehicle types with JSON seat layouts, vehicle CRUD, maintenance logs
 - Phase 4: Route & Station management — Station CRUD, route definition with drag-and-drop stops
 - Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
