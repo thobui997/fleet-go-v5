@@ -11,7 +11,7 @@
           {
             "type": "command",
             "command": "code-review-graph update --skip-flows",
-            "timeout": 5000
+            "timeout": 30
           }
         ]
       }
@@ -23,7 +23,7 @@
           {
             "type": "command",
             "command": "code-review-graph status",
-            "timeout": 3000
+            "timeout": 10
           }
         ]
       }
