@@ -2,3 +2,4 @@
 export { LoginPage } from './login';
 export { VehicleTypesPage } from './vehicle-types';
 export { VehiclesPage } from './vehicles';
+export { MaintenancePage } from './maintenance';

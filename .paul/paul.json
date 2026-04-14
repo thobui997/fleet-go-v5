@@ -7,9 +7,9 @@
     "status": "in_progress"
   },
   "phase": {
-    "number": 3,
-    "name": "Vehicle Management",
-    "status": "in_progress"
+    "number": 4,
+    "name": "Route & Station Management",
+    "status": "not_started"
   },
   "loop": {
     "plan": null,
@@ -17,7 +17,7 @@
   },
   "timestamps": {
     "created_at": "2026-04-10T00:00:00.000Z",
-    "updated_at": "2026-04-14T23:00:00.000Z"
+    "updated_at": "2026-04-14T23:59:00.000Z"
   },
   "satellite": {
     "groom": true

@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (2 of 8 phases complete)
-Phases: 2 of 8 complete, Phase 3 next
+Status: In progress (3 of 8 phases complete)
+Phases: 3 of 8 complete, Phase 4 next
 
 ## Phases
 
@@ -16,7 +16,7 @@ Phases: 2 of 8 complete, Phase 3 next
 |-------|------|-------|--------|-----------|
 | 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
 | 2 | Database Foundation | 7 | ✅ Complete | 2026-04-14 |
-| 3 | Vehicle Management | 3 | 🔵 In Progress | - |
+| 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
 | 4 | Route & Station Management | TBD | Not started | - |
 | 5 | Employee & Role Management | TBD | Not started | - |
 | 6 | Trip Scheduling | TBD | Not started | - |
@@ -79,8 +79,8 @@ Phases: 2 of 8 complete, Phase 3 next
 
 **Plans:**
 - [x] 03-01: Vehicle Types CRUD (entity layer + list page + form + delete)
-- [ ] 03-02: Vehicles CRUD (entity + list + form + status management)
-- [ ] 03-03: Maintenance Logs CRUD (entity + list + form + vehicle filter)
+- [x] 03-02: Vehicles CRUD (entity + list + form + status management)
+- [x] 03-03: Maintenance Logs CRUD (entity + list + form + vehicle/type filter)
 
 ### Phase 4: Route & Station Management
 
@@ -144,4 +144,4 @@ Phases: 2 of 8 complete, Phase 3 next
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-14 — Phase 3 plan 03-01 complete (Vehicle Types CRUD + visual seat editor)*
+*Last updated: 2026-04-14 — Phase 3 complete (Vehicle Types, Vehicles, Maintenance Logs CRUD)*

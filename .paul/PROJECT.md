@@ -41,14 +41,15 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Database Foundation — 16-table schema:** profiles, roles, user_roles, employees, vehicle_types, vehicles, maintenance_logs, stations, routes, route_stops, trips, trip_staff, trip_status_log, customers, bookings, tickets, payments — Phase 2
 - **Database Foundation — RLS:** Row-level security policies for all 16 tables; REVOKE/GRANT on helper functions; has_permission() + is_admin() helpers — Phase 2
 - **Database Foundation — Integrity:** Audit-column immutability triggers (FG001/FG002/FG003) + booking status FSM (FG004); BEFORE UPDATE with IS DISTINCT FROM; distinct SQLSTATE per violation class — Phase 2
+- **Vehicle Management:** Vehicle Types CRUD with JSON seat layout configurator; Vehicles CRUD with status management, FK dropdown, debounced search; Maintenance Logs CRUD with vehicle/type filters, cost tracking, date cross-field validation — Phase 3
 
 ### Active (In Progress)
 
-- Phase 3: Vehicle Management — Fleet CRUD, vehicle types with JSON seat layouts, maintenance logs
+- Phase 4: Route & Station Management — Station CRUD, route definition with drag-and-drop stops
 
 ### Planned (Next)
 
-- Phase 4: Route & Station management — Station CRUD, route definition with drag-and-drop stops
+- Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
 - Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
@@ -178,4 +179,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-14 after Phase 2 complete*
+*Last updated: 2026-04-14 after Phase 3 complete*
