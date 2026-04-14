@@ -70,14 +70,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-14
-Stopped at: Plan 02-05 (Booking Schema) loop closed
-Next action: Run /paul:plan for 02-06 (RLS Policies) — commit 02-05 files first
-Resume file: .paul/phases/02-database-foundation/02-05-SUMMARY.md
-Git strategy: master (commits pushed locally, 13 ahead of origin; 02-05 files uncommitted)
+Stopped at: Plan 02-05 (Booking Schema) complete — session paused cleanly
+Next action: Run /paul:plan for 02-06 (RLS Policies & Security)
+Resume file: .paul/HANDOFF-2026-04-14.md
+Git strategy: master (2 commits ahead of origin — not yet pushed)
 Resume context:
 - Phase 2 progress: 5 of 7 plans complete (71%)
 - Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04), Booking (02-05) schemas
-- Uncommitted files: 20260414100000_booking_schema.sql, 20260414100001_booking_triggers.sql, seed.sql (booking section)
+- Working tree: clean — all changes committed
 - Remaining: RLS Policies (02-06), Triggers & Functions (02-07)
 - Flag for 02-07: audit-trail columns (cancelled_at, issued_by, processed_by, refunded_at) need immutability triggers
 
