@@ -38,28 +38,13 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
 - **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
 - **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
-- **Core User Schema:** profiles, roles, user_roles, employees tables with triggers — Plan 02-01 complete
-- **Architecture:** Feature-Sliced Design v2.1 with strict layer boundaries, public API exports — Phase 1
-- **Routing:** React Router 6.x with protected routes and outlet-based layouts — Phase 1
-- **State Management:** TanStack Query 5.x for server-state caching — Phase 1
-- **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
-- **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
-- **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
-- **Database Foundation:** Core schema (profiles, roles, user_roles, employees), triggers for auto-profile creation and timestamp management, JSONB permissions with GIN indexing — Phase 2
-- **Architecture:** Feature-Sliced Design v2.1 with strict layer boundaries, public API exports — Phase 1
-- **Routing:** React Router 6.x with protected routes and outlet-based layouts — Phase 1
-- **State Management:** TanStack Query 5.x for server-state caching — Phase 1
-- **Styling:** TailwindCSS 3.x + Shadcn/ui component library with dark mode support — Phase 1
-- **Authentication:** Supabase GoTrue JWT auth with session management, login page, protected routes — Phase 1
-- **UI Foundation:** App shell layout with responsive sidebar navigation (desktop collapsible, mobile overlay), header with user context and actions — Phase 1
+- **Database Foundation — 16-table schema:** profiles, roles, user_roles, employees, vehicle_types, vehicles, maintenance_logs, stations, routes, route_stops, trips, trip_staff, trip_status_log, customers, bookings, tickets, payments — Phase 2
+- **Database Foundation — RLS:** Row-level security policies for all 16 tables; REVOKE/GRANT on helper functions; has_permission() + is_admin() helpers — Phase 2
+- **Database Foundation — Integrity:** Audit-column immutability triggers (FG001/FG002/FG003) + booking status FSM (FG004); BEFORE UPDATE with IS DISTINCT FROM; distinct SQLSTATE per violation class — Phase 2
 
 ### Active (In Progress)
 
-None yet.
-
-### Active (In Progress)
-
-- Phase 2: Database Foundation — Core schema complete (Plan 02-01), 6 plans remaining (Fleet, Route, Trip, Booking, RLS, Triggers)
+- Phase 3: Vehicle Management — Fleet CRUD, vehicle types with JSON seat layouts, maintenance logs
 
 ### Planned (Next)
 
@@ -130,6 +115,10 @@ None yet.
 | Composite PK on junction tables | Eliminates redundant surrogate keys, enforces uniqueness naturally | 2026-04-11 | Active |
 | JSONB permissions with GIN index | Dynamic permissions without schema changes, fast @> queries | 2026-04-11 | Active |
 | Dashboard user creation for seed | pgcrypto extension unreliable in Supabase Dashboard SQL Editor | 2026-04-11 | Active |
+| Composite FK tickets(booking_id, trip_id) → bookings | Prevents trip-drift: ticket must belong to same trip as its booking | 2026-04-14 | Active |
+| Distinct SQLSTATE per violation class (FG001-FG004) | Machine-classifiable by clients without parsing message strings | 2026-04-14 | Active |
+| BEFORE UPDATE triggers + IS DISTINCT FROM | Cheaper than AFTER + rollback; NULL-aware comparison rejects NULL-ing a set column | 2026-04-14 | Active |
+| RLS controls who, triggers control what | Orthogonal layers: RLS governs row access, triggers govern field mutation | 2026-04-14 | Active |
 
 ## Success Metrics
 
@@ -190,4 +179,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-11 after Phase 2, Plan 01*
+*Last updated: 2026-04-14 after Phase 2 complete*
