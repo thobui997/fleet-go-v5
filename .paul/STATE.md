@@ -5,15 +5,15 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 2 — Database Foundation (1 of 7 plans complete)
+**Current focus:** Phase 2 — Database Foundation (6 of 7 plans complete)
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 8 (Database Foundation) — In Progress
-Plan: 02-05 complete; 02-06 (RLS Policies) next
+Phase: 2 of 8 (Database Foundation) — In Progress (6/7 plans complete)
+Plan: 02-06 complete — 02-07 next
 Status: Loop closed — ready for next PLAN
-Last activity: 2026-04-14 — Plan 02-05 (Booking Schema) UNIFY complete
+Last activity: 2026-04-14 — 02-06 UNIFY complete (RLS policies: 2 migrations, 63 policies, 16 tables)
 
 ## Loop Position
 
@@ -25,7 +25,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 Progress:
 - Milestone: [█░░░░░░░░░] 12.5%
-- Phase 2: [██████░░░░] 71% (5 of 7 plans complete; 02-06 next)
+- Phase 2: [████████░░] 86% (6 of 7 plans complete; 02-07 remaining)
 
 ## Accumulated Context
 
@@ -43,6 +43,7 @@ Progress:
 - 2026-04-11: Enterprise audit on 02-04-PLAN.md. Applied 0 must-have, 3 strongly-recommended (composite index vehicle_id+departure_time, COMMENT ON INDEX for partial unique index, cleaned up Task 3 action). Verdict: conditionally acceptable (now ready)
 - 2026-04-14: Enterprise audit on 02-05-PLAN.md. Applied 1 must-have (composite FK tickets(booking_id,trip_id) → bookings(id,trip_id) to prevent trip-drift), 6 strongly-recommended (audit-trail columns cancelled_at/cancelled_by/issued_by/processed_by/refunded_at; transaction_reference uniqueness for webhook replay protection; qr_code uniqueness for boarding validation). Deferred 6 items to 02-07 triggers or later phases. Verdict: conditionally acceptable (now ready). Flag for 02-07: audit-trail columns need immutability triggers.
 - 2026-04-11: Plan 02-04 execution — Fixed ambiguous column reference in trip_staff seed inserts (`select id` → `select t.id`). Root cause: joining trips/routes/vehicles (all have `id` columns) required table qualifier.
+- 2026-04-14: Enterprise audit on 02-06-PLAN.md. Applied 1 must-have (WITH CHECK on audit-attribution INSERT columns: created_by, issued_by, processed_by), 2 strongly-recommended (REVOKE/GRANT on helper functions; schema-qualify function calls in policies). Deferred 2 (cancelled_by UPDATE enforcement to 02-07; JWT-claim caching). Verdict: conditionally acceptable (now ready).
 - Normalized user schema — profiles as single source of truth eliminates duplication
 - Composite PK on junction tables — eliminates redundant surrogate keys
 - JSONB permissions with GIN index — dynamic permissions, fast @> queries
@@ -70,16 +71,16 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-14
-Stopped at: Plan 02-05 (Booking Schema) complete — session paused cleanly
-Next action: Run /paul:plan for 02-06 (RLS Policies & Security)
+Stopped at: Plan 02-06 loop closed (UNIFY complete) — paused before 02-07
+Next action: Run /paul:plan for 02-07 (Triggers & Database Functions)
 Resume file: .paul/HANDOFF-2026-04-14.md
-Git strategy: master (2 commits ahead of origin — not yet pushed)
+Git strategy: master (not yet pushed)
 Resume context:
-- Phase 2 progress: 5 of 7 plans complete (71%)
-- Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04), Booking (02-05) schemas
-- Working tree: clean — all changes committed
-- Remaining: RLS Policies (02-06), Triggers & Functions (02-07)
-- Flag for 02-07: audit-trail columns (cancelled_at, issued_by, processed_by, refunded_at) need immutability triggers
+- Phase 2 progress: 6 of 7 plans complete (86%), 02-07 remaining
+- Plan 02-06 delivered: RLS on all 16 tables, has_permission()/is_admin() helpers, 63 policies
+- 02-07 scope: immutability triggers for audit-trail columns + updated_at coverage for new tables
+- Flag for 02-07: cancelled_by/issued_by/processed_by need set-once immutability triggers
+- All migration files from 02-01 through 02-06 are locked (do not modify)
 
 ---
 *STATE.md — Updated after every significant action*
