@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@shared/auth';
 import { ROUTES } from '@shared/config/routes';
 import { LoginPage } from '@pages/login';
+import { VehicleTypesPage } from '@pages/vehicle-types';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
       },
       // Placeholder routes for all modules
       { path: ROUTES.VEHICLES, element: <PlaceholderPage title="Vehicles" /> },
-      { path: ROUTES.VEHICLE_TYPES, element: <PlaceholderPage title="Vehicle Types" /> },
+      { path: ROUTES.VEHICLE_TYPES, element: <VehicleTypesPage /> },
       { path: ROUTES.MAINTENANCE, element: <PlaceholderPage title="Maintenance" /> },
       { path: ROUTES.ROUTES, element: <PlaceholderPage title="Routes" /> },
       { path: ROUTES.STATIONS, element: <PlaceholderPage title="Stations" /> },

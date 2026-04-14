@@ -9,7 +9,7 @@
   "phase": {
     "number": 3,
     "name": "Vehicle Management",
-    "status": "not_started"
+    "status": "in_progress"
   },
   "loop": {
     "plan": null,

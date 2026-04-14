@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 3 of 8 (Vehicle Management)
-Plan: Not started
-Status: Ready to plan Phase 3
-Last activity: 2026-04-14 — Phase 2 (Database Foundation) complete; transitioned to Phase 3
+Phase: 3 of 8 (Vehicle Management) — In Progress
+Plan: 03-01 complete (1 of 3 plans)
+Status: Ready for 03-02 (Vehicles CRUD)
+Last activity: 2026-04-14 — 03-01 Vehicle Types CRUD complete; visual seat editor added
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ○        ○        ○     [Phase 3 — not started]
+  ✓        ✓        ✓     [Loop complete — ready for 03-02]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 25% (2 of 8 phases complete)
-- Phase 3: [░░░░░░░░░░] 0% (not started)
+- Phase 3: [███░░░░░░░] 33% (1 of 3 plans complete)
 
 ## Accumulated Context
 
@@ -61,6 +61,7 @@ Progress:
 - 2026-04-10: Enterprise audit on 01-01-PLAN.md. Applied 2 must-have (dark mode CSS vars, env validation), 3 strongly-recommended (error boundary, ESLint config clarity, cn utility path). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-02-PLAN.md. Applied 2 must-have (DataTable ColumnDef interface, CSS variable overwrite protection), 3 strongly-recommended (Toaster wiring, dayjs import fix, schema verification). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-04-PLAN.md. Applied 2 must-have (index.html in frontmatter, ROUTES constants for router paths), 4 strongly-recommended (NavLink ROUTES constants, logout error handling, body scroll lock, Escape key close). Verdict: conditionally acceptable (now ready)
+- 2026-04-14: Enterprise audit on 03-01-PLAN.md. Applied 2 must-have (duplicate name 23505 handling, raw Supabase error suppression with mapSupabaseError), 4 strongly-recommended (Vietnamese Zod messages, DataTable actions column ColumnDef guidance, edit pre-fill serialization, seat_layout Zod refine strengthened). Deferred 4 (permission-gated UI, URL-synced pagination, server-side sort, seat layout structural schema). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -72,17 +73,19 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-14
-Stopped at: Phase 2 complete (UNIFY + transition done); ready to plan Phase 3
-Next action: Run /paul:plan for Phase 3 (Vehicle Management)
-Resume file: .paul/ROADMAP.md
-Git strategy: master (phase commit pending — see note below)
+Stopped at: Plan 03-01 complete (Vehicle Types CRUD — visual seat editor included)
+Next action: Run /paul:plan for 03-02 (Vehicles CRUD)
+Resume file: .paul/phases/03-vehicle-management/03-01-SUMMARY.md
+Git strategy: master
 Resume context:
 - Phase 2 COMPLETE: 13 migration files; 16 tables; RLS + integrity triggers
-- Runtime verification of 02-07 still pending (Docker Desktop not running locally)
-  → Apply supabase/migrations/20260414120000_integrity_triggers.sql to live DB
-  → Run test matrix in 02-07-SUMMARY.md before building Phase 3 app code
-- Phase 3 scope (from ROADMAP): Fleet CRUD, vehicle types with JSON seat layouts, maintenance logs
-- Phase 3 dependencies: Phase 1 (foundation, shared UI), Phase 2 (vehicle_types, vehicles, maintenance_logs schema)
+- Plan 03-01 COMPLETE: Vehicle Types CRUD + visual seat layout editor; FSD entity+page pattern established
+  → Entity slice pattern (model/types → api/[name].api → api/[name].queries → index.ts) is the template
+  → ColumnDef must be imported from @shared/ui/data-table (not barrel)
+  → Use const { toast } = useToast() pattern (not standalone import)
+  → mapSupabaseError() pattern ready to copy for 03-02/03-03
+- Plan 03-02: Vehicles CRUD — next (FK to vehicle_types; status management)
+- Plan 03-03: Maintenance Logs CRUD — after 03-02
 
 ---
 *STATE.md — Updated after every significant action*

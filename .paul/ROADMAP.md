@@ -16,7 +16,7 @@ Phases: 2 of 8 complete, Phase 3 next
 |-------|------|-------|--------|-----------|
 | 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
 | 2 | Database Foundation | 7 | ✅ Complete | 2026-04-14 |
-| 3 | Vehicle Management | TBD | 🔵 Next | - |
+| 3 | Vehicle Management | 3 | 🔵 In Progress | - |
 | 4 | Route & Station Management | TBD | Not started | - |
 | 5 | Employee & Role Management | TBD | Not started | - |
 | 6 | Trip Scheduling | TBD | Not started | - |
@@ -78,7 +78,9 @@ Phases: 2 of 8 complete, Phase 3 next
 - To be defined during planning
 
 **Plans:**
-- [ ] TBD
+- [x] 03-01: Vehicle Types CRUD (entity layer + list page + form + delete)
+- [ ] 03-02: Vehicles CRUD (entity + list + form + status management)
+- [ ] 03-03: Maintenance Logs CRUD (entity + list + form + vehicle filter)
 
 ### Phase 4: Route & Station Management
 
@@ -142,4 +144,4 @@ Phases: 2 of 8 complete, Phase 3 next
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-14 — Phase 2 (Database Foundation) complete (7/7); Phase 3 (Vehicle Management) next*
+*Last updated: 2026-04-14 — Phase 3 plan 03-01 complete (Vehicle Types CRUD + visual seat editor)*
