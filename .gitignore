@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 supabase/.temp/
+# Added by code-review-graph
+.code-review-graph/
+.claude/settings.local.json
