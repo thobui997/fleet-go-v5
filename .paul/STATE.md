@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 2 of 8 (Database Foundation) — Execution
-Plan: 02-04 executed, awaiting UNIFY
-Status: APPLY complete, SUMMARY created
-Last activity: 2026-04-11 — Executed 02-04 Trip Schema plan
+Phase: 2 of 8 (Database Foundation) — In Progress
+Plan: 02-05 complete; 02-06 (RLS Policies) next
+Status: Loop closed — ready for next PLAN
+Last activity: 2026-04-14 — Plan 02-05 (Booking Schema) UNIFY complete
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 Progress:
-- Milestone: [██░░░░░░░░] 12.5%
-- Phase 2: [█████░░░░] 57% (4 of 7 plans complete)
+- Milestone: [█░░░░░░░░░] 12.5%
+- Phase 2: [██████░░░░] 71% (5 of 7 plans complete; 02-06 next)
 
 ## Accumulated Context
 
@@ -41,6 +41,7 @@ Progress:
 - 2026-04-11: Enterprise audit on 02-02-PLAN.md. Applied 3 strongly-recommended (CHECK seat_layout JSONB object type, explicit ON CONFLICT targets in seed, SELECT-based FK resolution instead of CTE RETURNING). Verdict: conditionally acceptable (now ready)
 - 2026-04-11: Enterprise audit on 02-03-PLAN.md. Applied 1 must-have (latitude/longitude range CHECK on stations), 1 strongly-recommended (empty string CHECK on stations.name and routes.name). Verdict: conditionally acceptable (now ready)
 - 2026-04-11: Enterprise audit on 02-04-PLAN.md. Applied 0 must-have, 3 strongly-recommended (composite index vehicle_id+departure_time, COMMENT ON INDEX for partial unique index, cleaned up Task 3 action). Verdict: conditionally acceptable (now ready)
+- 2026-04-14: Enterprise audit on 02-05-PLAN.md. Applied 1 must-have (composite FK tickets(booking_id,trip_id) → bookings(id,trip_id) to prevent trip-drift), 6 strongly-recommended (audit-trail columns cancelled_at/cancelled_by/issued_by/processed_by/refunded_at; transaction_reference uniqueness for webhook replay protection; qr_code uniqueness for boarding validation). Deferred 6 items to 02-07 triggers or later phases. Verdict: conditionally acceptable (now ready). Flag for 02-07: audit-trail columns need immutability triggers.
 - 2026-04-11: Plan 02-04 execution — Fixed ambiguous column reference in trip_staff seed inserts (`select id` → `select t.id`). Root cause: joining trips/routes/vehicles (all have `id` columns) required table qualifier.
 - Normalized user schema — profiles as single source of truth eliminates duplication
 - Composite PK on junction tables — eliminates redundant surrogate keys
@@ -68,17 +69,17 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-11
-Stopped at: Loop 02-04 closed, committed, ready for next plan
-Next action: Run /paul:plan to start plan 02-05 (RLS Policies)
-Resume file: .paul/HANDOFF-2026-04-11.md
-Git strategy: master (commits pushed locally, 13 ahead of origin)
+Last session: 2026-04-14
+Stopped at: Plan 02-05 (Booking Schema) loop closed
+Next action: Run /paul:plan for 02-06 (RLS Policies) — commit 02-05 files first
+Resume file: .paul/phases/02-database-foundation/02-05-SUMMARY.md
+Git strategy: master (commits pushed locally, 13 ahead of origin; 02-05 files uncommitted)
 Resume context:
-- Phase 2 progress: 4 of 7 plans complete (57%)
-- Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04) schemas
-- Latest commit: 64edee5 feat(02-04): trip schema
-- Remaining: RLS Policies (02-05), Triggers (02-06), Validation (02-07)
-- Trip schema: trips, trip_staff tables with 1-driver enforcement via partial unique index
+- Phase 2 progress: 5 of 7 plans complete (71%)
+- Completed: Core (02-01), Fleet (02-02), Route (02-03), Trip (02-04), Booking (02-05) schemas
+- Uncommitted files: 20260414100000_booking_schema.sql, 20260414100001_booking_triggers.sql, seed.sql (booking section)
+- Remaining: RLS Policies (02-06), Triggers & Functions (02-07)
+- Flag for 02-07: audit-trail columns (cancelled_at, issued_by, processed_by, refunded_at) need immutability triggers
 
 ---
 *STATE.md — Updated after every significant action*

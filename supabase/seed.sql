@@ -897,3 +897,194 @@ on conflict (trip_id, employee_id) do nothing;
 -- ============================================================
 -- 6 trips, 9 trip_staff assignments created
 -- ============================================================
+
+-- ============================================================
+-- BOOKING SEED DATA
+-- ============================================================
+-- Booking tables seed: customers, bookings, tickets, payments
+-- Run AFTER booking schema migrations (20260414100000 and 20260414100001)
+-- ============================================================
+
+-- ============================================================
+-- CUSTOMERS (4 customers)
+-- ============================================================
+-- Idempotent via WHERE NOT EXISTS on phone_number (UNIQUE natural key)
+
+insert into public.customers (full_name, phone_number, email, gender, loyalty_points, notes)
+select 'Nguyen Van An', '0901234567', 'an.nguyen@example.vn', 'male', 150, 'Khach hang than thiet'
+where not exists (select 1 from public.customers where phone_number = '0901234567');
+
+insert into public.customers (full_name, phone_number, email, gender, loyalty_points)
+select 'Tran Thi Binh', '0912345678', 'binh.tran@example.vn', 'female', 50
+where not exists (select 1 from public.customers where phone_number = '0912345678');
+
+insert into public.customers (full_name, phone_number, gender, loyalty_points)
+select 'Le Van Cuong', '0923456789', 'male', 0
+where not exists (select 1 from public.customers where phone_number = '0923456789');
+
+insert into public.customers (full_name, phone_number, email, gender, loyalty_points, notes)
+select 'Pham Thi Dung', '0934567890', 'dung.pham@example.vn', 'female', 320, 'VIP - su dung thuong xuyen'
+where not exists (select 1 from public.customers where phone_number = '0934567890');
+
+-- ============================================================
+-- BOOKINGS (3 bookings)
+-- ============================================================
+-- Idempotent via WHERE NOT EXISTS on (customer_id + trip_id)
+-- booking_code auto-generated via sequence DEFAULT — not specified explicitly
+
+-- Booking A: Nguyen Van An, Trip HN→DN (51A-12345, 2026-04-15 06:00), confirmed
+insert into public.bookings (customer_id, trip_id, status, total_amount, passenger_count)
+select
+  (select id from public.customers where phone_number = '0901234567'),
+  (select t.id from public.trips t
+    join public.routes r on r.id = t.route_id
+    join public.vehicles v on v.id = t.vehicle_id
+    where r.name = 'Ha Noi → Da Nang'
+      and v.license_plate = '51A-12345'
+      and t.departure_time = '2026-04-15 06:00:00+07'),
+  'confirmed', 900000.00, 2
+where not exists (
+  select 1 from public.bookings b
+  where b.customer_id = (select id from public.customers where phone_number = '0901234567')
+    and b.trip_id = (select t.id from public.trips t
+      join public.routes r on r.id = t.route_id
+      join public.vehicles v on v.id = t.vehicle_id
+      where r.name = 'Ha Noi → Da Nang'
+        and v.license_plate = '51A-12345'
+        and t.departure_time = '2026-04-15 06:00:00+07')
+);
+
+-- Booking B: Tran Thi Binh, Trip HN→HCM (51B-67890, 2026-04-15 07:00), pending
+insert into public.bookings (customer_id, trip_id, status, total_amount, passenger_count)
+select
+  (select id from public.customers where phone_number = '0912345678'),
+  (select t.id from public.trips t
+    join public.routes r on r.id = t.route_id
+    join public.vehicles v on v.id = t.vehicle_id
+    where r.name = 'Ha Noi → TP.HCM'
+      and v.license_plate = '51B-67890'
+      and t.departure_time = '2026-04-15 07:00:00+07'),
+  'pending', 600000.00, 1
+where not exists (
+  select 1 from public.bookings b
+  where b.customer_id = (select id from public.customers where phone_number = '0912345678')
+    and b.trip_id = (select t.id from public.trips t
+      join public.routes r on r.id = t.route_id
+      join public.vehicles v on v.id = t.vehicle_id
+      where r.name = 'Ha Noi → TP.HCM'
+        and v.license_plate = '51B-67890'
+        and t.departure_time = '2026-04-15 07:00:00+07')
+);
+
+-- Booking C: Pham Thi Dung, Trip HN→Vinh (51C-11111, 2026-04-10 06:00, completed)
+insert into public.bookings (customer_id, trip_id, status, total_amount, passenger_count)
+select
+  (select id from public.customers where phone_number = '0934567890'),
+  (select t.id from public.trips t
+    join public.routes r on r.id = t.route_id
+    join public.vehicles v on v.id = t.vehicle_id
+    where r.name = 'Ha Noi → Vinh'
+      and v.license_plate = '51C-11111'
+      and t.departure_time = '2026-04-10 06:00:00+07'),
+  'completed', 300000.00, 2
+where not exists (
+  select 1 from public.bookings b
+  where b.customer_id = (select id from public.customers where phone_number = '0934567890')
+    and b.trip_id = (select t.id from public.trips t
+      join public.routes r on r.id = t.route_id
+      join public.vehicles v on v.id = t.vehicle_id
+      where r.name = 'Ha Noi → Vinh'
+        and v.license_plate = '51C-11111'
+        and t.departure_time = '2026-04-10 06:00:00+07')
+);
+
+-- ============================================================
+-- TICKETS (5 tickets)
+-- ============================================================
+-- Idempotent via WHERE NOT EXISTS on (booking_id + seat_number)
+-- tickets.trip_id resolved from booking.trip_id to satisfy composite FK
+
+-- Ticket 1: Booking A, seat A01 — Nguyen Van An
+insert into public.tickets (booking_id, trip_id, seat_number, passenger_name, passenger_phone, price, status)
+select b.id, b.trip_id, 'A01', 'Nguyen Van An', '0901234567', 450000.00, 'active'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0901234567'
+  and not exists (
+    select 1 from public.tickets where booking_id = b.id and seat_number = 'A01'
+  );
+
+-- Ticket 2: Booking A, seat A02 — Nguyen Thi Mai (companion)
+insert into public.tickets (booking_id, trip_id, seat_number, passenger_name, passenger_phone, price, status)
+select b.id, b.trip_id, 'A02', 'Nguyen Thi Mai', '0901234568', 450000.00, 'active'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0901234567'
+  and not exists (
+    select 1 from public.tickets where booking_id = b.id and seat_number = 'A02'
+  );
+
+-- Ticket 3: Booking B, seat B01 — Tran Thi Binh
+insert into public.tickets (booking_id, trip_id, seat_number, passenger_name, passenger_phone, price, status)
+select b.id, b.trip_id, 'B01', 'Tran Thi Binh', '0912345678', 600000.00, 'active'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0912345678'
+  and not exists (
+    select 1 from public.tickets where booking_id = b.id and seat_number = 'B01'
+  );
+
+-- Ticket 4: Booking C, seat A01 — Pham Thi Dung (used — trip completed)
+insert into public.tickets (booking_id, trip_id, seat_number, passenger_name, passenger_phone, price, status)
+select b.id, b.trip_id, 'A01', 'Pham Thi Dung', '0934567890', 150000.00, 'used'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0934567890'
+  and not exists (
+    select 1 from public.tickets where booking_id = b.id and seat_number = 'A01'
+  );
+
+-- Ticket 5: Booking C, seat A02 — Pham Van Hoa (companion, used)
+insert into public.tickets (booking_id, trip_id, seat_number, passenger_name, passenger_phone, price, status)
+select b.id, b.trip_id, 'A02', 'Pham Van Hoa', '0934567891', 150000.00, 'used'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0934567890'
+  and not exists (
+    select 1 from public.tickets where booking_id = b.id and seat_number = 'A02'
+  );
+
+-- ============================================================
+-- PAYMENTS (3 payments)
+-- ============================================================
+-- Idempotent via ON CONFLICT (booking_id) DO NOTHING (UNIQUE constraint)
+
+-- Payment A: Booking A — bank_transfer, completed
+insert into public.payments (booking_id, amount, method, status, transaction_reference, paid_at)
+select b.id, 900000.00, 'bank_transfer', 'completed', 'VCB-TXN-20260413-001', '2026-04-13 10:15:00+07'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0901234567'
+on conflict (booking_id) do nothing;
+
+-- Payment B: Booking B — e_wallet, pending
+insert into public.payments (booking_id, amount, method, status)
+select b.id, 600000.00, 'e_wallet', 'pending'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0912345678'
+on conflict (booking_id) do nothing;
+
+-- Payment C: Booking C — cash, completed
+insert into public.payments (booking_id, amount, method, status, paid_at)
+select b.id, 300000.00, 'cash', 'completed', '2026-04-10 05:45:00+07'
+from public.bookings b
+join public.customers c on c.id = b.customer_id
+where c.phone_number = '0934567890'
+on conflict (booking_id) do nothing;
+
+-- ============================================================
+-- Booking seed data complete
+-- ============================================================
+-- 4 customers, 3 bookings, 5 tickets, 3 payments created
+-- ============================================================
