@@ -5,27 +5,27 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 3 — Vehicle Management (not started)
+**Current focus:** Phase 3 — Vehicle Management (in progress)
 
 ## Current Position
 
 Milestone: v0.1 MVP
 Phase: 3 of 8 (Vehicle Management) — In Progress
-Plan: 03-01 complete (1 of 3 plans)
-Status: Ready for 03-02 (Vehicles CRUD)
-Last activity: 2026-04-14 — 03-01 Vehicle Types CRUD complete; visual seat editor added
+Plan: 03-02 UNIFY complete — ready for 03-03 (2 of 3 plans complete)
+Status: Ready for next PLAN (03-03 Maintenance Logs)
+Last activity: 2026-04-14 — 03-02 UNIFY complete; loop closed
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for 03-02]
+  ✓        ✓        ✓     [Loop 03-02 closed — ready for 03-03]
 ```
 
 Progress:
 - Milestone: [██░░░░░░░░] 25% (2 of 8 phases complete)
-- Phase 3: [███░░░░░░░] 33% (1 of 3 plans complete)
+- Phase 3: [██████░░░░] 67% (2 of 3 plans complete)
 
 ## Accumulated Context
 
@@ -62,6 +62,7 @@ Progress:
 - 2026-04-10: Enterprise audit on 01-02-PLAN.md. Applied 2 must-have (DataTable ColumnDef interface, CSS variable overwrite protection), 3 strongly-recommended (Toaster wiring, dayjs import fix, schema verification). Verdict: conditionally acceptable (now ready)
 - 2026-04-10: Enterprise audit on 01-04-PLAN.md. Applied 2 must-have (index.html in frontmatter, ROUTES constants for router paths), 4 strongly-recommended (NavLink ROUTES constants, logout error handling, body scroll lock, Escape key close). Verdict: conditionally acceptable (now ready)
 - 2026-04-14: Enterprise audit on 03-01-PLAN.md. Applied 2 must-have (duplicate name 23505 handling, raw Supabase error suppression with mapSupabaseError), 4 strongly-recommended (Vietnamese Zod messages, DataTable actions column ColumnDef guidance, edit pre-fill serialization, seat_layout Zod refine strengthened). Deferred 4 (permission-gated UI, URL-synced pagination, server-side sort, seat layout structural schema). Verdict: conditionally acceptable (now ready).
+- 2026-04-14: Enterprise audit on 03-02-PLAN.md. Applied 2 must-have (license_plate uppercase+trim normalization to match DB case-sensitive UNIQUE; vin_number blank/whitespace→null coercion), 9 strongly-recommended (DATE_REGEX on date fields + 22007 mapping; cross-field refine last≤next maintenance date; year upper bound via superRefine at validation time — not module load; current_mileage upper bound 10M; FK dropdown pageSize 1000 + visible truncation warning when count > data.length; auth-expiry 401/403/PGRST301 mapping; new AC-9 list-query error state with retry; new AC-10 dialog close guard during isPending; search debounce locked to 300ms). Deferred 7 (optimistic concurrency, created_by/updated_by columns — Phase 2 locked, status-transition FSM, plate regex, soft-delete, ARIA a11y, E2E tests). Verdict: conditionally acceptable (now ready). Flag: created_by/updated_by columns are the material residual compliance gap — address in a future schema-delta plan before GA.
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -73,9 +74,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-14
-Stopped at: Plan 03-01 complete (Vehicle Types CRUD — visual seat editor included)
-Next action: Run /paul:plan for 03-02 (Vehicles CRUD)
-Resume file: .paul/phases/03-vehicle-management/03-01-SUMMARY.md
+Stopped at: Plan 03-02 UNIFY complete
+Next action: Run /paul:plan for 03-03 (Maintenance Logs CRUD)
+Resume file: .paul/phases/03-vehicle-management/03-02-SUMMARY.md
 Git strategy: master
 Resume context:
 - Phase 2 COMPLETE: 13 migration files; 16 tables; RLS + integrity triggers
@@ -83,9 +84,15 @@ Resume context:
   → Entity slice pattern (model/types → api/[name].api → api/[name].queries → index.ts) is the template
   → ColumnDef must be imported from @shared/ui/data-table (not barrel)
   → Use const { toast } = useToast() pattern (not standalone import)
-  → mapSupabaseError() pattern ready to copy for 03-02/03-03
-- Plan 03-02: Vehicles CRUD — next (FK to vehicle_types; status management)
-- Plan 03-03: Maintenance Logs CRUD — after 03-02
+- Plan 03-02 COMPLETE: Vehicles CRUD — entity slice + list (status filter + debounced search) + form (FK dropdown + status select) + delete + status badge + router wired
+  → @entities/vehicle public API available: useVehicles, useVehicle, useCreateVehicle, useUpdateVehicle, useDeleteVehicle
+  → mapSupabaseError extended: 401/403/PGRST301 auth-expiry + 22007 date format + license_plate/vin_number split 23505
+  → serializeToInsert helper: centralizes '' → null coercion for nullable fields
+  → FK dropdown pattern: FK_DROPDOWN_PAGE_SIZE=1000 + truncation warning when count > data.length
+  → Dialog close guard: onOpenChange ignores close when isPending
+  → List error state: isError → inline error + retry (not empty table)
+  → superRefine patterns: year upper bound (runtime) + maintenance date cross-field ordering
+- Plan 03-03: Maintenance Logs CRUD — depends on @entities/vehicle (useVehicles for FK dropdown)
 
 ---
 *STATE.md — Updated after every significant action*

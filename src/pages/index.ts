@@ -1,3 +1,4 @@
 // Public API - exports will be added as slices are created
 export { LoginPage } from './login';
 export { VehicleTypesPage } from './vehicle-types';
+export { VehiclesPage } from './vehicles';

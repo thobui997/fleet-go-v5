@@ -3,6 +3,7 @@ import { ProtectedRoute } from '@shared/auth';
 import { ROUTES } from '@shared/config/routes';
 import { LoginPage } from '@pages/login';
 import { VehicleTypesPage } from '@pages/vehicle-types';
+import { VehiclesPage } from '@pages/vehicles';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
         element: <div>Dashboard — coming in Phase 7</div>,
       },
       // Placeholder routes for all modules
-      { path: ROUTES.VEHICLES, element: <PlaceholderPage title="Vehicles" /> },
+      { path: ROUTES.VEHICLES, element: <VehiclesPage /> },
       { path: ROUTES.VEHICLE_TYPES, element: <VehicleTypesPage /> },
       { path: ROUTES.MAINTENANCE, element: <PlaceholderPage title="Maintenance" /> },
       { path: ROUTES.ROUTES, element: <PlaceholderPage title="Routes" /> },
