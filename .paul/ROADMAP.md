@@ -18,7 +18,7 @@ Phases: 4 of 8 complete, Phase 5 next
 | 2 | Database Foundation | 7 | ✅ Complete | 2026-04-14 |
 | 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
-| 5 | Employee & Role Management | TBD | Not started | - |
+| 5 | Employee & Role Management | 2 | Planning | - |
 | 6 | Trip Scheduling | TBD | Not started | - |
 | 7 | Customer, Ticketing & Payment | TBD | Not started | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
@@ -106,7 +106,8 @@ Phases: 4 of 8 complete, Phase 5 next
 - To be defined during planning
 
 **Plans:**
-- [ ] TBD
+- [ ] 05-01: Roles CRUD (entity slice + list + permissions chip editor + delete)
+- [ ] 05-02: Employees CRUD (entity slice + profiles JOIN + license expiry alerts + role assignment)
 
 ### Phase 6: Trip Scheduling
 
