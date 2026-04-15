@@ -43,14 +43,14 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Database Foundation — Integrity:** Audit-column immutability triggers (FG001/FG002/FG003) + booking status FSM (FG004); BEFORE UPDATE with IS DISTINCT FROM; distinct SQLSTATE per violation class — Phase 2
 - **Vehicle Management:** Vehicle Types CRUD with JSON seat layout configurator; Vehicles CRUD with status management, FK dropdown, debounced search; Maintenance Logs CRUD with vehicle/type filters, cost tracking, date cross-field validation — Phase 3
 - **Route & Station Management:** Station CRUD (name/city/lat-lng/is_active); Route CRUD with FK dropdowns and duration parsing; Route Stops Editor with @dnd-kit drag-and-drop reorder, bulk-replace save (DELETE then INSERT) — Phase 4
+- **Employee & Role Management:** Dynamic Role CRUD with permissions chip editor (JSONB array); Employee CRUD with profiles JOIN, license expiry alert badges (30-day/expired), user dropdown, role assignment via user_roles — Phase 5
 
 ### Active (In Progress)
 
-- Phase 5: Employee & Role Management — Dynamic role CRUD, staff records, license expiry alerts
+- Phase 6: Trip Scheduling — Trip creation, conflict validation, schedule views
 
 ### Planned (Next)
 
-- Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
 - Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
 - Phase 8: Dashboard & Analytics — Real-time statistics, quick views, operational insights
@@ -122,6 +122,8 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | route_stops composite PK → dndId as "route_id:station_id" | No surrogate id column; composite string is stable and unique per stop within a session | 2026-04-15 | Active |
 | Route stops save: non-atomic DELETE + INSERT | MVP acceptable; partial failure surfaces as error user can retry; full atomicity deferred to Phase 7+ | 2026-04-15 | Active |
 | hasInitializedRef pattern for dialog local state | Prevents TanStack Query background refetch from overwriting unsaved edits after first load | 2026-04-15 | Active |
+| Two-step employee save: employee record then role assignment | Role assignment (user_roles) is separate from employee record; split try/catch surfaces partial failures | 2026-04-15 | Active |
+| Radix Select __none__ sentinel | Radix UI reserves empty string for placeholder; sentinel maps back to null in onValueChange | 2026-04-15 | Active |
 
 ## Success Metrics
 
@@ -182,4 +184,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-15 after Phase 4 complete*
+*Last updated: 2026-04-15 after Phase 5 complete*

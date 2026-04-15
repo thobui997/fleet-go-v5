@@ -7,9 +7,9 @@
     "status": "in_progress"
   },
   "phase": {
-    "number": 5,
-    "name": "Employee & Role Management",
-    "status": "in_progress"
+    "number": 6,
+    "name": "Trip Scheduling",
+    "status": "not_started"
   },
   "loop": {
     "plan": null,

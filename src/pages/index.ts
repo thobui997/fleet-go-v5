@@ -6,3 +6,4 @@ export { MaintenancePage } from './maintenance';
 export { StationsPage } from './stations';
 export { RoutesPage } from './routes';
 export { RolesPage } from './roles';
+export { EmployeesPage } from './employees';

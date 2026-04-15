@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (4 of 8 phases complete)
-Phases: 4 of 8 complete, Phase 5 next
+Status: In progress (5 of 8 phases complete)
+Phases: 5 of 8 complete, Phase 6 next
 
 ## Phases
 
@@ -18,7 +18,7 @@ Phases: 4 of 8 complete, Phase 5 next
 | 2 | Database Foundation | 7 | ✅ Complete | 2026-04-14 |
 | 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
-| 5 | Employee & Role Management | 2 | Planning | - |
+| 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
 | 6 | Trip Scheduling | TBD | Not started | - |
 | 7 | Customer, Ticketing & Payment | TBD | Not started | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
@@ -106,8 +106,8 @@ Phases: 4 of 8 complete, Phase 5 next
 - To be defined during planning
 
 **Plans:**
-- [ ] 05-01: Roles CRUD (entity slice + list + permissions chip editor + delete)
-- [ ] 05-02: Employees CRUD (entity slice + profiles JOIN + license expiry alerts + role assignment)
+- [x] 05-01: Roles CRUD (entity slice + list + permissions chip editor + delete)
+- [x] 05-02: Employees CRUD (entity slice + profiles JOIN + license expiry alerts + role assignment)
 
 ### Phase 6: Trip Scheduling
 
@@ -147,4 +147,4 @@ Phases: 4 of 8 complete, Phase 5 next
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-15 — Phase 4 complete: Stations + Routes + Route Stops (dnd-kit) delivered*
+*Last updated: 2026-04-15 — Phase 5 complete: Roles CRUD + Employees CRUD with profiles JOIN and license expiry alerts delivered*
