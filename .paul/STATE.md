@@ -81,9 +81,10 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-15
-Stopped at: Phase 5 complete — UNIFY done. Ready to plan Phase 6 (Trip Scheduling).
+Stopped at: Phase 5 complete — UNIFY done. Paused cleanly.
 Next action: /paul:plan for Phase 6 — Trip Scheduling
-Resume file: .paul/ROADMAP.md
+Resume file: .paul/HANDOFF-2026-04-15.md
+Git strategy: master
 Git strategy: master
 Resume context:
 - Plan 04-01 COMPLETE (created + audited): Stations CRUD — entity slice + list (name/city search + is_active filter) + form (lat/lng type=text, is_active Controller, inline reset useEffect) + delete + router wired
