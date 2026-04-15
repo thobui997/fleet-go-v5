@@ -93,7 +93,7 @@ Phases: 3 of 8 complete, Phase 4 next
 
 **Plans:**
 - [x] 04-01: Stations CRUD (entity slice + list + form + delete + router)
-- [ ] 04-02: Routes CRUD (depends on @entities/station for FK dropdowns)
+- [ ] 04-02: Routes CRUD (depends on @entities/station for FK dropdowns) — Planning
 - [ ] 04-03: Route Stops Editor (drag-and-drop with @dnd-kit)
 
 ### Phase 5: Employee & Role Management

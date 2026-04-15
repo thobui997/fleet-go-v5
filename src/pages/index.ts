@@ -4,3 +4,4 @@ export { VehicleTypesPage } from './vehicle-types';
 export { VehiclesPage } from './vehicles';
 export { MaintenancePage } from './maintenance';
 export { StationsPage } from './stations';
+export { RoutesPage } from './routes';
