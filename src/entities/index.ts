@@ -4,3 +4,4 @@ export * from './vehicle';
 export * from './maintenance-log';
 export * from './station';
 export * from './route';
+export * from './role';

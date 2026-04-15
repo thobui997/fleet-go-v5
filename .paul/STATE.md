@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 5 of 8 (Employee & Role Management) — Planning
-Plan: 05-01 created + audited, awaiting approval
-Status: PLAN audited, ready for APPLY
-Last activity: 2026-04-15 — Audited 05-01-PLAN.md. Applied 1 must-have + 5 strongly-recommended. Verdict: conditionally acceptable (now ready).
+Phase: 5 of 8 (Employee & Role Management) — In Progress
+Plan: 05-01 loop CLOSED — ready for 05-02 (Employees)
+Status: UNIFY complete
+Last activity: 2026-04-15 — 05-01 loop closed. @entities/role public API live. /roles CRUD fully operational.
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan 05-01 created, awaiting approval]
+  ✓        ✓        ✓     [Loop 05-01 complete — ready for next PLAN 05-02]
 ```
 
 Progress:
 - Milestone: [████░░░░░░] 50% (4 of 8 phases complete)
-- Phase 5: [░░░░░░░░░░] 0% (0 plans complete — 2 plans defined)
+- Phase 5: [█████░░░░░] 50% (1 of 2 plans complete)
 
 ## Accumulated Context
 
@@ -79,8 +79,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-15
-Stopped at: 05-01 audited (1 MH + 5 SR applied). Paused before APPLY.
-Next action: Load /frontend-design + /feature-sliced-design, then run /paul:apply .paul/phases/05-employee-role-management/05-01-PLAN.md
+Stopped at: 05-01 loop fully closed. Clean pause.
+Next action: Run /paul:plan for 05-02 (Employees CRUD — depends on @entities/role now available)
 Resume file: .paul/HANDOFF-2026-04-15.md
 Git strategy: master
 Resume context:
