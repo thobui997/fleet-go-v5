@@ -2,3 +2,4 @@
 export * from './vehicle-type';
 export * from './vehicle';
 export * from './maintenance-log';
+export * from './station';

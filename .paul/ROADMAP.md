@@ -17,7 +17,7 @@ Phases: 3 of 8 complete, Phase 4 next
 | 1 | Foundation & Auth | 4 | ✅ Complete | 2026-04-10 |
 | 2 | Database Foundation | 7 | ✅ Complete | 2026-04-14 |
 | 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
-| 4 | Route & Station Management | TBD | Not started | - |
+| 4 | Route & Station Management | 3 | In Progress (1/3) | - |
 | 5 | Employee & Role Management | TBD | Not started | - |
 | 6 | Trip Scheduling | TBD | Not started | - |
 | 7 | Customer, Ticketing & Payment | TBD | Not started | - |
@@ -92,7 +92,9 @@ Phases: 3 of 8 complete, Phase 4 next
 - To be defined during planning
 
 **Plans:**
-- [ ] TBD
+- [x] 04-01: Stations CRUD (entity slice + list + form + delete + router)
+- [ ] 04-02: Routes CRUD (depends on @entities/station for FK dropdowns)
+- [ ] 04-03: Route Stops Editor (drag-and-drop with @dnd-kit)
 
 ### Phase 5: Employee & Role Management
 
@@ -144,4 +146,4 @@ Phases: 3 of 8 complete, Phase 4 next
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-14 — Phase 3 complete (Vehicle Types, Vehicles, Maintenance Logs CRUD)*
+*Last updated: 2026-04-15 — Phase 4 in progress: 04-01 Stations CRUD complete*

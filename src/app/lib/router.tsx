@@ -5,6 +5,7 @@ import { LoginPage } from '@pages/login';
 import { VehicleTypesPage } from '@pages/vehicle-types';
 import { VehiclesPage } from '@pages/vehicles';
 import { MaintenancePage } from '@pages/maintenance';
+import { StationsPage } from '@pages/stations';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.VEHICLE_TYPES, element: <VehicleTypesPage /> },
       { path: ROUTES.MAINTENANCE, element: <MaintenancePage /> },
       { path: ROUTES.ROUTES, element: <PlaceholderPage title="Routes" /> },
-      { path: ROUTES.STATIONS, element: <PlaceholderPage title="Stations" /> },
+      { path: ROUTES.STATIONS, element: <StationsPage /> },
       { path: ROUTES.TRIPS, element: <PlaceholderPage title="Trips" /> },
       { path: ROUTES.TRIP_CALENDAR, element: <PlaceholderPage title="Trip Calendar" /> },
       { path: ROUTES.EMPLOYEES, element: <PlaceholderPage title="Employees" /> },

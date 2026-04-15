@@ -17,5 +17,7 @@ export { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 export { DataTable } from './data-table';
 export { FormFieldWrapper } from './form-field-wrapper';
 
+export { Switch } from './switch';
+
 // Existing from Plan 01-01
 export { ErrorBoundary } from './error-boundary';

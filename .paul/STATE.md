@@ -10,10 +10,10 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 4 of 8 (Route & Station Management) — Not started
-Plan: Not started
-Status: Ready to plan Phase 4
-Last activity: 2026-04-14 — Phase 3 complete; transitioned to Phase 4
+Phase: 4 of 8 (Route & Station Management) — In Progress
+Plan: 04-01 complete (loop closed)
+Status: Loop complete — ready for 04-02 planning
+Last activity: 2026-04-15 — UNIFY 04-01: Stations CRUD loop closed. @entities/station public API available.
 
 ## Loop Position
 
@@ -25,7 +25,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 Progress:
 - Milestone: [███░░░░░░░] 37% (3 of 8 phases complete)
-- Phase 4: [░░░░░░░░░░] 0% (not started)
+- Phase 4: [███░░░░░░░] 33% (1 of 3 plans complete)
 
 ## Accumulated Context
 
@@ -63,6 +63,7 @@ Progress:
 - 2026-04-10: Enterprise audit on 01-04-PLAN.md. Applied 2 must-have (index.html in frontmatter, ROUTES constants for router paths), 4 strongly-recommended (NavLink ROUTES constants, logout error handling, body scroll lock, Escape key close). Verdict: conditionally acceptable (now ready)
 - 2026-04-14: Enterprise audit on 03-01-PLAN.md. Applied 2 must-have (duplicate name 23505 handling, raw Supabase error suppression with mapSupabaseError), 4 strongly-recommended (Vietnamese Zod messages, DataTable actions column ColumnDef guidance, edit pre-fill serialization, seat_layout Zod refine strengthened). Deferred 4 (permission-gated UI, URL-synced pagination, server-side sort, seat layout structural schema). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-02-PLAN.md. Applied 2 must-have (license_plate uppercase+trim normalization to match DB case-sensitive UNIQUE; vin_number blank/whitespace→null coercion), 9 strongly-recommended (DATE_REGEX on date fields + 22007 mapping; cross-field refine last≤next maintenance date; year upper bound via superRefine at validation time — not module load; current_mileage upper bound 10M; FK dropdown pageSize 1000 + visible truncation warning when count > data.length; auth-expiry 401/403/PGRST301 mapping; new AC-9 list-query error state with retry; new AC-10 dialog close guard during isPending; search debounce locked to 300ms). Deferred 7 (optimistic concurrency, created_by/updated_by columns — Phase 2 locked, status-transition FSM, plate regex, soft-delete, ARIA a11y, E2E tests). Verdict: conditionally acceptable (now ready). Flag: created_by/updated_by columns are the material residual compliance gap — address in a future schema-delta plan before GA.
+- 2026-04-15: Enterprise audit on 04-01-PLAN.md. Applied 2 must-have (23505 constraint-specific check via `stations_name_key`/`details.(name)`; replace undefined `serializeFormDefaults` with explicit inline useEffect reset for both create/edit modes), 5 strongly-recommended (search trim before ilike; lat/lng type="text" for z.coerce.number; Controller for is_active Switch; edit→create mode reset; checkpoint regression steps). Deferred 3 (URL-synced filters; StationStatusBadge extraction; ARIA). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
@@ -74,10 +75,18 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-04-14
-Stopped at: Phase 3 complete (Vehicle Management — all 3 plans unified); transitioned to Phase 4
-Next action: /paul:plan for Phase 4 — Route & Station Management
-Resume file: .paul/phases/03-vehicle-management/03-03-SUMMARY.md
+Last session: 2026-04-15
+Stopped at: 04-01 loop fully closed (PLAN ✓ APPLY ✓ UNIFY ✓); session paused before 04-02
+Next action: /paul:plan (04-02 Routes CRUD — depends on @entities/station)
+Resume file: .paul/HANDOFF-2026-04-15.md
+Git strategy: master
+Resume context:
+- Plan 04-01 COMPLETE (created + audited): Stations CRUD — entity slice + list (name/city search + is_active filter) + form (lat/lng type=text, is_active Controller, inline reset useEffect) + delete + router wired
+  → Must-have #1: mapSupabaseError 23505 uses stations_name_key + details.(name) check (not generic includes('name'))
+  → Must-have #2: serializeFormDefaults removed — explicit useEffect reset for create (station===null) and edit (station!==null) modes
+  → Key audit fixes: search trim before .or(); type="text" for lat/lng; Controller for Switch; regression steps in checkpoint
+- Station DB: name+code UNIQUE; city NOT NULL; lat/lng CHECK; DELETE RESTRICT from routes+route_stops
+- Phase 4 plan: 3 plans — 04-01 (Stations, ready), 04-02 (Routes, depends on @entities/station), 04-03 (Route Stops dnd-kit)
 Git strategy: master
 Resume context:
 - Plan 03-03 COMPLETE (created + audited): Maintenance Logs CRUD — entity slice + list (vehicle/type filters) + form (FK dropdown, type select, cost, dates, odometer) + delete + type badge + router wired
