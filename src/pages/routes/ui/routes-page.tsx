@@ -21,6 +21,7 @@ import { useRoutes } from '@entities/route';
 import type { Route } from '@entities/route';
 import { RouteFormDialog } from './route-form-dialog';
 import { RouteDeleteDialog } from './route-delete-dialog';
+import { RouteStopsDialog } from './route-stops-dialog';
 import { mapSupabaseError } from '../model/route-form-schema';
 
 type RouteValue = Route[keyof Route];
@@ -65,6 +66,8 @@ export function RoutesPage() {
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [selectedRoute, setSelectedRoute] = React.useState<Route | null>(null);
   const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
+  const [stopsOpen, setStopsOpen] = React.useState(false);
+  const [selectedRouteForStops, setSelectedRouteForStops] = React.useState<Route | null>(null);
 
   const isActive =
     statusFilter === 'all' ? undefined : statusFilter === 'true';
@@ -147,6 +150,14 @@ export function RoutesPage() {
               }}
             >
               Sửa
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setSelectedRouteForStops(row);
+                setStopsOpen(true);
+              }}
+            >
+              Điểm dừng
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
@@ -260,6 +271,12 @@ export function RoutesPage() {
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         route={selectedRoute}
+      />
+
+      <RouteStopsDialog
+        open={stopsOpen}
+        onOpenChange={setStopsOpen}
+        route={selectedRouteForStops}
       />
     </div>
   );

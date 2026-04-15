@@ -5,27 +5,27 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 4 — Route & Station Management (not started)
+**Current focus:** Phase 5 — Employee & Role Management
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 4 of 8 (Route & Station Management) — In Progress
-Plan: 04-02 complete (loop closed)
-Status: Ready for next PLAN (04-03)
-Last activity: 2026-04-15 — 04-02 UNIFY complete. Routes CRUD shipped: @entities/route, /routes page, form/delete dialogs, router wired. 2 of 3 plans complete in Phase 4.
+Phase: 5 of 8 (Employee & Role Management) — Not started
+Plan: Not started
+Status: Ready to plan Phase 5
+Last activity: 2026-04-15 — Phase 4 transition complete. SUMMARY + git commit. PROJECT.md/ROADMAP.md evolved. Ready for Phase 5.
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
+  ○        ○        ○     [Phase 5 — not started]
 ```
 
 Progress:
-- Milestone: [███░░░░░░░] 37% (3 of 8 phases complete)
-- Phase 4: [██████░░░░] 67% (2 of 3 plans complete)
+- Milestone: [████░░░░░░] 50% (4 of 8 phases complete)
+- Phase 5: [░░░░░░░░░░] 0% (0 plans complete — TBD)
 
 ## Accumulated Context
 
@@ -65,6 +65,7 @@ Progress:
 - 2026-04-14: Enterprise audit on 03-02-PLAN.md. Applied 2 must-have (license_plate uppercase+trim normalization to match DB case-sensitive UNIQUE; vin_number blank/whitespace→null coercion), 9 strongly-recommended (DATE_REGEX on date fields + 22007 mapping; cross-field refine last≤next maintenance date; year upper bound via superRefine at validation time — not module load; current_mileage upper bound 10M; FK dropdown pageSize 1000 + visible truncation warning when count > data.length; auth-expiry 401/403/PGRST301 mapping; new AC-9 list-query error state with retry; new AC-10 dialog close guard during isPending; search debounce locked to 300ms). Deferred 7 (optimistic concurrency, created_by/updated_by columns — Phase 2 locked, status-transition FSM, plate regex, soft-delete, ARIA a11y, E2E tests). Verdict: conditionally acceptable (now ready). Flag: created_by/updated_by columns are the material residual compliance gap — address in a future schema-delta plan before GA.
 - 2026-04-15: Enterprise audit on 04-01-PLAN.md. Applied 2 must-have (23505 constraint-specific check via `stations_name_key`/`details.(name)`; replace undefined `serializeFormDefaults` with explicit inline useEffect reset for both create/edit modes), 5 strongly-recommended (search trim before ilike; lat/lng type="text" for z.coerce.number; Controller for is_active Switch; edit→create mode reset; checkpoint regression steps). Deferred 3 (URL-synced filters; StationStatusBadge extraction; ARIA). Verdict: conditionally acceptable (now ready).
 - 2026-04-15: Enterprise audit on 04-02-PLAN.md. Applied 2 must-have (parseDurationMinutes fallback→1 + multi-day interval format; mapSupabaseError 23503 split by operation context 'mutate'|'delete'), 4 strongly-recommended (23514 mapping added; serializeToInsert Math.max(1) clamp; Route type collision explicit resolution in router.tsx; npm run build added to human-verify checkpoint). Deferred 5 (permission-gated UI; URL filters; server-sort; ISO 8601 interval; optimistic concurrency). Verdict: conditionally acceptable (now ready).
+- 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
@@ -77,9 +78,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-15
-Stopped at: 04-02 loop closed (PLAN ✓ APPLY ✓ UNIFY ✓); session paused before 04-03
-Next action: Load /feature-sliced-design + /frontend-design, then run /paul:plan for 04-03 (Route Stops Editor — dnd-kit)
-Resume file: .paul/HANDOFF-2026-04-15.md
+Stopped at: Phase 4 complete — transition done, Phase 5 ready
+Next action: Run /paul:plan for Phase 5 (Employee & Role Management)
+Resume file: .paul/ROADMAP.md
 Git strategy: master
 Resume context:
 - Plan 04-01 COMPLETE (created + audited): Stations CRUD — entity slice + list (name/city search + is_active filter) + form (lat/lng type=text, is_active Controller, inline reset useEffect) + delete + router wired

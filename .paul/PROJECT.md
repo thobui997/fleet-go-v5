@@ -42,14 +42,14 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Database Foundation — RLS:** Row-level security policies for all 16 tables; REVOKE/GRANT on helper functions; has_permission() + is_admin() helpers — Phase 2
 - **Database Foundation — Integrity:** Audit-column immutability triggers (FG001/FG002/FG003) + booking status FSM (FG004); BEFORE UPDATE with IS DISTINCT FROM; distinct SQLSTATE per violation class — Phase 2
 - **Vehicle Management:** Vehicle Types CRUD with JSON seat layout configurator; Vehicles CRUD with status management, FK dropdown, debounced search; Maintenance Logs CRUD with vehicle/type filters, cost tracking, date cross-field validation — Phase 3
+- **Route & Station Management:** Station CRUD (name/city/lat-lng/is_active); Route CRUD with FK dropdowns and duration parsing; Route Stops Editor with @dnd-kit drag-and-drop reorder, bulk-replace save (DELETE then INSERT) — Phase 4
 
 ### Active (In Progress)
 
-- Phase 4: Route & Station Management — Station CRUD, route definition with drag-and-drop stops
+- Phase 5: Employee & Role Management — Dynamic role CRUD, staff records, license expiry alerts
 
 ### Planned (Next)
 
-- Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 5: Employee & Role management — Dynamic role CRUD, staff records, license expiry alerts
 - Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
 - Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
@@ -119,6 +119,9 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Distinct SQLSTATE per violation class (FG001-FG004) | Machine-classifiable by clients without parsing message strings | 2026-04-14 | Active |
 | BEFORE UPDATE triggers + IS DISTINCT FROM | Cheaper than AFTER + rollback; NULL-aware comparison rejects NULL-ing a set column | 2026-04-14 | Active |
 | RLS controls who, triggers control what | Orthogonal layers: RLS governs row access, triggers govern field mutation | 2026-04-14 | Active |
+| route_stops composite PK → dndId as "route_id:station_id" | No surrogate id column; composite string is stable and unique per stop within a session | 2026-04-15 | Active |
+| Route stops save: non-atomic DELETE + INSERT | MVP acceptable; partial failure surfaces as error user can retry; full atomicity deferred to Phase 7+ | 2026-04-15 | Active |
+| hasInitializedRef pattern for dialog local state | Prevents TanStack Query background refetch from overwriting unsaved edits after first load | 2026-04-15 | Active |
 
 ## Success Metrics
 
@@ -179,4 +182,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-14 after Phase 3 complete*
+*Last updated: 2026-04-15 after Phase 4 complete*
