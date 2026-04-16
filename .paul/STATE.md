@@ -5,27 +5,27 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 6 — Trip Scheduling
+**Current focus:** Phase 7 — Customer, Ticketing & Payment
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 of 8 (Trip Scheduling) — Complete
-Plan: 06-03 complete, SUMMARY created
-Status: Phase complete, ready for Phase 7 transition
-Last activity: 2026-04-16 — Completed 06-03 Calendar View + My Schedule, closed loop with UNIFY
+Phase: 7 of 8 (Customer, Ticketing & Payment) — In Progress
+Plan: 07-01 complete (Customer CRUD)
+Status: UNIFY complete, ready for next plan
+Last activity: 2026-04-16 — Completed 07-01 (Customer CRUD) with UNIFY
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - Phase 6 done]
+  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
 ```
 
 Progress:
 - Milestone: [██████░░░░] 75% (6 of 8 phases complete)
-- Phase 6: [██████████] 100% (3 of 3 plans complete: 06-01 ✓, 06-02 ✓, 06-03 ✓)
+- Phase 7: [█░░░░░░░░░] 25% (1 of 4 plans: 07-01 complete)
 
 ## Accumulated Context
 
@@ -73,6 +73,7 @@ Progress:
 - 2026-04-16: Plan 06-02 execution — Fixed Supabase query for trip-staff entity: added `user_id` field to employee join (`employee:employees(id, user_id, is_active, profiles(...))`) for proper profile relationship resolution through auth.users. Without `user_id`, nested join to profiles returned null, causing "N/A" display in dropdown and staff list.
 - 2026-04-16: Enterprise audit on 06-03-PLAN.md. Applied 1 must-have (PGRST116 catch for employee `.single()` — prevents crash when user has no employee record), 4 strongly-recommended (auth-expiry 401/403/PGRST301 handling on both pages; today cell highlight in calendar grid; full-date grouping instead of day-number-only; client-side sort as primary for fetchMySchedule). Deferred 2 (URL-synced calendar month; calendar trip click-through). Verdict: conditionally acceptable (now ready).
 - 2026-04-16: **Phase 6 complete** — Trip Scheduling phase delivered with Trip CRUD (06-01), Staff Assignment with conflict validation (06-02), and Calendar View + My Schedule (06-03). All placeholder routes replaced with functional pages. Auto-fix: Sidebar active state now uses exact matching (end: true) to prevent false positives between /trips and /trips/calendar.
+- 2026-04-16: Enterprise audit on 07-01-PLAN.md. Applied 2 must-have (phone_number trim in serializeToInsert — prevents UNIQUE bypass; email/id_card_number empty→null flagged as correctness-critical for UNIQUE nullable columns — PostgreSQL allows multiple NULLs but rejects multiple empty strings), 8 strongly-recommended (phone regex validation; id_card_number trim; date_of_birth future date guard; gender Select uses DB values directly; search trim before ilike; auth-expiry on list page; AC-6 strengthened; npm run build in Task 3 verify). Deferred 3. Verdict: conditionally acceptable (now ready).
 - 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 
@@ -86,15 +87,16 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Plan 06-03 complete, Phase 6 done
-Next action: Phase 7 transition (Customer, Ticketing & Payment)
-Resume file: .paul/phases/06-trip-scheduling/06-03-SUMMARY.md
-Git strategy: master
+Stopped at: User requested pause after 07-01 complete
+Next action: Run /paul:plan 07-02 to start Booking Management
+Resume file: .paul/HANDOFF-2026-04-16.md
+Git strategy: master (committed: 4e2bc57)
 Resume context:
-- Phase 6 COMPLETE: Trip CRUD (06-01), Staff Assignment (06-02), Calendar & Schedule (06-03)
-- All acceptance criteria met, npm run build passes
-- Sidebar active state bug fixed (added end: true to nav items)
-- Next: Phase 7 (Customer, Ticketing & Payment)
+- Phase 7 in progress: Customer, Ticketing & Payment
+- Plan 07-01 (Customer CRUD) complete: entity slice, CRUD UI, router integration, UNIFY closed
+- 3 plans remaining: 07-02 Booking Management, 07-03 Seat Map & QR, 07-04 Payment Management
+- Bookings and Payments still have PlaceholderPage in router
+- All changes committed to main (4e2bc57)
 
 ---
 *STATE.md — Updated after every significant action*

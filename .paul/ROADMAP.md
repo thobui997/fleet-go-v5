@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (6 of 8 phases complete)
-Phases: 6 of 8 complete, Phase 7 planning next
+Status: In progress (6 of 8 phases complete, Phase 7 planning)
+Phases: 6 of 8 complete, Phase 7 planning
 
 ## Phases
 
@@ -20,7 +20,7 @@ Phases: 6 of 8 complete, Phase 7 planning next
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
 | 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
-| 7 | Customer, Ticketing & Payment | TBD | Not started | - |
+| 7 | Customer, Ticketing & Payment | 4 | Planning | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
 
 ## Phase Details
@@ -130,10 +130,18 @@ Phases: 6 of 8 complete, Phase 7 planning next
 **Research:** Likely (seat selection UI, QR code generation)
 
 **Scope:**
-- To be defined during planning
+- Customer management (CRUD, search, profiles)
+- Booking management (list, detail, creation, cancellation with payment sync)
+- Seat map visualization (visual layout showing booked/available seats)
+- QR code generation and scanning for ticket check-in
+- Ticket status lifecycle (issued → checked-in / cancelled / no-show)
+- Payment management (standalone list page, status updates, refund tracking)
 
 **Plans:**
-- [ ] TBD
+- [ ] 07-01: Customer CRUD (entity slice + list page + form dialog + router)
+- [ ] 07-02: Booking Management (entity + list + detail + creation + cancellation + payment sync)
+- [ ] 07-03: Seat Map, QR & Ticket Operations (visual seat map + QR gen/scan + ticket lifecycle)
+- [ ] 07-04: Payment Management (standalone payment list + filters + status updates + refund tracking)
 
 ### Phase 8: Dashboard & Analytics
 
@@ -149,4 +157,4 @@ Phases: 6 of 8 complete, Phase 7 planning next
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-16 — Phase 6 complete: Trip CRUD, Staff Assignment with conflict validation, Calendar View + My Schedule delivered*
+*Last updated: 2026-04-16 — Phase 7 planning started: Customer CRUD plan (07-01) created*
