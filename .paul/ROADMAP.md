@@ -8,7 +8,7 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 
 **v0.1 MVP** (v0.1.0)
 Status: In progress (5 of 8 phases complete)
-Phases: 5 of 8 complete, Phase 6 next
+Phases: 5 of 8 complete, Phase 6 planning
 
 ## Phases
 
@@ -19,7 +19,7 @@ Phases: 5 of 8 complete, Phase 6 next
 | 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
-| 6 | Trip Scheduling | TBD | Not started | - |
+| 6 | Trip Scheduling | 3 | Planning | - |
 | 7 | Customer, Ticketing & Payment | TBD | Not started | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
 
@@ -119,7 +119,9 @@ Phases: 5 of 8 complete, Phase 6 next
 - To be defined during planning
 
 **Plans:**
-- [ ] TBD
+- [ ] 06-01: Trip CRUD (entity slice + list page + form dialog + delete + router)
+- [ ] 06-02: Staff Assignment & Conflict Validation (depends on 06-01)
+- [ ] 06-03: Calendar View + My Schedule (depends on 06-01)
 
 ### Phase 7: Customer, Ticketing & Payment
 
