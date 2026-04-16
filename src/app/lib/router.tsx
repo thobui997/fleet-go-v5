@@ -13,6 +13,7 @@ import { TripsPage } from '@pages/trips';
 import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
+import { BookingsPage } from '@pages/bookings';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -55,7 +56,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.ROLES, element: <RolesPage /> },
       { path: ROUTES.MY_SCHEDULE, element: <MySchedulePage /> },
       { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
-      { path: ROUTES.BOOKINGS, element: <PlaceholderPage title="Bookings" /> },
+      { path: ROUTES.BOOKINGS, element: <BookingsPage /> },
       { path: ROUTES.PAYMENTS, element: <PlaceholderPage title="Payments" /> },
     ],
   },

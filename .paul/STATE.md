@@ -11,9 +11,9 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 Milestone: v0.1 MVP
 Phase: 7 of 8 (Customer, Ticketing & Payment) — In Progress
-Plan: 07-01 complete (Customer CRUD)
-Status: UNIFY complete, ready for next plan
-Last activity: 2026-04-16 — Completed 07-01 (Customer CRUD) with UNIFY
+Plan: 07-02 complete, ready for 07-03
+Status: UNIFY complete, ready for next PLAN
+Last activity: 2026-04-16 — Completed 07-02 (Booking Management) with booking+ticket entity slices and full CRUD UI
 
 ## Loop Position
 
@@ -25,7 +25,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 Progress:
 - Milestone: [██████░░░░] 75% (6 of 8 phases complete)
-- Phase 7: [█░░░░░░░░░] 25% (1 of 4 plans: 07-01 complete)
+- Phase 7: [███░░░░░░░] 50% (2 of 4 plans: 07-01 complete, 07-02 complete)
 
 ## Accumulated Context
 
@@ -76,6 +76,7 @@ Progress:
 - 2026-04-16: Enterprise audit on 07-01-PLAN.md. Applied 2 must-have (phone_number trim in serializeToInsert — prevents UNIQUE bypass; email/id_card_number empty→null flagged as correctness-critical for UNIQUE nullable columns — PostgreSQL allows multiple NULLs but rejects multiple empty strings), 8 strongly-recommended (phone regex validation; id_card_number trim; date_of_birth future date guard; gender Select uses DB values directly; search trim before ilike; auth-expiry on list page; AC-6 strengthened; npm run build in Task 3 verify). Deferred 3. Verdict: conditionally acceptable (now ready).
 - 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: Enterprise audit on 07-02-PLAN.md. Applied 3 must-have (compensating transaction for non-atomic booking+ticket creation — delete orphaned booking on ticket failure; price default uses trip.price_override ?? route.base_price precedence; cancel payment sync splits 'completed'→'refunded' and 'pending'→'failed'), 7 strongly-recommended (trip status filter for creation dropdown — only scheduled/in_progress; search trim before ilike; FK dropdown FK_DROPDOWN_PAGE_SIZE + truncation warning; 23514 CHECK mapping with explicit Vietnamese text; double-booking race condition documented as expected; close guard skipped during isPending; npm run build in Task 2 verify). Deferred 5 (optimistic concurrency, Supabase RPC atomicity, confirmation workflow, permission-gated UI, URL-synced filters). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -87,16 +88,16 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: User requested pause after 07-01 complete
-Next action: Run /paul:plan 07-02 to start Booking Management
-Resume file: .paul/HANDOFF-2026-04-16.md
-Git strategy: master (committed: 4e2bc57)
+Stopped at: Plan 07-02 (Booking Management) complete
+Next action: Run /paul:plan for 07-03 (Seat Map & QR)
+Resume file: .paul/phases/07-customer-ticketing-payment/07-02-SUMMARY.md
+Git strategy: master
 Resume context:
 - Phase 7 in progress: Customer, Ticketing & Payment
-- Plan 07-01 (Customer CRUD) complete: entity slice, CRUD UI, router integration, UNIFY closed
-- 3 plans remaining: 07-02 Booking Management, 07-03 Seat Map & QR, 07-04 Payment Management
-- Bookings and Payments still have PlaceholderPage in router
-- All changes committed to main (4e2bc57)
+- Plan 07-02 complete: booking+ticket entity slices, list/create/detail/cancel/delete UI, router integration
+- 2 plans remaining: 07-03 Seat Map & QR, 07-04 Payment Management
+- Bookings CRUD fully functional, Payments still has PlaceholderPage
+- Auto-fixes applied: DialogTitle accessibility, useFormContext props pattern
 
 ---
 *STATE.md — Updated after every significant action*
