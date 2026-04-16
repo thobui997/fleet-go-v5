@@ -6,10 +6,10 @@ import type {
 } from '../model/types';
 
 const BOOKING_SELECT =
-  '*, customer:customers!inner(id, full_name, phone_number), trip:trips(id, departure_time, route:routes(id, name, origin_station:stations!routes_origin_station_fk(id, name), destination_station:stations!routes_destination_station_fk(id, name)), vehicle:vehicles(id, license_plate))';
+  '*, customer:customers!inner(id, full_name, phone_number), trip:trips(id, departure_time, route:routes(id, name, origin_station:stations!routes_origin_station_fk(id, name), destination_station:stations!routes_destination_station_fk(id, name)), vehicle:vehicles(id, license_plate, vehicle_type:vehicle_types(id, name, seat_layout, total_seats)))';
 
 const BOOKING_WITH_TICKETS_SELECT =
-  '*, customer:customers!inner(id, full_name, phone_number), trip:trips(id, departure_time, route:routes(id, name, origin_station:stations!routes_origin_station_fk(id, name), destination_station:stations!routes_destination_station_fk(id, name)), vehicle:vehicles(id, license_plate)), tickets(id, seat_number, passenger_name, passenger_phone, passenger_id_card, price, status)';
+  '*, customer:customers!inner(id, full_name, phone_number), trip:trips(id, departure_time, route:routes(id, name, origin_station:stations!routes_origin_station_fk(id, name), destination_station:stations!routes_destination_station_fk(id, name)), vehicle:vehicles(id, license_plate, vehicle_type:vehicle_types(id, name, seat_layout, total_seats))), tickets!tickets_booking_id_fkey(id, seat_number, passenger_name, passenger_phone, passenger_id_card, price, status, qr_code)';
 
 export async function fetchBookings(
   params: BookingListParams,
@@ -56,6 +56,7 @@ export async function fetchBooking(id: string): Promise<BookingWithDetails & { t
   passenger_id_card: string | null;
   price: number;
   status: string;
+  qr_code: string | null;
 }> }> {
   const { data, error } = await supabase
     .from('bookings')
@@ -73,6 +74,7 @@ export async function fetchBooking(id: string): Promise<BookingWithDetails & { t
     passenger_id_card: string | null;
     price: number;
     status: string;
+    qr_code: string | null;
   }>};
 }
 
@@ -111,10 +113,11 @@ export async function createBookingWithTickets(
 
   const booking = bookingData as { id: string; booking_code: string };
 
-  // Step 2: Insert tickets with booking_id
+  // Step 2: Insert tickets with booking_id and qr_code
   const ticketsToInsert = input.tickets.map(t => ({
     ...t,
     booking_id: booking.id,
+    qr_code: `${booking.booking_code}-${t.seat_number.trim()}`,
   }));
 
   const { error: ticketsError } = await supabase

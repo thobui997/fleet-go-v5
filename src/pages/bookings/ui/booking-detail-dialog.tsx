@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, QrCode } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -9,9 +9,12 @@ import {
   useToast,
 } from '@shared/ui';
 import { useBooking, useCancelBooking } from '@entities/booking';
+import { useTripBookedSeats } from '@entities/ticket';
+import { SeatMap } from '@entities/vehicle-type';
 import { formatCurrency, formatDateTime } from '@shared/lib';
 import type { BookingWithDetails } from '@entities/booking';
 import { BookingDeleteDialog } from './booking-delete-dialog';
+import { TicketQrDialog } from './ticket-qr-dialog';
 
 interface BookingDetailDialogProps {
   open: boolean;
@@ -43,8 +46,10 @@ export function BookingDetailDialog({
   const { toast } = useToast();
   const cancelMutation = useCancelBooking();
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [qrTicket, setQrTicket] = React.useState<any>(null);
 
   const { data: fullBooking, isLoading } = useBooking(booking.id);
+  const { data: bookedSeats = [] } = useTripBookedSeats(booking.trip_id);
 
   const canCancel = booking.status === 'pending' || booking.status === 'confirmed';
   const canDelete = booking.status === 'pending';
@@ -141,6 +146,19 @@ export function BookingDetailDialog({
             </div>
           </div>
 
+          {/* Seat Map */}
+          {(bookingWithDetails.trip?.vehicle?.vehicle_type?.seat_layout &&
+            Object.keys(bookingWithDetails.trip.vehicle.vehicle_type.seat_layout).length > 0) && (
+            <div className="space-y-2">
+              <h3 className="font-semibold">Sơ đồ ghế</h3>
+              <SeatMap
+                layout={bookingWithDetails.trip.vehicle.vehicle_type.seat_layout as Record<string, { rows: number; seats_per_row: number }>}
+                bookedSeats={bookedSeats}
+                mode="view"
+              />
+            </div>
+          )}
+
           {/* Tickets Table */}
           <div className="space-y-2">
             <h3 className="font-semibold">Danh sách vé</h3>
@@ -154,6 +172,7 @@ export function BookingDetailDialog({
                     <th className="px-3 py-2 text-left font-medium">CMND</th>
                     <th className="px-3 py-2 text-right font-medium">Giá</th>
                     <th className="px-3 py-2 text-left font-medium">Trạng thái</th>
+                    <th className="px-3 py-2 text-center font-medium">QR</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -176,6 +195,18 @@ export function BookingDetailDialog({
                            ticket.status === 'cancelled' ? 'Đã hủy' :
                            ticket.status}
                         </span>
+                      </td>
+                      <td className="px-3 py-2 text-center">
+                        {ticket.qr_code && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setQrTicket(ticket)}
+                          >
+                            <QrCode className="h-4 w-4" />
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -234,6 +265,18 @@ export function BookingDetailDialog({
           open={deleteOpen}
           onOpenChange={setDeleteOpen}
           booking={booking}
+        />
+
+        <TicketQrDialog
+          open={!!qrTicket}
+          onOpenChange={(open) => !open && setQrTicket(null)}
+          ticket={qrTicket}
+          tripInfo={bookingWithDetails.trip ? {
+            route_name: bookingWithDetails.trip.route?.name ?? null,
+            departure_time: bookingWithDetails.trip.departure_time,
+            origin_station: bookingWithDetails.trip.route?.origin_station?.name ?? null,
+            destination_station: bookingWithDetails.trip.route?.destination_station?.name ?? null,
+          } : undefined}
         />
       </DialogContent>
     </Dialog>

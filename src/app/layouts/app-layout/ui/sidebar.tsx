@@ -17,6 +17,7 @@ import {
   CalendarClock,
   UserCircle,
   Ticket,
+  ScanLine,
   CreditCard,
   ChevronLeft,
   ChevronRight,
@@ -37,6 +38,7 @@ const navGroups = [
       { label: 'Trips', to: ROUTES.TRIPS, icon: Calendar, end: true },
       { label: 'Trip Calendar', to: ROUTES.TRIP_CALENDAR, icon: CalendarDays, end: true },
       { label: 'My Schedule', to: ROUTES.MY_SCHEDULE, icon: CalendarClock, end: true },
+      { label: 'Check-in', to: ROUTES.CHECK_IN, icon: ScanLine, end: true },
     ],
   },
   {

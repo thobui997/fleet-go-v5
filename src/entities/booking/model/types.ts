@@ -34,7 +34,16 @@ export interface BookingWithDetails extends Booking {
       origin_station: { id: string; name: string } | null;
       destination_station: { id: string; name: string } | null;
     } | null;
-    vehicle: { id: string; license_plate: string } | null;
+    vehicle: {
+      id: string;
+      license_plate: string;
+      vehicle_type: {
+        id: string;
+        name: string;
+        seat_layout: Record<string, unknown>;
+        total_seats: number;
+      } | null;
+    } | null;
   } | null;
 }
 

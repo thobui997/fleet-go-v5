@@ -11,9 +11,9 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 Milestone: v0.1 MVP
 Phase: 7 of 8 (Customer, Ticketing & Payment) — In Progress
-Plan: 07-02 complete, ready for 07-03
+Plan: 07-03 complete
 Status: UNIFY complete, ready for next PLAN
-Last activity: 2026-04-16 — Completed 07-02 (Booking Management) with booking+ticket entity slices and full CRUD UI
+Last activity: 2026-04-16 — Closed loop for 07-03 (Seat Map, QR & Ticket Operations)
 
 ## Loop Position
 
@@ -25,7 +25,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 Progress:
 - Milestone: [██████░░░░] 75% (6 of 8 phases complete)
-- Phase 7: [███░░░░░░░] 50% (2 of 4 plans: 07-01 complete, 07-02 complete)
+- Phase 7: [████░░░░░░] 75% (3 of 4 plans complete, 07-04 pending)
 
 ## Accumulated Context
 
@@ -77,6 +77,9 @@ Progress:
 - 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 - 2026-04-16: Enterprise audit on 07-02-PLAN.md. Applied 3 must-have (compensating transaction for non-atomic booking+ticket creation — delete orphaned booking on ticket failure; price default uses trip.price_override ?? route.base_price precedence; cancel payment sync splits 'completed'→'refunded' and 'pending'→'failed'), 7 strongly-recommended (trip status filter for creation dropdown — only scheduled/in_progress; search trim before ilike; FK dropdown FK_DROPDOWN_PAGE_SIZE + truncation warning; 23514 CHECK mapping with explicit Vietnamese text; double-booking race condition documented as expected; close guard skipped during isPending; npm run build in Task 2 verify). Deferred 5 (optimistic concurrency, Supabase RPC atomicity, confirmation workflow, permission-gated UI, URL-synced filters). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: Enterprise audit on 07-03-PLAN.md. Applied 2 must-have (TicketInsert type must include qr_code — remove from Omit list for TypeScript compilation; context-aware PGRST116 error mapping — 'lookup' vs 'check-in' contexts produce distinct Vietnamese messages), 5 strongly-recommended (seat_layout runtime validation for malformed JSONB; cancelled/refunded booking warning banner + disabled check-in buttons + new AC-2b; bulk check-in confirm() dialog; TicketQrDialog tripInfo prop for print display; explicit check-in loading state specification). Deferred 4 (QR predictability, seat numbering >26 rows, permission-gated UI, webcam QR scanning). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: **Plan 07-03 executed** — Seat Map, Check-in Page, and QR Code features delivered. SeatMap component supports multi-floor layouts with runtime validation. Check-in page with context-aware error mapping and cancelled booking guards. QR codes generated deterministically on ticket creation. All acceptance criteria met. Build passes with zero errors.
+- 2026-04-16: **Loop 07-03 closed** — Auto-fix applied for PostgREST PGRST201 relationship ambiguity. Added explicit FK constraint `!tickets_booking_id_fkey` to booking detail and check-in queries to resolve composite FK ambiguity between bookings and tickets tables.
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -88,16 +91,17 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Plan 07-02 (Booking Management) complete
-Next action: Run /paul:plan for 07-03 (Seat Map & QR)
-Resume file: .paul/phases/07-customer-ticketing-payment/07-02-SUMMARY.md
-Git strategy: master
+Stopped at: Session paused with WIP committed to main
+Next action: Resume with /paul:progress or /paul:plan for 07-04
+Resume file: .paul/HANDOFF-2026-04-16.md
+Git strategy: main (commit: 534ab3c)
 Resume context:
 - Phase 7 in progress: Customer, Ticketing & Payment
-- Plan 07-02 complete: booking+ticket entity slices, list/create/detail/cancel/delete UI, router integration
-- 2 plans remaining: 07-03 Seat Map & QR, 07-04 Payment Management
-- Bookings CRUD fully functional, Payments still has PlaceholderPage
-- Auto-fixes applied: DialogTitle accessibility, useFormContext props pattern
+- Plans 07-01, 07-02, 07-03 complete; 07-04 Payment Management pending
+- SeatMap component, Check-in page, and QR code features delivered in 07-03
+- Auto-fix applied: PostgREST PGRST201 FK ambiguity resolved
+- Build passes with zero errors
+- Enterprise audit enabled
 
 ---
 *STATE.md — Updated after every significant action*

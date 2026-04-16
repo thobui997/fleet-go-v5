@@ -20,7 +20,7 @@ Phases: 6 of 8 complete, Phase 7 planning
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
 | 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
-| 7 | Customer, Ticketing & Payment | 4 | Planning | - |
+| 7 | Customer, Ticketing & Payment | 4 | In Progress | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
 
 ## Phase Details

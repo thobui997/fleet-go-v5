@@ -12,3 +12,6 @@ export {
   useUpdateVehicleType,
   useDeleteVehicleType,
 } from './api/vehicle-type.queries';
+
+export { SeatMap } from './ui/seat-map';
+export type { SeatMapProps } from './ui/seat-map';

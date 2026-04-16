@@ -14,6 +14,7 @@ import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
 import { BookingsPage } from '@pages/bookings';
+import { CheckInPage } from '@pages/check-in';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -57,6 +58,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.MY_SCHEDULE, element: <MySchedulePage /> },
       { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
       { path: ROUTES.BOOKINGS, element: <BookingsPage /> },
+      { path: ROUTES.CHECK_IN, element: <CheckInPage /> },
       { path: ROUTES.PAYMENTS, element: <PlaceholderPage title="Payments" /> },
     ],
   },
