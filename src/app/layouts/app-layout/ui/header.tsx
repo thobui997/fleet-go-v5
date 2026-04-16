@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@shared/auth/use-auth';
+import { useAuth, useProfile } from '@shared/auth';
+import { getInitials } from '@shared/lib/get-initials';
 import { Menu, Sun, Moon, LogOut } from 'lucide-react';
 import { Button } from '@shared/ui/button';
 import { useToast } from '@shared/ui/use-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@shared/ui/dropdown-menu';
 
 export interface HeaderProps {
   onMobileMenuToggle: () => void;
@@ -11,6 +20,7 @@ export interface HeaderProps {
 
 export function Header({ onMobileMenuToggle }: HeaderProps) {
   const { user, logout } = useAuth();
+  const { data: profile } = useProfile();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isDark, setIsDark] = React.useState(
@@ -52,6 +62,9 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
     }
   };
 
+  const displayName = profile?.full_name || user?.email || '';
+  const initials = getInitials(profile?.full_name, user?.email);
+
   return (
     <header className="sticky top-0 z-20 h-14 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-full items-center justify-between">
@@ -67,14 +80,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         </Button>
 
         {/* Right side - user actions */}
-        <div className="flex items-center gap-2">
-          {/* User email */}
-          {user?.email && (
-            <span className="max-w-[200px] truncate text-sm text-muted-foreground hidden sm:inline-block">
-              {user.email}
-            </span>
-          )}
-
+        <div className="ml-auto flex items-center gap-2">
           {/* Dark mode toggle */}
           <Button
             variant="ghost"
@@ -85,15 +91,32 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 
-          {/* Logout */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleLogout}
-            aria-label="Log out"
-          >
-            <LogOut className="h-5 w-5" />
-          </Button>
+          {/* User avatar + dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                aria-label="User menu"
+              >
+                {initials}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">{displayName}</p>
+                  {user?.email && (
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  )}
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Đăng xuất
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
