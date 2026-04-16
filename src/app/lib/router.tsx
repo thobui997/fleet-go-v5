@@ -9,6 +9,7 @@ import { StationsPage } from '@pages/stations';
 import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
 import { EmployeesPage } from '@pages/employees';
+import { TripsPage } from '@pages/trips';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.MAINTENANCE, element: <MaintenancePage /> },
       { path: ROUTES.ROUTES, element: <RoutesPage /> },
       { path: ROUTES.STATIONS, element: <StationsPage /> },
-      { path: ROUTES.TRIPS, element: <PlaceholderPage title="Trips" /> },
+      { path: ROUTES.TRIPS, element: <TripsPage /> },
       { path: ROUTES.TRIP_CALENDAR, element: <PlaceholderPage title="Trip Calendar" /> },
       { path: ROUTES.EMPLOYEES, element: <EmployeesPage /> },
       { path: ROUTES.ROLES, element: <RolesPage /> },
