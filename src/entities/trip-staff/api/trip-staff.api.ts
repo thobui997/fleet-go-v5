@@ -1,5 +1,6 @@
 import { supabase } from '@shared/api';
 import type {
+  ScheduleItem,
   StaffConflict,
   StaffRole,
   TripStaffInsert,
@@ -103,4 +104,64 @@ export async function fetchStaffConflicts(
   }
 
   return conflicts;
+}
+
+/**
+ * Fetch trips assigned to an employee for "My Schedule" page.
+ *
+ * Step 1: Find employee record for the user
+ * Step 2: If PGRST116 (no employee record), return empty array (expected case)
+ * Step 3: Fetch trip_staff with trip details for that employee
+ * Step 4: Sort client-side by departure_time (PostgREST nested join ordering unreliable)
+ *
+ * @param userId - Supabase auth user ID
+ * @returns Array of schedule items, empty if user has no employee record
+ * @throws Error with status/code for auth-expiry handling (401/403/PGRST301)
+ */
+export async function fetchMySchedule(
+  userId: string
+): Promise<ScheduleItem[]> {
+  // Step 1: Find employee for this user
+  const { data: employee, error: employeeError } = await supabase
+    .from('employees')
+    .select('id')
+    .eq('user_id', userId)
+    .eq('is_active', true)
+    .single();
+
+  // Step 2: PGRST116 = no employee row (expected case for non-employee users)
+  if (employeeError?.code === 'PGRST116') {
+    return [];
+  }
+
+  // Re-throw other errors
+  if (employeeError) {
+    // Note: PostgrestError doesn't have status property
+    throw employeeError;
+  }
+
+  const employeeId = employee!.id;
+
+  // Step 3: Fetch trip_staff with trip details
+  const { data, error } = await supabase
+    .from('trip_staff')
+    .select(
+      'role, notes, trip:trips(id, departure_time, estimated_arrival_time, status, price_override, route:routes(id, name, origin_station:stations!routes_origin_station_fk(id, name), destination_station:stations!routes_destination_station_fk(id, name)), vehicle:vehicles(id, license_plate))'
+    )
+    .eq('employee_id', employeeId);
+
+  if (error) {
+    // Note: PostgrestError doesn't have status property
+    throw error;
+  }
+
+  // Step 4: Sort client-side by departure_time (PostgREST ordering unreliable for nested joins)
+  const results = (data ?? []) as any[];
+  results.sort(
+    (a, b) =>
+      new Date(a.trip.departure_time).getTime() -
+      new Date(b.trip.departure_time).getTime()
+  );
+
+  return results as ScheduleItem[];
 }

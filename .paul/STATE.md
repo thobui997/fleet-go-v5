@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 of 8 (Trip Scheduling) — Planning
-Plan: 06-03 created + audited, awaiting approval
-Status: PLAN audited, ready for APPLY
-Last activity: 2026-04-16 — Audited 06-03 Calendar View + My Schedule plan
+Phase: 6 of 8 (Trip Scheduling) — Complete
+Plan: 06-03 complete, SUMMARY created
+Status: Phase complete, ready for Phase 7 transition
+Last activity: 2026-04-16 — Completed 06-03 Calendar View + My Schedule, closed loop with UNIFY
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plan created, awaiting approval]
+  ✓        ✓        ✓     [Loop complete - Phase 6 done]
 ```
 
 Progress:
-- Milestone: [█████░░░░░] 62% (5 of 8 phases complete)
-- Phase 6: [█████░░░░░] 67% (2 of 3 plans complete: 06-01 ✓, 06-02 ✓, 06-03 pending)
+- Milestone: [██████░░░░] 75% (6 of 8 phases complete)
+- Phase 6: [██████████] 100% (3 of 3 plans complete: 06-01 ✓, 06-02 ✓, 06-03 ✓)
 
 ## Accumulated Context
 
@@ -72,6 +72,7 @@ Progress:
 - 2026-04-16: Enterprise audit on 06-02-PLAN.md. Applied 1 must-have (error mapper uses `message` not `details` for 23505 constraint name discrimination — constraint name is in PostgreSQL `message` field, `details` contains key/value pairs only), 4 strongly-recommended (driver-already-exists pre-check before Add click; read-only mode for completed/cancelled trips; useEffect reset on trip change; staff list loading state). Deferred 2 (driver removal confirmation; employee name fallback). Verdict: conditionally acceptable (now ready).
 - 2026-04-16: Plan 06-02 execution — Fixed Supabase query for trip-staff entity: added `user_id` field to employee join (`employee:employees(id, user_id, is_active, profiles(...))`) for proper profile relationship resolution through auth.users. Without `user_id`, nested join to profiles returned null, causing "N/A" display in dropdown and staff list.
 - 2026-04-16: Enterprise audit on 06-03-PLAN.md. Applied 1 must-have (PGRST116 catch for employee `.single()` — prevents crash when user has no employee record), 4 strongly-recommended (auth-expiry 401/403/PGRST301 handling on both pages; today cell highlight in calendar grid; full-date grouping instead of day-number-only; client-side sort as primary for fetchMySchedule). Deferred 2 (URL-synced calendar month; calendar trip click-through). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: **Phase 6 complete** — Trip Scheduling phase delivered with Trip CRUD (06-01), Staff Assignment with conflict validation (06-02), and Calendar View + My Schedule (06-03). All placeholder routes replaced with functional pages. Auto-fix: Sidebar active state now uses exact matching (end: true) to prevent false positives between /trips and /trips/calendar.
 - 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 
@@ -85,16 +86,15 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Plan 06-03 created + audited, awaiting approval
-Next action: /paul:apply .paul/phases/06-trip-scheduling/06-03-PLAN.md
-Resume file: .paul/HANDOFF-2026-04-16.md
+Stopped at: Plan 06-03 complete, Phase 6 done
+Next action: Phase 7 transition (Customer, Ticketing & Payment)
+Resume file: .paul/phases/06-trip-scheduling/06-03-SUMMARY.md
 Git strategy: master
 Resume context:
-- Plan 06-03 AUDITED: Calendar View (monthly dayjs grid) + My Schedule (employee assigned trips)
-- Audit applied 1 must-have (PGRST116 catch) + 4 strongly-recommended (auth-expiry, today highlight, full-date grouping, client-side sort)
-- Scope: 2 tasks + human-verify checkpoint, replaces both placeholder routes
-- Skills required before APPLY: /frontend-design, /feature-sliced-design
-- No new npm dependencies — dayjs + Tailwind CSS grid for calendar
+- Phase 6 COMPLETE: Trip CRUD (06-01), Staff Assignment (06-02), Calendar & Schedule (06-03)
+- All acceptance criteria met, npm run build passes
+- Sidebar active state bug fixed (added end: true to nav items)
+- Next: Phase 7 (Customer, Ticketing & Payment)
 
 ---
 *STATE.md — Updated after every significant action*

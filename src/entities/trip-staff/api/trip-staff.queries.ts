@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   addTripStaff,
+  fetchMySchedule,
   fetchStaffConflicts,
   fetchTripStaff,
   removeTripStaff,
@@ -46,5 +47,13 @@ export function useStaffConflicts(
     queryKey: ['staff-conflicts', employeeId, departureTime, arrivalTime, excludeTripId],
     queryFn: () => fetchStaffConflicts(employeeId, departureTime, arrivalTime, excludeTripId),
     enabled: !!employeeId,
+  });
+}
+
+export function useMySchedule(userId: string) {
+  return useQuery({
+    queryKey: ['my-schedule', userId],
+    queryFn: () => fetchMySchedule(userId),
+    enabled: !!userId,
   });
 }

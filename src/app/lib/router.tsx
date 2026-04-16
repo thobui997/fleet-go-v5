@@ -10,6 +10,8 @@ import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
 import { EmployeesPage } from '@pages/employees';
 import { TripsPage } from '@pages/trips';
+import { CalendarPage } from '@pages/trip-calendar';
+import { MySchedulePage } from '@pages/my-schedule';
 import { AppLayout } from '@app/layouts';
 
 function PlaceholderPage({ title }: { title: string }) {
@@ -47,10 +49,10 @@ export const router = createBrowserRouter([
       { path: ROUTES.ROUTES, element: <RoutesPage /> },
       { path: ROUTES.STATIONS, element: <StationsPage /> },
       { path: ROUTES.TRIPS, element: <TripsPage /> },
-      { path: ROUTES.TRIP_CALENDAR, element: <PlaceholderPage title="Trip Calendar" /> },
+      { path: ROUTES.TRIP_CALENDAR, element: <CalendarPage /> },
       { path: ROUTES.EMPLOYEES, element: <EmployeesPage /> },
       { path: ROUTES.ROLES, element: <RolesPage /> },
-      { path: ROUTES.MY_SCHEDULE, element: <PlaceholderPage title="My Schedule" /> },
+      { path: ROUTES.MY_SCHEDULE, element: <MySchedulePage /> },
       { path: ROUTES.CUSTOMERS, element: <PlaceholderPage title="Customers" /> },
       { path: ROUTES.BOOKINGS, element: <PlaceholderPage title="Bookings" /> },
       { path: ROUTES.PAYMENTS, element: <PlaceholderPage title="Payments" /> },

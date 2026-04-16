@@ -15,7 +15,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Type | Application |
 | Version | 0.1.0 |
 | Status | In Development |
-| Last Updated | 2026-04-15 |
+| Last Updated | 2026-04-16 |
 
 ## Requirements
 
@@ -44,14 +44,14 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Vehicle Management:** Vehicle Types CRUD with JSON seat layout configurator; Vehicles CRUD with status management, FK dropdown, debounced search; Maintenance Logs CRUD with vehicle/type filters, cost tracking, date cross-field validation — Phase 3
 - **Route & Station Management:** Station CRUD (name/city/lat-lng/is_active); Route CRUD with FK dropdowns and duration parsing; Route Stops Editor with @dnd-kit drag-and-drop reorder, bulk-replace save (DELETE then INSERT) — Phase 4
 - **Employee & Role Management:** Dynamic Role CRUD with permissions chip editor (JSONB array); Employee CRUD with profiles JOIN, license expiry alert badges (30-day/expired), user dropdown, role assignment via user_roles — Phase 5
+- **Trip Scheduling:** Trip CRUD with route/vehicle/time assignment; Staff assignment with conflict validation (max 1 driver per trip, no overlapping schedules); Trip Calendar page (monthly grid view with dayjs, Vietnamese headers); My Schedule page (employee assigned trips with upcoming/past split) — Phase 6
 
 ### Active (In Progress)
 
-- Phase 6: Trip Scheduling — Trip creation, conflict validation, schedule views
+- Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
 
 ### Planned (Next)
 
-- Phase 6: Trip scheduling with calendar — Trip creation, conflict validation, schedule views
 - Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
 - Phase 8: Dashboard & Analytics — Real-time statistics, quick views, operational insights
 
@@ -184,4 +184,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-15 after Phase 5 complete*
+*Last updated: 2026-04-16 after Phase 6 complete*

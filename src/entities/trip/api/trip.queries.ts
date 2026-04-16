@@ -4,6 +4,7 @@ import {
   deleteTrip,
   fetchTrip,
   fetchTrips,
+  fetchTripsByDateRange,
   updateTrip,
 } from './trip.api';
 import type {
@@ -55,5 +56,13 @@ export function useDeleteTrip() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['trips'] });
     },
+  });
+}
+
+export function useTripsByDateRange(params: { startDate: string; endDate: string }) {
+  return useQuery({
+    queryKey: ['trips', 'calendar', params.startDate, params.endDate],
+    queryFn: () => fetchTripsByDateRange(params.startDate, params.endDate),
+    enabled: !!params.startDate && !!params.endDate,
   });
 }

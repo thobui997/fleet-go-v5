@@ -38,3 +38,25 @@ export interface StaffConflict {
     route: { name: string } | null;
   };
 }
+
+/**
+ * Schedule item for My Schedule page.
+ * Represents a trip assigned to an employee with full trip details.
+ */
+export interface ScheduleItem {
+  role: StaffRole;
+  notes: string | null;
+  trip: {
+    id: string;
+    departure_time: string;
+    estimated_arrival_time: string;
+    status: string;
+    route: {
+      id: string;
+      name: string;
+      origin_station: { id: string; name: string } | null;
+      destination_station: { id: string; name: string } | null;
+    } | null;
+    vehicle: { id: string; license_plate: string } | null;
+  };
+}

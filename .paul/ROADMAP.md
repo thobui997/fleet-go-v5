@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (5 of 8 phases complete)
-Phases: 5 of 8 complete, Phase 6 planning
+Status: In progress (6 of 8 phases complete)
+Phases: 6 of 8 complete, Phase 7 planning next
 
 ## Phases
 
@@ -19,7 +19,7 @@ Phases: 5 of 8 complete, Phase 6 planning
 | 3 | Vehicle Management | 3 | ✅ Complete | 2026-04-14 |
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
-| 6 | Trip Scheduling | 3 | Planning | - |
+| 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
 | 7 | Customer, Ticketing & Payment | TBD | Not started | - |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
 
@@ -119,9 +119,9 @@ Phases: 5 of 8 complete, Phase 6 planning
 - To be defined during planning
 
 **Plans:**
-- [ ] 06-01: Trip CRUD (entity slice + list page + form dialog + delete + router)
-- [ ] 06-02: Staff Assignment & Conflict Validation (depends on 06-01)
-- [ ] 06-03: Calendar View + My Schedule (depends on 06-01)
+- [x] 06-01: Trip CRUD (entity slice + list page + form dialog + delete + router)
+- [x] 06-02: Staff Assignment & Conflict Validation (depends on 06-01)
+- [x] 06-03: Calendar View + My Schedule (depends on 06-01)
 
 ### Phase 7: Customer, Ticketing & Payment
 
@@ -149,4 +149,4 @@ Phases: 5 of 8 complete, Phase 6 planning
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-15 — Phase 5 complete: Roles CRUD + Employees CRUD with profiles JOIN and license expiry alerts delivered*
+*Last updated: 2026-04-16 — Phase 6 complete: Trip CRUD, Staff Assignment with conflict validation, Calendar View + My Schedule delivered*

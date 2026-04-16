@@ -15,4 +15,5 @@ export {
   useCreateTrip,
   useUpdateTrip,
   useDeleteTrip,
+  useTripsByDateRange,
 } from './api/trip.queries';

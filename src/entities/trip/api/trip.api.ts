@@ -90,3 +90,33 @@ export async function deleteTrip(id: string): Promise<void> {
 
   if (error) throw error;
 }
+
+/**
+ * Fetch trips within a date range for calendar view.
+ * Returns all trips with route/vehicle details, ordered by departure_time ascending.
+ * No pagination — calendar needs all trips for the visible month.
+ *
+ * @param startDate - Start date in YYYY-MM-DD format
+ * @param endDate - End date in YYYY-MM-DD format
+ * @returns Array of trips with details
+ * @throws Error with status/code for auth-expiry handling (401/403/PGRST301)
+ */
+export async function fetchTripsByDateRange(
+  startDate: string,
+  endDate: string
+): Promise<TripWithDetails[]> {
+  const { data, error } = await supabase
+    .from('trips')
+    .select(TRIP_SELECT)
+    .gte('departure_time', `${startDate}T00:00:00`)
+    .lte('departure_time', `${endDate}T23:59:59`)
+    .order('departure_time', { ascending: true });
+
+  if (error) {
+    // Preserve error code for auth-expiry detection in UI
+    // Note: PostgrestError doesn't have status property, use message/hints instead
+    throw error;
+  }
+
+  return (data ?? []) as TripWithDetails[];
+}

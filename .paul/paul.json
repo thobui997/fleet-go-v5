@@ -9,7 +9,7 @@
   "phase": {
     "number": 6,
     "name": "Trip Scheduling",
-    "status": "not_started"
+    "status": "complete"
   },
   "loop": {
     "plan": null,
@@ -17,7 +17,7 @@
   },
   "timestamps": {
     "created_at": "2026-04-10T00:00:00.000Z",
-    "updated_at": "2026-04-15T00:00:00.000Z"
+    "updated_at": "2026-04-16T00:00:00.000Z"
   },
   "satellite": {
     "groom": true

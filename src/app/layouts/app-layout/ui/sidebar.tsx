@@ -34,9 +34,9 @@ const navGroups = [
     label: 'Operations',
     items: [
       { label: 'Dashboard', to: ROUTES.DASHBOARD, icon: LayoutDashboard, end: true },
-      { label: 'Trips', to: ROUTES.TRIPS, icon: Calendar },
-      { label: 'Trip Calendar', to: ROUTES.TRIP_CALENDAR, icon: CalendarDays },
-      { label: 'My Schedule', to: ROUTES.MY_SCHEDULE, icon: CalendarClock },
+      { label: 'Trips', to: ROUTES.TRIPS, icon: Calendar, end: true },
+      { label: 'Trip Calendar', to: ROUTES.TRIP_CALENDAR, icon: CalendarDays, end: true },
+      { label: 'My Schedule', to: ROUTES.MY_SCHEDULE, icon: CalendarClock, end: true },
     ],
   },
   {
