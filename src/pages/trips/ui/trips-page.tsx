@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
+import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Users } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -23,6 +23,7 @@ import type { TripStatus } from '@entities/trip';
 import { TripFormDialog } from './trip-form-dialog';
 import { TripStatusBadge } from './trip-status-badge';
 import { TripDeleteDialog } from './trip-delete-dialog';
+import { StaffAssignmentDialog } from './staff-assignment-dialog';
 import { mapTripError, FK_DROPDOWN_PAGE_SIZE } from '../model/trip-form-schema';
 
 type TripValue = TripWithDetails[keyof TripWithDetails];
@@ -50,6 +51,7 @@ export function TripsPage() {
   const [dateTo, setDateTo] = React.useState('');
   const [formOpen, setFormOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [staffDialogOpen, setStaffDialogOpen] = React.useState(false);
   const [selectedTrip, setSelectedTrip] = React.useState<TripWithDetails | null>(null);
   const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
 
@@ -122,6 +124,15 @@ export function TripsPage() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => {
+                setSelectedTrip(row);
+                setStaffDialogOpen(true);
+              }}
+            >
+              <Users className="mr-2 h-4 w-4" />
+              Phân công
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 setSelectedTrip(row);
@@ -284,6 +295,12 @@ export function TripsPage() {
       <TripDeleteDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
+        trip={selectedTrip}
+      />
+
+      <StaffAssignmentDialog
+        open={staffDialogOpen}
+        onOpenChange={setStaffDialogOpen}
         trip={selectedTrip}
       />
     </div>

@@ -11,21 +11,21 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 Milestone: v0.1 MVP
 Phase: 6 of 8 (Trip Scheduling) — In Progress
-Plan: 06-01 complete (APPLY → UNIFY)
-Status: Loop complete, ready for next plan
-Last activity: 2026-04-16 — Completed 06-01 Trip CRUD
+Plan: 06-03 pending (06-01 ✓, 06-02 complete)
+Status: Ready for next PLAN
+Last activity: 2026-04-16 — Completed 06-02 Staff Assignment & Conflict Validation
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
+  ✓        ✓        ✓     [06-02 complete, ready for 06-03]
 ```
 
 Progress:
 - Milestone: [█████░░░░░] 62% (5 of 8 phases complete)
-- Phase 6: [███░░░░░░░] 33% (1 of 3 plans complete: 06-01 ✓, 06-02 pending, 06-03 pending)
+- Phase 6: [█████░░░░░] 67% (2 of 3 plans complete: 06-01 ✓, 06-02 ✓, 06-03 pending)
 
 ## Accumulated Context
 
@@ -69,6 +69,8 @@ Progress:
 - 2026-04-15: Enterprise audit on 05-02-PLAN.md. Applied 3 must-have (mapEmployeeError uses .code field not msg.includes for SQLSTATE; split try/catch for partial-save; useEmployeeRole useEffect undefined guard), 3 strongly-recommended (auth-expiry PGRST301/401/403 mapping; profiles truncation warning; regression checkpoint steps for router.tsx). Deferred 5. Verdict: conditionally acceptable (now ready).
 - 2026-04-15: Phase 5 complete — Roles CRUD (05-01) + Employees CRUD with profiles JOIN, license expiry alerts, user_roles assignment (05-02) delivered. Two auto-fixes: Radix Select __none__ sentinel; duplicate ColumnDef key resolved.
 - 2026-04-16: Enterprise audit on 06-01-PLAN.md. Applied 2 must-have (toDatetimeLocal timezone fix — iso.slice(0,16) shows UTC not local time; z.preprocess for price_override — z.coerce.number() coerces null→0 silently creating free trips), 5 strongly-recommended (datetime format regex; TripImport→TripInsert typo; AC-6 list error state; use formatDateTime from shared lib; regression checkpoint step). Deferred 2 (timezone-aware date range filtering; formatCurrency null edge case). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: Enterprise audit on 06-02-PLAN.md. Applied 1 must-have (error mapper uses `message` not `details` for 23505 constraint name discrimination — constraint name is in PostgreSQL `message` field, `details` contains key/value pairs only), 4 strongly-recommended (driver-already-exists pre-check before Add click; read-only mode for completed/cancelled trips; useEffect reset on trip change; staff list loading state). Deferred 2 (driver removal confirmation; employee name fallback). Verdict: conditionally acceptable (now ready).
+- 2026-04-16: Plan 06-02 execution — Fixed Supabase query for trip-staff entity: added `user_id` field to employee join (`employee:employees(id, user_id, is_active, profiles(...))`) for proper profile relationship resolution through auth.users. Without `user_id`, nested join to profiles returned null, causing "N/A" display in dropdown and staff list.
 - 2026-04-15: Enterprise audit on 04-03-PLAN.md. Applied 3 must-have (hasInitializedRef guard for background refetch race condition; SortableStopRow at module level not inline; z.preprocess for empty-string→null on optional numeric fields), 4 strongly-recommended (useRef not useId; Hủy button resets form; mapRouteStopError context='save' for non-atomic save risk; keyboard DnD step in checkpoint). Deferred 3 (station name loading state; saveRouteStops non-atomicity comment; stop row display formatting). Verdict: conditionally acceptable (now ready).
 - 2026-04-14: Enterprise audit on 03-03-PLAN.md. Applied 1 must-have (23503 error message corrected for maintenance_logs INSERT FK violation — CASCADE means 23503 cannot occur on delete, message changed to "Xe không tồn tại hoặc đã bị xóa"), 7 strongly-recommended (performed_at default to today in create dialog; FK_DROPDOWN_PAGE_SIZE constant in list page filter; explicit cost '' → 0 coercion in serializeToInsert; AC-8 updated with specific 23503 message; npm run build added to verify; human-verify checkpoint steps added for AC-8 and AC-10; cost typed as number explicitly in MaintenanceLog interface). Deferred 6 (future-date warning, Zod max conservatism, odometer cross-field, description search, overdue indicator, server-side sort). Verdict: conditionally acceptable (now ready).
 
@@ -82,46 +84,15 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Plan 06-01 complete (Trip CRUD with FK joins, filters, form dialogs)
-Next action: Plan 06-02 (Staff Assignment + Conflict Validation) or pause
-Resume file: .paul/phases/06-trip-scheduling/06-01-SUMMARY.md
+Stopped at: Plan 06-02 complete (Staff Assignment & Conflict Validation delivered)
+Next action: /paul:plan for 06-03 (Calendar View + My Schedule)
+Resume file: .paul/phases/06-trip-scheduling/06-02-SUMMARY.md
 Git strategy: master
 Resume context:
-- Plan 06-01 CREATED: Trip CRUD — entity slice + list page with status/route/date filters + form dialog with route+vehicle FK + datetime fields + cross-field validation + delete dialog + router wired
-- Phase 6 plan: 3 plans — 06-01 (Trip CRUD, ready), 06-02 (Staff Assignment + Conflict Validation, depends on 06-01), 06-03 (Calendar View + My Schedule, depends on 06-01)
-- DB schema: trips (route_id, vehicle_id, departure_time, estimated_arrival_time, status enum, price_override, notes) + trip_staff (composite PK, max 1 driver partial unique index)
-- ROUTES.TRIPS, ROUTES.TRIP_CALENDAR, ROUTES.MY_SCHEDULE already defined in routes.ts
-- Sidebar already has Trips, Trip Calendar, My Schedule nav items
-- Router has PlaceholderPage for all 3 routes
-- Plan 04-01 COMPLETE (created + audited): Stations CRUD — entity slice + list (name/city search + is_active filter) + form (lat/lng type=text, is_active Controller, inline reset useEffect) + delete + router wired
-  → Must-have #1: mapSupabaseError 23505 uses stations_name_key + details.(name) check (not generic includes('name'))
-  → Must-have #2: serializeFormDefaults removed — explicit useEffect reset for create (station===null) and edit (station!==null) modes
-  → Key audit fixes: search trim before .or(); type="text" for lat/lng; Controller for Switch; regression steps in checkpoint
-- Station DB: name+code UNIQUE; city NOT NULL; lat/lng CHECK; DELETE RESTRICT from routes+route_stops
-- Phase 4 plan: 3 plans — 04-01 (Stations, ready), 04-02 (Routes, depends on @entities/station), 04-03 (Route Stops dnd-kit)
-Git strategy: master
-Resume context:
-- Plan 03-03 COMPLETE (created + audited): Maintenance Logs CRUD — entity slice + list (vehicle/type filters) + form (FK dropdown, type select, cost, dates, odometer) + delete + type badge + router wired
-  → 1 must-have applied: 23503 = INSERT FK violation only (CASCADE) → "Xe không tồn tại hoặc đã bị xóa"
-  → Key audit fixes: performed_at default today; cost '' → 0 not null; cost: number type; FK_DROPDOWN_PAGE_SIZE constant; npm run build in verify; AC-8+AC-10 in checkpoint
-- Entity template: src/entities/vehicle/ | Page template: src/pages/vehicles/
-- No code written yet — plan + audit complete, APPLY not started
-Git strategy: master
-Resume context:
-- Phase 2 COMPLETE: 13 migration files; 16 tables; RLS + integrity triggers
-- Plan 03-01 COMPLETE: Vehicle Types CRUD + visual seat layout editor; FSD entity+page pattern established
-  → Entity slice pattern (model/types → api/[name].api → api/[name].queries → index.ts) is the template
-  → ColumnDef must be imported from @shared/ui/data-table (not barrel)
-  → Use const { toast } = useToast() pattern (not standalone import)
-- Plan 03-02 COMPLETE: Vehicles CRUD — entity slice + list (status filter + debounced search) + form (FK dropdown + status select) + delete + status badge + router wired
-  → @entities/vehicle public API available: useVehicles, useVehicle, useCreateVehicle, useUpdateVehicle, useDeleteVehicle
-  → mapSupabaseError extended: 401/403/PGRST301 auth-expiry + 22007 date format + license_plate/vin_number split 23505
-  → serializeToInsert helper: centralizes '' → null coercion for nullable fields
-  → FK dropdown pattern: FK_DROPDOWN_PAGE_SIZE=1000 + truncation warning when count > data.length
-  → Dialog close guard: onOpenChange ignores close when isPending
-  → List error state: isError → inline error + retry (not empty table)
-  → superRefine patterns: year upper bound (runtime) + maintenance date cross-field ordering
-- Plan 03-03: Maintenance Logs CRUD — depends on @entities/vehicle (useVehicles for FK dropdown)
+- Plan 06-02 COMPLETE: @entities/trip-staff entity slice + StaffAssignmentDialog with conflict validation + trips page integration
+- Fixed: Supabase query requires user_id field for proper profile join resolution
+- Phase 6 progress: 2 of 3 plans complete (06-01 ✓, 06-02 ✓, 06-03 pending)
+- 06-03 scope: Calendar View + My Schedule (depends on 06-01, uses @entities/trip-staff from 06-02)
 
 ---
 *STATE.md — Updated after every significant action*
