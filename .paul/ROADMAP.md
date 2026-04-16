@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (6 of 8 phases complete, Phase 7 planning)
-Phases: 6 of 8 complete, Phase 7 planning
+Status: In progress (7 of 8 phases complete, Phase 8 planning)
+Phases: 7 of 8 complete, Phase 8 not started
 
 ## Phases
 
@@ -20,7 +20,7 @@ Phases: 6 of 8 complete, Phase 7 planning
 | 4 | Route & Station Management | 3 | ✅ Complete | 2026-04-15 |
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
 | 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
-| 7 | Customer, Ticketing & Payment | 4 | In Progress | - |
+| 7 | Customer, Ticketing & Payment | 4 | ✅ Complete | 2026-04-16 |
 | 8 | Dashboard & Analytics | TBD | Not started | - |
 
 ## Phase Details
@@ -138,10 +138,10 @@ Phases: 6 of 8 complete, Phase 7 planning
 - Payment management (standalone list page, status updates, refund tracking)
 
 **Plans:**
-- [ ] 07-01: Customer CRUD (entity slice + list page + form dialog + router)
-- [ ] 07-02: Booking Management (entity + list + detail + creation + cancellation + payment sync)
-- [ ] 07-03: Seat Map, QR & Ticket Operations (visual seat map + QR gen/scan + ticket lifecycle)
-- [ ] 07-04: Payment Management (standalone payment list + filters + status updates + refund tracking)
+- [x] 07-01: Customer CRUD (entity slice + list page + form dialog + router)
+- [x] 07-02: Booking Management (entity + list + detail + creation + cancellation + payment sync)
+- [x] 07-03: Seat Map, QR & Ticket Operations (visual seat map + QR gen/scan + ticket lifecycle)
+- [x] 07-04: Payment Management (standalone payment list + filters + status updates + refund tracking)
 
 ### Phase 8: Dashboard & Analytics
 
@@ -157,4 +157,4 @@ Phases: 6 of 8 complete, Phase 7 planning
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-16 — Phase 7 planning started: Customer CRUD plan (07-01) created*
+*Last updated: 2026-04-16 — Phase 7 complete*

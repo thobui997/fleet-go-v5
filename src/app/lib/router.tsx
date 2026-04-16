@@ -15,15 +15,8 @@ import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
 import { BookingsPage } from '@pages/bookings';
 import { CheckInPage } from '@pages/check-in';
+import { PaymentsPage } from '@pages/payments';
 import { AppLayout } from '@app/layouts';
-
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div className="flex items-center justify-center h-64">
-      <p className="text-muted-foreground text-lg">{title} — Coming Soon</p>
-    </div>
-  );
-}
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +52,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
       { path: ROUTES.BOOKINGS, element: <BookingsPage /> },
       { path: ROUTES.CHECK_IN, element: <CheckInPage /> },
-      { path: ROUTES.PAYMENTS, element: <PlaceholderPage title="Payments" /> },
+      { path: ROUTES.PAYMENTS, element: <PaymentsPage /> },
     ],
   },
 ]);

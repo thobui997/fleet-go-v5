@@ -45,14 +45,15 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Route & Station Management:** Station CRUD (name/city/lat-lng/is_active); Route CRUD with FK dropdowns and duration parsing; Route Stops Editor with @dnd-kit drag-and-drop reorder, bulk-replace save (DELETE then INSERT) — Phase 4
 - **Employee & Role Management:** Dynamic Role CRUD with permissions chip editor (JSONB array); Employee CRUD with profiles JOIN, license expiry alert badges (30-day/expired), user dropdown, role assignment via user_roles — Phase 5
 - **Trip Scheduling:** Trip CRUD with route/vehicle/time assignment; Staff assignment with conflict validation (max 1 driver per trip, no overlapping schedules); Trip Calendar page (monthly grid view with dayjs, Vietnamese headers); My Schedule page (employee assigned trips with upcoming/past split) — Phase 6
+- **Customer & Ticketing:** Customer CRUD with search and phone validation; Booking CRUD with seat map, auto-generated codes (BKG-XXXXX), ticket creation, cancellation with payment status sync; Check-in page with QR scanning and context-aware error mapping; Seat Map component with multi-floor support and runtime validation; QR code generation (deterministic: booking_code-seat_number) — Phase 7
+- **Payment Management:** Payment entity slice (types, API, queries); Payment list page with filters (status, method, date range, search); Status update workflows (pending→completed/failed with paid_at logic; completed→refunded with notes); Booking detail payment integration (method, status, amount, dates, transaction reference); processed_by audit trail for cash handling — Phase 7
 
 ### Active (In Progress)
 
-- Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
+- None — all phases through Phase 7 complete
 
 ### Planned (Next)
 
-- Phase 7: Customer, Ticketing & Payment — Customer profiles, bookings with seat selection, payment tracking
 - Phase 8: Dashboard & Analytics — Real-time statistics, quick views, operational insights
 
 ### Out of Scope
@@ -184,4 +185,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-16 after Phase 6 complete*
+*Last updated: 2026-04-16 after Phase 7 complete*

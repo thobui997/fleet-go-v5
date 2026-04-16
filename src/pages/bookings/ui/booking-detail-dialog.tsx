@@ -11,6 +11,7 @@ import {
 import { useBooking, useCancelBooking } from '@entities/booking';
 import { useTripBookedSeats } from '@entities/ticket';
 import { SeatMap } from '@entities/vehicle-type';
+import { usePaymentByBooking } from '@entities/payment';
 import { formatCurrency, formatDateTime } from '@shared/lib';
 import type { BookingWithDetails } from '@entities/booking';
 import { BookingDeleteDialog } from './booking-delete-dialog';
@@ -38,6 +39,26 @@ const STATUS_COLORS: Record<string, string> = {
   refunded: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
 };
 
+const PAYMENT_STATUS_LABELS: Record<string, string> = {
+  pending: 'Chờ thanh toán',
+  completed: 'Đã thanh toán',
+  failed: 'Thất bại',
+  refunded: 'Đã hoàn tiền',
+};
+
+const PAYMENT_STATUS_COLORS: Record<string, string> = {
+  pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+  completed: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+  failed: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+  refunded: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+};
+
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  cash: 'Tiền mặt',
+  e_wallet: 'Ví điện tử',
+  bank_transfer: 'Chuyển khoản',
+};
+
 export function BookingDetailDialog({
   open,
   onOpenChange,
@@ -50,6 +71,7 @@ export function BookingDetailDialog({
 
   const { data: fullBooking, isLoading } = useBooking(booking.id);
   const { data: bookedSeats = [] } = useTripBookedSeats(booking.trip_id);
+  const { data: payment } = usePaymentByBooking(booking.id);
 
   const canCancel = booking.status === 'pending' || booking.status === 'confirmed';
   const canDelete = booking.status === 'pending';
@@ -218,10 +240,46 @@ export function BookingDetailDialog({
           {/* Payment Summary */}
           <div className="space-y-2">
             <h3 className="font-semibold">Thanh toán</h3>
-            <div className="text-sm text-muted-foreground">
-              {/* Payment info would be here if we fetched payment data */}
-              Chưa có thanh toán
-            </div>
+            {payment ? (
+              <div className="rounded-md border p-3 space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Phương thức:</span>
+                  <span>{PAYMENT_METHOD_LABELS[payment.method] ?? payment.method}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Trạng thái:</span>
+                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${PAYMENT_STATUS_COLORS[payment.status]}`}>
+                    {PAYMENT_STATUS_LABELS[payment.status] ?? payment.status}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Số tiền:</span>
+                  <span className="font-semibold">{formatCurrency(payment.amount)}</span>
+                </div>
+                {payment.paid_at && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Ngày thanh toán:</span>
+                    <span>{formatDateTime(payment.paid_at)}</span>
+                  </div>
+                )}
+                {payment.transaction_reference && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Mã giao dịch:</span>
+                    <span className="font-mono text-xs">{payment.transaction_reference}</span>
+                  </div>
+                )}
+                {payment.refunded_at && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Ngày hoàn tiền:</span>
+                    <span>{formatDateTime(payment.refunded_at)}</span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-sm text-muted-foreground">
+                Chưa có thanh toán
+              </div>
+            )}
           </div>
 
           {/* Total Amount */}

@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 7 of 8 (Customer, Ticketing & Payment) — In Progress
-Plan: 07-03 complete
-Status: UNIFY complete, ready for next PLAN
-Last activity: 2026-04-16 — Closed loop for 07-03 (Seat Map, QR & Ticket Operations)
+Phase: 8 of 8 (Dashboard & Analytics)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-04-16 — Phase 7 complete, transitioned to Phase 8
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
+  ○        ○        ○     [Ready for new PLAN]
 ```
 
 Progress:
-- Milestone: [██████░░░░] 75% (6 of 8 phases complete)
-- Phase 7: [████░░░░░░] 75% (3 of 4 plans complete, 07-04 pending)
+- Milestone: [███████░░] 87.5% (7 of 8 phases complete)
+- Phase 8: [░░░░░░░░░░] 0% (not started)
 
 ## Accumulated Context
 
@@ -80,6 +80,8 @@ Progress:
 - 2026-04-16: Enterprise audit on 07-03-PLAN.md. Applied 2 must-have (TicketInsert type must include qr_code — remove from Omit list for TypeScript compilation; context-aware PGRST116 error mapping — 'lookup' vs 'check-in' contexts produce distinct Vietnamese messages), 5 strongly-recommended (seat_layout runtime validation for malformed JSONB; cancelled/refunded booking warning banner + disabled check-in buttons + new AC-2b; bulk check-in confirm() dialog; TicketQrDialog tripInfo prop for print display; explicit check-in loading state specification). Deferred 4 (QR predictability, seat numbering >26 rows, permission-gated UI, webcam QR scanning). Verdict: conditionally acceptable (now ready).
 - 2026-04-16: **Plan 07-03 executed** — Seat Map, Check-in Page, and QR Code features delivered. SeatMap component supports multi-floor layouts with runtime validation. Check-in page with context-aware error mapping and cancelled booking guards. QR codes generated deterministically on ticket creation. All acceptance criteria met. Build passes with zero errors.
 - 2026-04-16: **Loop 07-03 closed** — Auto-fix applied for PostgREST PGRST201 relationship ambiguity. Added explicit FK constraint `!tickets_booking_id_fkey` to booking detail and check-in queries to resolve composite FK ambiguity between bookings and tickets tables.
+- 2026-04-16: Enterprise audit on 07-04-PLAN.md. Applied 1 must-have (processed_by on status update — audit trail for cash handling accountability), 5 strongly-recommended (search trim; status transition validation pending→completed/failed, completed→refunded; date filter on created_at not paid_at; 23505 uses message field; regression checkpoint for booking/check-in pages). Deferred 3. Verdict: conditionally acceptable (now ready).
+- 2026-04-16: **Plan 07-04 executed** — Payment Management delivered. Payment entity slice (types, API, queries), payment list page with filters, detail/status dialogs, booking detail integration. Router wired, PlaceholderPage removed. All acceptance criteria met. Build passes with zero errors.
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -91,17 +93,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-16
-Stopped at: Session paused with WIP committed to main
-Next action: Resume with /paul:progress or /paul:plan for 07-04
-Resume file: .paul/HANDOFF-2026-04-16.md
-Git strategy: main (commit: 534ab3c)
+Stopped at: Phase 7 complete, ready to plan Phase 8
+Next action: /paul:plan for Phase 8 (Dashboard & Analytics)
+Resume file: .paul/ROADMAP.md
+Git strategy: main (commit: 13d0a33)
 Resume context:
-- Phase 7 in progress: Customer, Ticketing & Payment
-- Plans 07-01, 07-02, 07-03 complete; 07-04 Payment Management pending
-- SeatMap component, Check-in page, and QR code features delivered in 07-03
-- Auto-fix applied: PostgREST PGRST201 FK ambiguity resolved
-- Build passes with zero errors
-- Enterprise audit enabled
+- Phase 7 complete: Customer, Ticketing & Payment (all 4 plans delivered)
+- Plans 07-01 (Customers), 07-02 (Bookings), 07-03 (Check-in), 07-04 (Payments) all complete
+- Phase 8 (Dashboard & Analytics) is next and final phase of v0.1 MVP milestone
 
 ---
 *STATE.md — Updated after every significant action*
