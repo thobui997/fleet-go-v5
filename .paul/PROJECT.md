@@ -28,6 +28,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Trip Scheduling:** Trip creation with route/vehicle/time assignment, staff assignment with conflict validation (max 1 driver per trip, no overlapping schedules), calendar view, driver/assistant personal schedule view
 - **Customer & Ticketing:** Customer profiles with loyalty points, bookings with auto-generated codes (BKG-XXXXX), seat selection with double-booking prevention, optional QR codes
 - **Payment Management:** Transaction tracking linked to bookings, multiple payment methods (Cash/E-wallet/Bank Transfer), payment-booking status sync
+- **Dashboard & Analytics:** Real-time statistics (revenue, fleet status, trip status, booking overview), quick views for recent bookings and upcoming trips, revenue trend chart (last 7 days), trip status breakdown (donut), booking status breakdown (bar)
 
 ### Validated (Shipped)
 
@@ -47,14 +48,15 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Trip Scheduling:** Trip CRUD with route/vehicle/time assignment; Staff assignment with conflict validation (max 1 driver per trip, no overlapping schedules); Trip Calendar page (monthly grid view with dayjs, Vietnamese headers); My Schedule page (employee assigned trips with upcoming/past split) — Phase 6
 - **Customer & Ticketing:** Customer CRUD with search and phone validation; Booking CRUD with seat map, auto-generated codes (BKG-XXXXX), ticket creation, cancellation with payment status sync; Check-in page with QR scanning and context-aware error mapping; Seat Map component with multi-floor support and runtime validation; QR code generation (deterministic: booking_code-seat_number) — Phase 7
 - **Payment Management:** Payment entity slice (types, API, queries); Payment list page with filters (status, method, date range, search); Status update workflows (pending→completed/failed with paid_at logic; completed→refunded with notes); Booking detail payment integration (method, status, amount, dates, transaction reference); processed_by audit trail for cash handling — Phase 7
+- **Dashboard & Analytics:** Dashboard page with stat cards (vehicles, trips, bookings, revenue), quick views (recent bookings, upcoming trips), chart components (revenue trend line, trip status donut, booking status bar) using recharts, TanStack Query hooks with 5min staleTime, error/retry states — Phase 8
 
 ### Active (In Progress)
 
-- None — all phases through Phase 7 complete
+- None — **v0.1 MVP COMPLETE**
 
 ### Planned (Next)
 
-- Phase 8: Dashboard & Analytics — Real-time statistics, quick views, operational insights
+- None — v0.1 MVP delivered; await next milestone requirements
 
 ### Out of Scope
 
@@ -125,6 +127,10 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | hasInitializedRef pattern for dialog local state | Prevents TanStack Query background refetch from overwriting unsaved edits after first load | 2026-04-15 | Active |
 | Two-step employee save: employee record then role assignment | Role assignment (user_roles) is separate from employee record; split try/catch surfaces partial failures | 2026-04-15 | Active |
 | Radix Select __none__ sentinel | Radix UI reserves empty string for placeholder; sentinel maps back to null in onValueChange | 2026-04-15 | Active |
+| recharts for data visualization | React-specific charting library with good TypeScript support; ResponsiveContainer ensures mobile-friendly charts | 2026-04-17 | Active |
+| Chart component pattern: {data, loading, error, onRetry} | Consistent props across all charts; Skeleton/Error/Empty/Chart states for UX; error state includes retry button | 2026-04-17 | Active |
+| Concrete hex colors for SVG stroke/fill | CSS variables (hsl(var(--primary))) don't resolve in SVG context; use #2563eb instead for reliable chart rendering | 2026-04-17 | Active |
+| Abbreviated Y-axis format for charts | "tr" (million) and "k" (thousand) suffixes instead of full formatCurrency for cleaner axis labels | 2026-04-17 | Active |
 
 ## Success Metrics
 
@@ -185,4 +191,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-16 after Phase 7 complete*
+*Last updated: 2026-04-17 after Phase 8 complete — v0.1 MVP delivered*

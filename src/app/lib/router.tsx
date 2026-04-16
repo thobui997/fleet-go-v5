@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '@shared/auth';
 import { ROUTES } from '@shared/config/routes';
 import { LoginPage } from '@pages/login';
+import { DashboardPage } from '@pages/dashboard';
 import { VehicleTypesPage } from '@pages/vehicle-types';
 import { VehiclesPage } from '@pages/vehicles';
 import { MaintenancePage } from '@pages/maintenance';
@@ -36,9 +37,8 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.DASHBOARD,
-        element: <div>Dashboard — coming in Phase 7</div>,
+        element: <DashboardPage />,
       },
-      // Placeholder routes for all modules
       { path: ROUTES.VEHICLES, element: <VehiclesPage /> },
       { path: ROUTES.VEHICLE_TYPES, element: <VehicleTypesPage /> },
       { path: ROUTES.MAINTENANCE, element: <MaintenancePage /> },

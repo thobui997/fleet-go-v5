@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: In progress (7 of 8 phases complete, Phase 8 planning)
-Phases: 7 of 8 complete, Phase 8 not started
+Status: ✅ **COMPLETE** (8 of 8 phases complete)
+Phases: 8 of 8 complete
 
 ## Phases
 
@@ -21,7 +21,7 @@ Phases: 7 of 8 complete, Phase 8 not started
 | 5 | Employee & Role Management | 2 | ✅ Complete | 2026-04-15 |
 | 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
 | 7 | Customer, Ticketing & Payment | 4 | ✅ Complete | 2026-04-16 |
-| 8 | Dashboard & Analytics | TBD | Not started | - |
+| 8 | Dashboard & Analytics | 2 | ✅ Complete | 2026-04-17 |
 
 ## Phase Details
 
@@ -153,8 +153,9 @@ Phases: 7 of 8 complete, Phase 8 not started
 - To be defined during planning
 
 **Plans:**
-- [ ] TBD
+- [x] 08-01: Dashboard Page — Stats & Quick Views (stat cards, recent bookings, upcoming trips)
+- [x] 08-02: Charts & Analytics (revenue trend, trip status donut, booking status bar)
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-16 — Phase 7 complete*
+*Last updated: 2026-04-17 — v0.1 MVP complete*
