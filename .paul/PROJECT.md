@@ -13,7 +13,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Attribute | Value |
 |-----------|-------|
 | Type | Application |
-| Version | 0.1.0 |
+| Version | 0.1.1 |
 | Status | In Development |
 | Last Updated | 2026-04-16 |
 
@@ -51,14 +51,15 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Dashboard & Analytics:** Dashboard page with stat cards (vehicles, trips, bookings, revenue), quick views (recent bookings, upcoming trips), chart components (revenue trend line, trip status donut, booking status bar) using recharts, TanStack Query hooks with 5min staleTime, error/retry states — Phase 8
 - **Viewport-Constrained Layout:** All 11 list pages on flex viewport layout (chrome fixed, table body scrolls independently, sticky column headers); 4 non-list pages with opt-in h-full overflow-y-auto scroll; global slim auto-hide scrollbar — Phase 9
 - **Form UX Redesign (Complete):** FormSection component for consistent field grouping; All 5 forms migrated to full-page layout (Maintenance, Trip, Employee, Route, Booking) with sticky footer; Dirty state blocker using useBlocker with pathname guard; reset() before navigate() to prevent blocker interception; FK dropdown patterns (__none__ sentinel, truncation warning, empty state handling); Context-aware error mapping; StaffAssignmentPage and RouteStopsPage created — Phase 10
+- **Date Input Migration (Complete):** Shadcn DatePicker + custom ModernCalendar (timezone-safe, Vietnamese locale); DateTimePicker with combined calendar + time input; DateRangePicker as unified single-trigger with range band and live hover preview; `toLocalISODate`/`fromLocalISODate` in `@shared/lib/date-utils`; all form date fields migrated; all list-page date range filters migrated; zero native `type="date"` inputs remain — Phase 11
 
 ### Active (In Progress)
 
-- None — **v0.1 MVP COMPLETE**
+- None — **v0.1.1 Post-MVP UX Improvements COMPLETE**
 
 ### Planned (Next)
 
-- None — v0.1 MVP delivered; await next milestone requirements
+- None — v0.1.1 delivered; await next milestone requirements
 
 ### Out of Scope
 
@@ -141,6 +142,9 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Remove overflow-auto from Table wrapper for sticky headers | Shadcn Table wraps `<table>` in `overflow-auto` div — this nested scroll context breaks `sticky top-0` on `<thead>`; removing it makes DataTable's outer container the sole scroll ancestor | 2026-04-17 | Active |
 | Global scrollbar via `*` in @layer base | Slim 5px scrollbar hidden by default, revealed on hover using theme `--border` color; applied globally so no per-element class is needed | 2026-04-17 | Active |
 | FK dropdown empty state pattern | When FK queries return 0 items, show "Chưa có [entity] nào" message + disable submit button; improves UX clarity | 2026-04-17 | Active |
+| toLocalISODate/fromLocalISODate in @shared/lib | Date utility functions extracted from inline duplication in DatePicker/DateTimePicker; single source of truth, timezone-safe (uses local date parts, not UTC) | 2026-04-17 | Active |
+| DateRangePicker unified single-trigger design | Single button showing "DD/MM/YYYY → DD/MM/YYYY"; opens range calendar popover; original two-input layout rejected at checkpoint for fragmented UX | 2026-04-17 | Active |
+| Range band via left/right half-span segments | Each calendar cell has two independent `<span>` elements for left/right halves; avoids CSS pseudo-elements and creates continuous band without cross-row artifacts | 2026-04-17 | Active |
 
 ## Success Metrics
 
@@ -201,4 +205,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-17 after Phase 10 complete — Form UX Redesign delivered (all forms migrated to full-page layout)*
+*Last updated: 2026-04-17 after Phase 11 complete — Date Input Migration delivered (all native date inputs replaced, DateRangePicker redesigned with unified trigger + range band)*

@@ -5,31 +5,32 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Post-MVP milestone complete — awaiting next milestone definition
+**Current focus:** v0.1.1 Post-MVP UX Improvements complete — awaiting next milestone definition
 
 ## Current Position
 
-Milestone: Post-MVP / UX Improvements — **In Progress**
-Phase: 11 (Date Input Migration) — **In Progress**
-Plan: 11-02 — **Complete**
-Status: Loop closed — ready for next plan (11-03)
-Last activity: 2026-04-17 — Plan 11-02 complete. DateTimePicker created as single combined popover; all 11 date/datetime fields migrated across 6 forms; timezone-safe serialization (toLocalISODate/fromLocalISODate) applied to both components; DatePicker UI overhauled (user-requested); DateTimePicker click bug fixed (buildDateTime partial state). Build passes. Human-verified and approved.
+Milestone: Post-MVP / UX Improvements — **COMPLETE** ✅
+Phase: 11 (Date Input Migration) — **COMPLETE** ✅
+Plan: 11-03 — UNIFY complete
+Status: Milestone complete — awaiting next milestone definition
+Last activity: 2026-04-17 — Phase 11 complete. 11-03 UNIFY: toLocalISODate/fromLocalISODate extracted to @shared/lib; trips/payments/bookings migrated to DateRangePicker (redesigned to single unified trigger with range band + hover preview). v0.1.1 Post-MVP UX Improvements milestone complete.
 
 Progress:
-- Milestone: [████████░░] 67% (2/3 phases complete)
-- Phase 11: [████░░░░░░] 67% (2/3 plans complete)
+- Milestone: [██████████] 100% (3/3 phases complete) ✅
+- Phase 11: [██████████] 100% (3/3 plans complete) ✅
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 11-02 complete — ready for next PLAN]
+  ✓        ✓        ✓     [Phase 11 complete — milestone complete]
 ```
 
 ```
 11-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
 11-02: PLAN ✓ → APPLY ✓ → UNIFY ✓
+11-03: PLAN ✓ → APPLY ✓ → UNIFY ✓
 ```
 ```
 10-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
@@ -53,6 +54,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 ### Recent Decisions (Phase 11)
 - 2026-04-17: **Added Phase 11 (Date Input Migration)** — Scope expansion to replace native `input type="date"` with Shadcn DatePicker/DateRangePicker for consistent UI/UX
+- 2026-04-17: **Enterprise audit on 11-03-PLAN.md.** Applied 1 must-have (toLocalISODate exact impl with zero-padding + month+1 offset; fromLocalISODate with split('-').map(Number)), 4 strongly-recommended (pagination reset + clear-both-dates in human-verify; AC-7 empty-range pass-through). Deferred 3. Verdict: Conditionally acceptable (now ready)
 - 2026-04-17: **Enterprise audit on 11-01-PLAN.md.** Applied 3 must-have (null/undefined handling returns empty string; date range validation from ≤ to; timezone handling specified as date-only ISO strings), 4 strongly-recommended (TypeScript explicit exports; accessibility verification with keyboard navigation; error scenarios added to AC-5; dependency version verification). Deferred 2 (error boundary wrapper, rollback script). Verdict: Conditionally acceptable (now ready)
 - 2026-04-17: **Plan 11-01 executed** — Shadcn DatePicker installed (react-day-picker v9.14.0), Calendar/Popover/DatePicker base components created, DatePicker wrapper with React Hook Form Controller, DateRangePicker wrapper for filters. Both use Vietnamese locale via date-fns. Build passes with zero errors.
 - 2026-04-17: **Enterprise audit on 11-02-PLAN.md.** Applied 2 must-have (partial-state contradiction resolved — incomplete datetime returns empty, not 00:00 default; incomplete datetime handling clarified in AC-1), 4 strongly-recommended (accessibility verification with aria-label + keyboard nav check; browser compatibility check for time input; regression checkpoint Task 4 added for visual verification; error scenarios AC-5 added for malformed values). Deferred 2 (rollback script, E2E tests). Verdict: Conditionally acceptable (now ready)
@@ -131,15 +133,10 @@ Feature branches merged: none
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Plan 11-02 UNIFY complete
-Next action: /paul:plan for Plan 11-03 (DateRangePicker migration for list page filters)
-Resume file: .paul/phases/11-date-input-migration/11-02-SUMMARY.md
-Resume context:
-- Phase 11: 2/3 plans complete (11-01 DatePicker base, 11-02 form field migration)
-- 11-03 scope: replace native date filter inputs on list pages with DateRangePicker
-- DatePicker + DateTimePicker are stable with timezone-safe serialization
-- toLocalISODate/fromLocalISODate pattern established — use in 11-03
-Git commit: uncommitted (changes pending commit)
+Stopped at: v0.1.1 Post-MVP UX Improvements milestone complete
+Next action: /paul:milestone to define next milestone
+Resume file: .paul/ROADMAP.md
+Git commit: pending (phase 11 commit not yet created)
 
 ---
 *STATE.md — Updated after every significant action*

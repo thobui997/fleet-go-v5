@@ -13,8 +13,7 @@ Phases: 8 of 8 complete
 ## Post-MVP: UX Improvements
 
 **Milestone:** Post-MVP / UX Improvements (v0.1.1)
-Status: 🔄 **In Progress** (2 of 3 phases complete)
-Phases: 2 of 3 complete
+Status: ✅ **COMPLETE** (2026-04-17) — 3 of 3 phases complete
 
 **Phase 9** — Layout Refactor
 Status: ✅ Complete (2026-04-17)
@@ -22,7 +21,8 @@ Status: ✅ Complete (2026-04-17)
 **Phase 10** — Form UX Redesign
 Status: ✅ Complete (2026-04-17)
 
-**Milestone Status:** ✅ **COMPLETE** (2026-04-17)
+**Phase 11** — Date Input Migration
+Status: ✅ Complete (2026-04-17)
 
 ## Phases
 
@@ -38,7 +38,7 @@ Status: ✅ Complete (2026-04-17)
 | 8 | Dashboard & Analytics | 2 | ✅ Complete | 2026-04-17 |
 | 9 | Layout Refactor | 2 | ✅ Complete | 2026-04-17 |
 | 10 | Form UX Redesign | 6 | ✅ Complete | 2026-04-17 |
-| 11 | Date Input Migration | 3 | 🔄 Planning | - |
+| 11 | Date Input Migration | 3 | ✅ Complete | 2026-04-17 |
 
 ## Phase Details
 
@@ -229,10 +229,10 @@ Status: ✅ Complete (2026-04-17)
 - Maintain existing validation and error handling
 
 **Plans:**
-- [🔄] 11-01: DatePicker component setup + shared wrapper
-- [ ] 11-02: Form migration — replace date inputs in all 6 forms
-- [ ] 11-03: List page filter migration — replace date range inputs
+- [x] 11-01: DatePicker component setup + shared wrapper
+- [x] 11-02: Form migration — replace date inputs in all 6 forms
+- [🔄] 11-03: List page filter migration — replace date range inputs
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — Plan 11-01 created: DatePicker component setup + shared wrapper*
+*Last updated: 2026-04-17 — Phase 11 complete: Date Input Migration delivered. v0.1.1 Post-MVP UX Improvements milestone complete.*

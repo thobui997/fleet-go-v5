@@ -10,8 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@shared/ui';
+import { DateRangePicker } from '@shared/ui/form';
+import type { DateRange } from '@shared/ui/form';
 import type { ColumnDef } from '@shared/ui/data-table';
-import { useDebounce } from '@shared/lib';
+import { useDebounce, toLocalISODate } from '@shared/lib';
 import { usePayments, PAYMENT_STATUSES, PAYMENT_METHODS } from '@entities/payment';
 import type { PaymentWithDetails } from '@entities/payment';
 import { formatCurrency, formatDateTime } from '@shared/lib';
@@ -45,8 +47,7 @@ export function PaymentsPage() {
   const [pageSize, setPageSize] = React.useState(10);
   const [statusFilter, setStatusFilter] = React.useState<string>('all');
   const [methodFilter, setMethodFilter] = React.useState<string>('all');
-  const [dateFrom, setDateFrom] = React.useState('');
-  const [dateTo, setDateTo] = React.useState('');
+  const [dateRange, setDateRange] = React.useState<DateRange>({});
   const [searchInput, setSearchInput] = React.useState('');
   const debouncedSearch = useDebounce(searchInput, 300);
 
@@ -58,8 +59,8 @@ export function PaymentsPage() {
     pageSize,
     status: statusFilter === 'all' ? undefined : statusFilter as any,
     method: methodFilter === 'all' ? undefined : methodFilter as any,
-    dateFrom: dateFrom || undefined,
-    dateTo: dateTo || undefined,
+    dateFrom: dateRange.from ? toLocalISODate(dateRange.from) : undefined,
+    dateTo: dateRange.to ? toLocalISODate(dateRange.to) : undefined,
     search: debouncedSearch || undefined,
   });
 
@@ -191,25 +192,9 @@ export function PaymentsPage() {
               ))}
             </SelectContent>
           </Select>
-          <Input
-            type="date"
-            placeholder="Từ ngày"
-            value={dateFrom}
-            onChange={(e) => {
-              setDateFrom(e.target.value);
-              setPage(1);
-            }}
-            className="w-[160px]"
-          />
-          <Input
-            type="date"
-            placeholder="Đến ngày"
-            value={dateTo}
-            onChange={(e) => {
-              setDateTo(e.target.value);
-              setPage(1);
-            }}
-            className="w-[160px]"
+          <DateRangePicker
+            value={dateRange}
+            onChange={(r) => { setDateRange(r); setPage(1); }}
           />
         </div>
       </div>

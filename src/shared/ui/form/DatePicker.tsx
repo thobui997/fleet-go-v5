@@ -5,6 +5,7 @@ import { format } from "date-fns"
 import { vi, type Locale } from "date-fns/locale"
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react"
 import { cn } from "../../lib/cn"
+import { toLocalISODate, fromLocalISODate } from "../../lib/date-utils"
 import { Button } from "../button"
 import {
   Popover,
@@ -32,29 +33,6 @@ export interface DatePickerFormProps {
   disabled?: boolean
   /** Placeholder text when no date selected */
   placeholder?: string
-}
-
-/**
- * Serialize a local Date to YYYY-MM-DD without UTC conversion.
- * Using toISOString() would shift the date in UTC+N timezones —
- * e.g. June 17 local midnight becomes "2025-06-16T17:00Z" in UTC+7.
- */
-function toLocalISODate(date: Date): string {
-  const y = date.getFullYear()
-  const m = String(date.getMonth() + 1).padStart(2, '0')
-  const d = String(date.getDate()).padStart(2, '0')
-  return `${y}-${m}-${d}`
-}
-
-/**
- * Parse a YYYY-MM-DD string as a local date (not UTC midnight).
- * new Date("2025-06-17") parses as UTC midnight, which in UTC+7
- * is correct for date-only display but causes isSameDay to fail
- * when compared against dates created with new Date(y, m, d).
- */
-function fromLocalISODate(value: string): Date {
-  const [y, m, d] = value.split('-').map(Number)
-  return new Date(y, m - 1, d)
 }
 
 /**

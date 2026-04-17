@@ -4,7 +4,6 @@ import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Users } from 'lucide-reac
 import {
   Button,
   DataTable,
-  Input,
   Select,
   SelectContent,
   SelectItem,
@@ -15,6 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@shared/ui';
+import { DateRangePicker } from '@shared/ui/form';
+import type { DateRange } from '@shared/ui/form';
 import type { ColumnDef } from '@shared/ui/data-table';
 import { useRoutes } from '@entities/route';
 import { useVehicles } from '@entities/vehicle';
@@ -24,6 +25,7 @@ import type { TripStatus } from '@entities/trip';
 import { TripStatusBadge } from './trip-status-badge';
 import { TripDeleteDialog } from './trip-delete-dialog';
 import { StaffAssignmentDialog } from './staff-assignment-dialog';
+import { toLocalISODate } from '@shared/lib';
 import { mapTripError, FK_DROPDOWN_PAGE_SIZE } from '../model/trip-form-schema';
 import { ROUTES } from '@shared/config/routes';
 
@@ -49,8 +51,7 @@ export function TripsPage() {
   const [pageSize, setPageSize] = React.useState(10);
   const [statusFilter, setStatusFilter] = React.useState<StatusFilter>('all');
   const [routeFilter, setRouteFilter] = React.useState<string>('__none__');
-  const [dateFrom, setDateFrom] = React.useState('');
-  const [dateTo, setDateTo] = React.useState('');
+  const [dateRange, setDateRange] = React.useState<DateRange>({});
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [staffDialogOpen, setStaffDialogOpen] = React.useState(false);
   const [selectedTrip, setSelectedTrip] = React.useState<TripWithDetails | null>(null);
@@ -67,8 +68,8 @@ export function TripsPage() {
     pageSize,
     status,
     routeId,
-    dateFrom: dateFrom || undefined,
-    dateTo: dateTo || undefined,
+    dateFrom: dateRange.from ? toLocalISODate(dateRange.from) : undefined,
+    dateTo: dateRange.to ? toLocalISODate(dateRange.to) : undefined,
   });
 
   const trips = data?.data ?? [];
@@ -221,23 +222,9 @@ export function TripsPage() {
           </span>
         )}
 
-        <Input
-          type="date"
-          value={dateFrom}
-          onChange={(e) => {
-            setDateFrom(e.target.value);
-            setPage(1);
-          }}
-          className="max-w-[150px]"
-        />
-        <Input
-          type="date"
-          value={dateTo}
-          onChange={(e) => {
-            setDateTo(e.target.value);
-            setPage(1);
-          }}
-          className="max-w-[150px]"
+        <DateRangePicker
+          value={dateRange}
+          onChange={(r) => { setDateRange(r); setPage(1); }}
         />
         </div>
       </div>
