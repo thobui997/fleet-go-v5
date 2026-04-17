@@ -19,9 +19,9 @@ import type { ColumnDef } from '@shared/ui/data-table';
 import { useDebounce } from '@shared/lib';
 import { useRoutes } from '@entities/route';
 import type { Route } from '@entities/route';
-import { RouteFormDialog } from './route-form-dialog';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@shared/config/routes';
 import { RouteDeleteDialog } from './route-delete-dialog';
-import { RouteStopsDialog } from './route-stops-dialog';
 import { mapSupabaseError } from '../model/route-form-schema';
 
 type RouteValue = Route[keyof Route];
@@ -56,18 +56,15 @@ function formatDuration(interval: string): string {
 }
 
 export function RoutesPage() {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [searchInput, setSearchInput] = React.useState('');
   const debouncedSearch = useDebounce(searchInput, 300);
 
   const [statusFilter, setStatusFilter] = React.useState<StatusFilter>('all');
-  const [formOpen, setFormOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [selectedRoute, setSelectedRoute] = React.useState<Route | null>(null);
-  const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
-  const [stopsOpen, setStopsOpen] = React.useState(false);
-  const [selectedRouteForStops, setSelectedRouteForStops] = React.useState<Route | null>(null);
 
   const isActive =
     statusFilter === 'all' ? undefined : statusFilter === 'true';
@@ -143,19 +140,12 @@ export function RoutesPage() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onClick={() => {
-                setSelectedRoute(row);
-                setFormMode('edit');
-                setFormOpen(true);
-              }}
+              onClick={() => navigate(ROUTES.ROUTES_EDIT.replace(':id', row.id))}
             >
               Sửa
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => {
-                setSelectedRouteForStops(row);
-                setStopsOpen(true);
-              }}
+              onClick={() => navigate(ROUTES.ROUTES_STOPS.replace(':id', row.id))}
             >
               Điểm dừng
             </DropdownMenuItem>
@@ -185,11 +175,7 @@ export function RoutesPage() {
             </p>
           </div>
           <Button
-            onClick={() => {
-              setSelectedRoute(null);
-              setFormMode('create');
-              setFormOpen(true);
-            }}
+            onClick={() => navigate(ROUTES.ROUTES_NEW)}
           >
             <Plus className="mr-2 h-4 w-4" />
             Thêm tuyến đường
@@ -264,23 +250,10 @@ export function RoutesPage() {
         )}
       </div>
 
-      <RouteFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        mode={formMode}
-        route={selectedRoute}
-      />
-
       <RouteDeleteDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         route={selectedRoute}
-      />
-
-      <RouteStopsDialog
-        open={stopsOpen}
-        onOpenChange={setStopsOpen}
-        route={selectedRouteForStops}
       />
     </div>
   );

@@ -7,10 +7,10 @@ import { VehicleTypesPage } from '@pages/vehicle-types';
 import { VehiclesPage } from '@pages/vehicles';
 import { MaintenancePage, MaintenanceFormPage } from '@pages/maintenance';
 import { StationsPage } from '@pages/stations';
-import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
 import { EmployeesPage, EmployeeFormPage } from '@pages/employees';
 import { TripsPage, TripFormPage, StaffAssignmentPage } from '@pages/trips';
+import { RoutesPage, RouteFormPage, RouteStopsPage } from '@pages/routes';
 import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
@@ -46,6 +46,10 @@ export const router = createBrowserRouter([
       { path: ROUTES.MAINTENANCE_NEW, element: <MaintenanceFormPage /> },
       { path: ROUTES.MAINTENANCE_EDIT, element: <MaintenanceFormPage /> },
       { path: ROUTES.ROUTES, element: <RoutesPage /> },
+      // ROUTES_NEW must come before ROUTES_EDIT — literal segments beat dynamic
+      { path: ROUTES.ROUTES_NEW, element: <RouteFormPage /> },
+      { path: ROUTES.ROUTES_EDIT, element: <RouteFormPage /> },
+      { path: ROUTES.ROUTES_STOPS, element: <RouteStopsPage /> },
       { path: ROUTES.STATIONS, element: <StationsPage /> },
       { path: ROUTES.TRIPS, element: <TripsPage /> },
       // TRIPS_NEW must come before TRIPS_EDIT — literal segments beat dynamic
