@@ -15,6 +15,9 @@ Phases: 8 of 8 complete
 **Phase 9** — Layout Refactor
 Status: ✅ Complete (2026-04-17)
 
+**Phase 10** — Form UX Redesign
+Status: 🔄 In Progress
+
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
@@ -28,6 +31,7 @@ Status: ✅ Complete (2026-04-17)
 | 7 | Customer, Ticketing & Payment | 4 | ✅ Complete | 2026-04-16 |
 | 8 | Dashboard & Analytics | 2 | ✅ Complete | 2026-04-17 |
 | 9 | Layout Refactor | 2 | ✅ Complete | 2026-04-17 |
+| 10 | Form UX Redesign | 5 | 🔄 In Progress | — |
 
 ## Phase Details
 
@@ -178,6 +182,29 @@ Status: ✅ Complete (2026-04-17)
 - [x] 09-01: AppLayout + DataTable foundation (2 files, autonomous, wave 1)
 - [x] 09-02: Page adoption — 11 list pages + 4 non-list pages (15 files, human-verify, wave 2)
 
+### Phase 10: Form UX Redesign
+
+**Goal:** Redesign all 9 form dialogs — fix focus clipping, add field grouping with sections, move complex forms to dedicated full pages, optimize dialog layouts with multi-column grids
+**Depends on:** Phase 1 (shared UI), all feature phases (forms live across all modules)
+**Research:** Not needed (approach defined in CONTEXT.md)
+
+**Scope:**
+- Shared `FormSection` component in `@shared/ui`
+- Focus fix applied to all 5 dialogs that remain
+- Dialog layout improvements: 2-column grids for Vehicles, Customers, Stations
+- 4 forms moved to full pages: Maintenance, Trips, Employees, Routes
+- Dirty state guard (`useBlocker`) on all form pages
+- Fetch-by-ID hooks for all 4 entities
+- Router updates + list page updates for all 4 moved forms
+- Sub-page integration: Route Stops + Trip Staff linked from form pages
+
+**Plans:**
+- [ ] 10-01: Shared foundation — FormSection component + focus fix + dialog layout improvements
+- [ ] 10-02: Maintenance form page
+- [ ] 10-03: Trip form page
+- [ ] 10-04: Employee form page
+- [ ] 10-05: Route form page
+
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — Phase 9 Layout Refactor added*
+*Last updated: 2026-04-17 — Phase 10 Form UX Redesign added*

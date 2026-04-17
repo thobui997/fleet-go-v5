@@ -19,5 +19,7 @@ export { FormFieldWrapper } from './form-field-wrapper';
 
 export { Switch } from './switch';
 
+export { FormSection } from './form-section';
+
 // Existing from Plan 01-01
 export { ErrorBoundary } from './error-boundary';

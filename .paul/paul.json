@@ -4,12 +4,12 @@
   "milestone": {
     "name": "Post-MVP / UX Improvements",
     "version": "0.1.1",
-    "status": "complete"
+    "status": "in_progress"
   },
   "phase": {
-    "number": 9,
-    "name": "Layout Refactor",
-    "status": "complete"
+    "number": 10,
+    "name": "Form UX Redesign",
+    "status": "in_progress"
   },
   "loop": {
     "plan": null,

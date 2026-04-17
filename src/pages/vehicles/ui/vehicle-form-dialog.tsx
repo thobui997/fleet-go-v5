@@ -12,6 +12,7 @@ import {
   Input,
   Textarea,
   FormFieldWrapper,
+  FormSection,
   Select,
   SelectContent,
   SelectItem,
@@ -150,7 +151,7 @@ export function VehicleFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[560px]">
+      <DialogContent className="sm:max-w-[680px]">
         <DialogHeader>
           <DialogTitle>
             {mode === 'create' ? 'Thêm xe mới' : 'Chỉnh sửa xe'}
@@ -158,153 +159,165 @@ export function VehicleFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="max-h-[58vh] space-y-4 overflow-y-auto pr-1">
-            {/* Vehicle Type FK dropdown */}
-            <FormFieldWrapper
-              label="Loại xe"
-              error={errors.vehicle_type_id?.message}
-              required
-            >
-              {isLoadingTypes ? (
-                <div className="flex h-10 items-center gap-2 text-sm text-muted-foreground">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Đang tải loại xe…
-                </div>
-              ) : (
-                <>
-                  <Select
-                    value={watchedVehicleTypeId}
-                    onValueChange={(val) =>
-                      setValue('vehicle_type_id', val, { shouldValidate: true })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Chọn loại xe" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {vehicleTypes.length === 0 ? (
-                        <div className="px-3 py-2 text-sm text-muted-foreground">
-                          Chưa có loại xe — tạo loại xe trước ở /vehicle-types
-                        </div>
-                      ) : (
-                        vehicleTypes.map((vt) => (
-                          <SelectItem key={vt.id} value={vt.id}>
-                            {vt.name}
-                          </SelectItem>
-                        ))
+          <div className="max-h-[58vh] overflow-y-auto p-[3px] -m-[3px] pr-1">
+            <div className="space-y-6">
+              <FormSection title="Thông tin xe">
+                {/* Loại xe — full width */}
+                <FormFieldWrapper
+                  label="Loại xe"
+                  error={errors.vehicle_type_id?.message}
+                  required
+                >
+                  {isLoadingTypes ? (
+                    <div className="flex h-10 items-center gap-2 text-sm text-muted-foreground">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Đang tải loại xe…
+                    </div>
+                  ) : (
+                    <>
+                      <Select
+                        value={watchedVehicleTypeId}
+                        onValueChange={(val) =>
+                          setValue('vehicle_type_id', val, { shouldValidate: true })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Chọn loại xe" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {vehicleTypes.length === 0 ? (
+                            <div className="px-3 py-2 text-sm text-muted-foreground">
+                              Chưa có loại xe — tạo loại xe trước ở /vehicle-types
+                            </div>
+                          ) : (
+                            vehicleTypes.map((vt) => (
+                              <SelectItem key={vt.id} value={vt.id}>
+                                {vt.name}
+                              </SelectItem>
+                            ))
+                          )}
+                        </SelectContent>
+                      </Select>
+
+                      {/* Truncation warning */}
+                      {vehicleTypesCount > vehicleTypes.length && (
+                        <p className="mt-1 flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
+                          <AlertTriangle className="h-3 w-3" />
+                          Hiển thị {vehicleTypes.length} / {vehicleTypesCount} loại xe. Liên hệ quản trị
+                          viên nếu không thấy loại xe cần chọn.
+                        </p>
                       )}
-                    </SelectContent>
-                  </Select>
-
-                  {/* Truncation warning */}
-                  {vehicleTypesCount > vehicleTypes.length && (
-                    <p className="mt-1 flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
-                      <AlertTriangle className="h-3 w-3" />
-                      Hiển thị {vehicleTypes.length} / {vehicleTypesCount} loại xe. Liên hệ quản trị
-                      viên nếu không thấy loại xe cần chọn.
-                    </p>
+                    </>
                   )}
-                </>
-              )}
-            </FormFieldWrapper>
+                </FormFieldWrapper>
 
-            {/* License Plate */}
-            <FormFieldWrapper
-              label="Biển số xe"
-              error={errors.license_plate?.message}
-              required
-            >
-              <Input
-                {...register('license_plate')}
-                placeholder="VD: 51A-12345"
-                className="font-mono uppercase"
-              />
-            </FormFieldWrapper>
+                {/* Biển số xe | Số VIN */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Biển số xe"
+                    error={errors.license_plate?.message}
+                    required
+                  >
+                    <Input
+                      {...register('license_plate')}
+                      placeholder="VD: 51A-12345"
+                      className="font-mono uppercase"
+                    />
+                  </FormFieldWrapper>
 
-            {/* VIN */}
-            <FormFieldWrapper label="Số VIN" error={errors.vin_number?.message}>
-              <Input
-                {...register('vin_number')}
-                placeholder="Tùy chọn"
-                className="font-mono uppercase"
-              />
-            </FormFieldWrapper>
+                  <FormFieldWrapper label="Số VIN" error={errors.vin_number?.message}>
+                    <Input
+                      {...register('vin_number')}
+                      placeholder="Tùy chọn"
+                      className="font-mono uppercase"
+                    />
+                  </FormFieldWrapper>
+                </div>
 
-            {/* Year */}
-            <FormFieldWrapper
-              label="Năm sản xuất"
-              error={errors.year_manufactured?.message}
-            >
-              <Input
-                {...register('year_manufactured')}
-                type="number"
-                placeholder="VD: 2022"
-                min={1990}
-              />
-            </FormFieldWrapper>
+                {/* Năm sản xuất | Trạng thái */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Năm sản xuất"
+                    error={errors.year_manufactured?.message}
+                  >
+                    <Input
+                      {...register('year_manufactured')}
+                      type="number"
+                      placeholder="VD: 2022"
+                      min={1990}
+                    />
+                  </FormFieldWrapper>
 
-            {/* Status */}
-            <FormFieldWrapper
-              label="Trạng thái"
-              error={errors.status?.message}
-              required
-            >
-              <Select
-                value={watchedStatus}
-                onValueChange={(val) =>
-                  setValue('status', val as VehicleFormValues['status'], {
-                    shouldValidate: true,
-                  })
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Chọn trạng thái" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="active">Đang hoạt động</SelectItem>
-                  <SelectItem value="maintenance">Đang bảo trì</SelectItem>
-                  <SelectItem value="retired">Đã ngừng sử dụng</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormFieldWrapper>
+                  <FormFieldWrapper
+                    label="Trạng thái"
+                    error={errors.status?.message}
+                    required
+                  >
+                    <Select
+                      value={watchedStatus}
+                      onValueChange={(val) =>
+                        setValue('status', val as VehicleFormValues['status'], {
+                          shouldValidate: true,
+                        })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Chọn trạng thái" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="active">Đang hoạt động</SelectItem>
+                        <SelectItem value="maintenance">Đang bảo trì</SelectItem>
+                        <SelectItem value="retired">Đã ngừng sử dụng</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormFieldWrapper>
+                </div>
+              </FormSection>
 
-            {/* Current Mileage */}
-            <FormFieldWrapper
-              label="Số km hiện tại"
-              error={errors.current_mileage?.message}
-            >
-              <Input
-                {...register('current_mileage')}
-                type="number"
-                placeholder="VD: 15000"
-                min={0}
-              />
-            </FormFieldWrapper>
+              <FormSection title="Vận hành & Bảo trì">
+                {/* Số km hiện tại | spacer */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Số km hiện tại"
+                    error={errors.current_mileage?.message}
+                  >
+                    <Input
+                      {...register('current_mileage')}
+                      type="number"
+                      placeholder="VD: 15000"
+                      min={0}
+                    />
+                  </FormFieldWrapper>
+                  <div />
+                </div>
 
-            {/* Last Maintenance Date */}
-            <FormFieldWrapper
-              label="Ngày bảo trì gần nhất"
-              error={errors.last_maintenance_date?.message}
-            >
-              <Input {...register('last_maintenance_date')} type="date" />
-            </FormFieldWrapper>
+                {/* Ngày bảo trì gần nhất | Ngày bảo trì kế tiếp */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Ngày bảo trì gần nhất"
+                    error={errors.last_maintenance_date?.message}
+                  >
+                    <Input {...register('last_maintenance_date')} type="date" />
+                  </FormFieldWrapper>
 
-            {/* Next Maintenance Date */}
-            <FormFieldWrapper
-              label="Ngày bảo trì kế tiếp"
-              error={errors.next_maintenance_date?.message}
-            >
-              <Input {...register('next_maintenance_date')} type="date" />
-            </FormFieldWrapper>
+                  <FormFieldWrapper
+                    label="Ngày bảo trì kế tiếp"
+                    error={errors.next_maintenance_date?.message}
+                  >
+                    <Input {...register('next_maintenance_date')} type="date" />
+                  </FormFieldWrapper>
+                </div>
 
-            {/* Notes */}
-            <FormFieldWrapper label="Ghi chú" error={errors.notes?.message}>
-              <Textarea
-                {...register('notes')}
-                placeholder="Ghi chú về xe..."
-                rows={2}
-              />
-            </FormFieldWrapper>
+                {/* Ghi chú — full width */}
+                <FormFieldWrapper label="Ghi chú" error={errors.notes?.message}>
+                  <Textarea
+                    {...register('notes')}
+                    placeholder="Ghi chú về xe..."
+                    rows={2}
+                  />
+                </FormFieldWrapper>
+              </FormSection>
+            </div>
           </div>
 
           <DialogFooter>

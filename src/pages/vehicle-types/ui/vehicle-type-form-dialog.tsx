@@ -12,6 +12,7 @@ import {
   Input,
   Textarea,
   FormFieldWrapper,
+  FormSection,
   useToast,
 } from '@shared/ui';
 import { useCreateVehicleType, useUpdateVehicleType } from '@entities/vehicle-type';
@@ -181,7 +182,7 @@ export function VehicleTypeFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[560px]">
+      <DialogContent className="sm:max-w-[640px]">
         <DialogHeader>
           <DialogTitle>
             {mode === 'create' ? 'Thêm loại xe mới' : 'Chỉnh sửa loại xe'}
@@ -190,24 +191,35 @@ export function VehicleTypeFormDialog({
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Scrollable field area */}
-          <div className="max-h-[58vh] space-y-4 overflow-y-auto pr-1">
-            <FormFieldWrapper label="Tên loại xe" error={errors.name?.message} required>
-              <Input {...register('name')} placeholder="VD: Giường nằm 40 chỗ" />
-            </FormFieldWrapper>
+          <div className="max-h-[58vh] overflow-y-auto p-[3px] -m-[3px] pr-1">
+            <div className="space-y-6">
+              <FormSection title="Thông tin loại xe">
+                <FormFieldWrapper label="Tên loại xe" error={errors.name?.message} required>
+                  <Input {...register('name')} placeholder="VD: Giường nằm 40 chỗ" />
+                </FormFieldWrapper>
 
-            <FormFieldWrapper label="Mô tả" error={errors.description?.message}>
-              <Textarea
-                {...register('description')}
-                placeholder="Mô tả ngắn về loại xe..."
-                rows={2}
-              />
-            </FormFieldWrapper>
+                {/* Mô tả | Tiện nghi — 2-col */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper label="Mô tả" error={errors.description?.message}>
+                    <Textarea
+                      {...register('description')}
+                      placeholder="Mô tả ngắn về loại xe..."
+                      rows={2}
+                    />
+                  </FormFieldWrapper>
 
-            {/* ── Seat Layout Section ── */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium">Cấu hình chỗ ngồi</p>
+                  <FormFieldWrapper label="Tiện nghi" error={errors.amenities?.message}>
+                    <Input
+                      {...register('amenities')}
+                      placeholder="VD: wifi, ac, charging"
+                    />
+                  </FormFieldWrapper>
+                </div>
+              </FormSection>
+
+              <FormSection title="Sơ đồ chỗ ngồi">
+                {/* Floor count info + Add floor button */}
+                <div className="flex items-center justify-between">
                   <p className="text-xs text-muted-foreground">
                     {fields.length} tầng &middot; Tổng{' '}
                     <span className="font-semibold text-foreground tabular-nums">
@@ -215,65 +227,58 @@ export function VehicleTypeFormDialog({
                     </span>{' '}
                     ghế
                   </p>
+
+                  {fields.length < 3 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => append({ ...DEFAULT_FLOOR })}
+                    >
+                      <Plus className="mr-1 h-3.5 w-3.5" />
+                      Thêm tầng
+                    </Button>
+                  )}
                 </div>
 
-                {fields.length < 3 && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => append({ ...DEFAULT_FLOOR })}
-                  >
-                    <Plus className="mr-1 h-3.5 w-3.5" />
-                    Thêm tầng
-                  </Button>
+                {fields.map((field, index) => {
+                  const floorConfig = floors[index] ?? DEFAULT_FLOOR;
+                  return (
+                    <div key={field.id} className="relative">
+                      <SeatLayoutEditor
+                        floorIndex={index}
+                        rows={Number(floorConfig.rows) || 0}
+                        seatsPerRow={Number(floorConfig.seats_per_row) || 0}
+                        onRowsChange={(val) => handleFloorRowsChange(index, val)}
+                        onSeatsPerRowChange={(val) =>
+                          handleFloorSeatsPerRowChange(index, val)
+                        }
+                        rowsError={errors.floors?.[index]?.rows?.message}
+                        seatsPerRowError={errors.floors?.[index]?.seats_per_row?.message}
+                      />
+                      {fields.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="absolute right-2 top-2 h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+                          onClick={() => remove(index)}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                          <span className="sr-only">Xóa tầng {index + 1}</span>
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {errors.floors?.root && (
+                  <p className="text-sm text-destructive">
+                    {errors.floors.root.message}
+                  </p>
                 )}
-              </div>
-
-              {fields.map((field, index) => {
-                const floorConfig = floors[index] ?? DEFAULT_FLOOR;
-                return (
-                  <div key={field.id} className="relative">
-                    <SeatLayoutEditor
-                      floorIndex={index}
-                      rows={Number(floorConfig.rows) || 0}
-                      seatsPerRow={Number(floorConfig.seats_per_row) || 0}
-                      onRowsChange={(val) => handleFloorRowsChange(index, val)}
-                      onSeatsPerRowChange={(val) =>
-                        handleFloorSeatsPerRowChange(index, val)
-                      }
-                      rowsError={errors.floors?.[index]?.rows?.message}
-                      seatsPerRowError={errors.floors?.[index]?.seats_per_row?.message}
-                    />
-                    {fields.length > 1 && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="absolute right-2 top-2 h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
-                        onClick={() => remove(index)}
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                        <span className="sr-only">Xóa tầng {index + 1}</span>
-                      </Button>
-                    )}
-                  </div>
-                );
-              })}
-
-              {errors.floors?.root && (
-                <p className="text-sm text-destructive">
-                  {errors.floors.root.message}
-                </p>
-              )}
+              </FormSection>
             </div>
-
-            <FormFieldWrapper label="Tiện nghi" error={errors.amenities?.message}>
-              <Input
-                {...register('amenities')}
-                placeholder="VD: wifi, ac, charging"
-              />
-            </FormFieldWrapper>
           </div>
 
           <DialogFooter>

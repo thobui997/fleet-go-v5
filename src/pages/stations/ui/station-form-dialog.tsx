@@ -11,6 +11,7 @@ import {
   Button,
   Input,
   FormFieldWrapper,
+  FormSection,
   Switch,
   Label,
   useToast,
@@ -130,103 +131,109 @@ export function StationFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="max-h-[58vh] space-y-4 overflow-y-auto pr-1">
-            {/* Name — full width */}
-            <FormFieldWrapper
-              label="Tên trạm"
-              error={errors.name?.message}
-              required
-            >
-              <Input
-                {...register('name')}
-                placeholder="VD: Bến xe Miền Đông"
-              />
-            </FormFieldWrapper>
-
-            {/* City | Province */}
-            <div className="grid grid-cols-2 gap-4">
-              <FormFieldWrapper
-                label="Thành phố"
-                error={errors.city?.message}
-                required
-              >
-                <Input {...register('city')} placeholder="VD: Hồ Chí Minh" />
-              </FormFieldWrapper>
-
-              <FormFieldWrapper
-                label="Tỉnh/Thành"
-                error={errors.province?.message}
-              >
-                <Input
-                  {...register('province')}
-                  placeholder="Tùy chọn"
-                />
-              </FormFieldWrapper>
-            </div>
-
-            {/* Code | Address */}
-            <div className="grid grid-cols-2 gap-4">
-              <FormFieldWrapper
-                label="Mã trạm"
-                error={errors.code?.message}
-              >
-                <Input
-                  {...register('code')}
-                  placeholder="VD: SGN-ME (tùy chọn)"
-                  className="font-mono uppercase"
-                />
-              </FormFieldWrapper>
-
-              <FormFieldWrapper
-                label="Địa chỉ"
-                error={errors.address?.message}
-              >
-                <Input
-                  {...register('address')}
-                  placeholder="Số nhà, đường... (tùy chọn)"
-                />
-              </FormFieldWrapper>
-            </div>
-
-            {/* Latitude | Longitude */}
-            <div className="grid grid-cols-2 gap-4">
-              <FormFieldWrapper
-                label="Vĩ độ"
-                error={errors.latitude?.message}
-              >
-                <Input
-                  {...register('latitude')}
-                  type="text"
-                  placeholder="VD: 10.7769"
-                />
-              </FormFieldWrapper>
-
-              <FormFieldWrapper
-                label="Kinh độ"
-                error={errors.longitude?.message}
-              >
-                <Input
-                  {...register('longitude')}
-                  type="text"
-                  placeholder="VD: 106.7009"
-                />
-              </FormFieldWrapper>
-            </div>
-
-            {/* is_active — Controller for boolean Switch */}
-            <div className="flex items-center gap-3">
-              <Controller
-                name="is_active"
-                control={control}
-                render={({ field }) => (
-                  <Switch
-                    id="is_active"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+          <div className="max-h-[58vh] overflow-y-auto p-[3px] -m-[3px] pr-1">
+            <div className="space-y-6">
+              <FormSection title="Thông tin trạm">
+                {/* Tên trạm — full width */}
+                <FormFieldWrapper
+                  label="Tên trạm"
+                  error={errors.name?.message}
+                  required
+                >
+                  <Input
+                    {...register('name')}
+                    placeholder="VD: Bến xe Miền Đông"
                   />
-                )}
-              />
-              <Label htmlFor="is_active">Đang hoạt động</Label>
+                </FormFieldWrapper>
+
+                {/* Thành phố | Tỉnh/Thành */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Thành phố"
+                    error={errors.city?.message}
+                    required
+                  >
+                    <Input {...register('city')} placeholder="VD: Hồ Chí Minh" />
+                  </FormFieldWrapper>
+
+                  <FormFieldWrapper
+                    label="Tỉnh/Thành"
+                    error={errors.province?.message}
+                  >
+                    <Input
+                      {...register('province')}
+                      placeholder="Tùy chọn"
+                    />
+                  </FormFieldWrapper>
+                </div>
+
+                {/* Mã trạm | Địa chỉ */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Mã trạm"
+                    error={errors.code?.message}
+                  >
+                    <Input
+                      {...register('code')}
+                      placeholder="VD: SGN-ME (tùy chọn)"
+                      className="font-mono uppercase"
+                    />
+                  </FormFieldWrapper>
+
+                  <FormFieldWrapper
+                    label="Địa chỉ"
+                    error={errors.address?.message}
+                  >
+                    <Input
+                      {...register('address')}
+                      placeholder="Số nhà, đường... (tùy chọn)"
+                    />
+                  </FormFieldWrapper>
+                </div>
+              </FormSection>
+
+              <FormSection title="Tọa độ & Trạng thái">
+                {/* Vĩ độ | Kinh độ */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Vĩ độ"
+                    error={errors.latitude?.message}
+                  >
+                    <Input
+                      {...register('latitude')}
+                      type="text"
+                      placeholder="VD: 10.7769"
+                    />
+                  </FormFieldWrapper>
+
+                  <FormFieldWrapper
+                    label="Kinh độ"
+                    error={errors.longitude?.message}
+                  >
+                    <Input
+                      {...register('longitude')}
+                      type="text"
+                      placeholder="VD: 106.7009"
+                    />
+                  </FormFieldWrapper>
+                </div>
+
+                {/* is_active — Controller for boolean Switch */}
+                <div className="flex items-center gap-3">
+                  <Controller
+                    name="is_active"
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        id="is_active"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    )}
+                  />
+                  <Label htmlFor="is_active">Đang hoạt động</Label>
+                </div>
+              </FormSection>
             </div>
           </div>
 

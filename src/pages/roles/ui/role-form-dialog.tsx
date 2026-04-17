@@ -140,7 +140,7 @@ export function RoleFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="max-h-[60vh] space-y-4 overflow-y-auto pr-1">
+          <div className="max-h-[60vh] space-y-4 overflow-y-auto p-[3px] -m-[3px] pr-1">
             <FormFieldWrapper
               label="Tên vai trò"
               error={errors.name?.message}

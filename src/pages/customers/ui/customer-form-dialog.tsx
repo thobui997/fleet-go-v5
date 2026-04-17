@@ -12,6 +12,7 @@ import {
   Input,
   Textarea,
   FormFieldWrapper,
+  FormSection,
   Label,
   Select,
   SelectContent,
@@ -141,7 +142,7 @@ export function CustomerFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[560px]">
+      <DialogContent className="sm:max-w-[640px]">
         <DialogHeader>
           <DialogTitle>
             {isEdit ? 'Chỉnh sửa khách hàng' : 'Thêm khách hàng mới'}
@@ -149,108 +150,116 @@ export function CustomerFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="max-h-[58vh] space-y-4 overflow-y-auto pr-1">
-            {/* Full Name — required */}
-            <FormFieldWrapper
-              label="Họ tên"
-              error={errors.full_name?.message}
-              required
-            >
-              <Input {...register('full_name')} placeholder="Nhập họ tên" />
-            </FormFieldWrapper>
+          <div className="max-h-[58vh] overflow-y-auto p-[3px] -m-[3px] pr-1">
+            <div className="space-y-6">
+              <FormSection title="Thông tin cá nhân">
+                {/* Họ tên — full width */}
+                <FormFieldWrapper
+                  label="Họ tên"
+                  error={errors.full_name?.message}
+                  required
+                >
+                  <Input {...register('full_name')} placeholder="Nhập họ tên" />
+                </FormFieldWrapper>
 
-            {/* Phone Number — required */}
-            <FormFieldWrapper
-              label="Số điện thoại"
-              error={errors.phone_number?.message}
-              required
-            >
-              <Input
-                {...register('phone_number')}
-                type="tel"
-                placeholder="VD: 0901234567"
-              />
-            </FormFieldWrapper>
-
-            {/* Email — optional */}
-            <FormFieldWrapper label="Email" error={errors.email?.message}>
-              <Input
-                {...register('email')}
-                type="email"
-                placeholder="VD: email@example.com (tùy chọn)"
-              />
-            </FormFieldWrapper>
-
-            {/* Date of Birth — optional */}
-            <FormFieldWrapper
-              label="Ngày sinh"
-              error={errors.date_of_birth?.message}
-            >
-              <Input {...register('date_of_birth')} type="date" />
-            </FormFieldWrapper>
-
-            {/* Gender — optional Select with DB values */}
-            <Controller
-              name="gender"
-              control={control}
-              render={({ field }) => (
-                <div className="space-y-2">
-                  <Label>Giới tính</Label>
-                  <Select
-                    value={field.value || '__none__'}
-                    onValueChange={(val) =>
-                      field.onChange(val === '__none__' ? '' : val)
-                    }
+                {/* Số điện thoại | Email */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Số điện thoại"
+                    error={errors.phone_number?.message}
+                    required
                   >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Chọn giới tính" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="__none__">— Chọn giới tính —</SelectItem>
-                      {GENDER_OPTIONS.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {errors.gender?.message && (
-                    <p className="text-sm text-destructive">
-                      {errors.gender.message}
-                    </p>
-                  )}
+                    <Input
+                      {...register('phone_number')}
+                      type="tel"
+                      placeholder="VD: 0901234567"
+                    />
+                  </FormFieldWrapper>
+
+                  <FormFieldWrapper label="Email" error={errors.email?.message}>
+                    <Input
+                      {...register('email')}
+                      type="email"
+                      placeholder="VD: email@example.com (tùy chọn)"
+                    />
+                  </FormFieldWrapper>
                 </div>
-              )}
-            />
 
-            {/* ID Card Number — optional */}
-            <FormFieldWrapper
-              label="CMND/CCCD"
-              error={errors.id_card_number?.message}
-            >
-              <Input
-                {...register('id_card_number')}
-                placeholder="Nhập số CMND/CCCD (tùy chọn)"
-              />
-            </FormFieldWrapper>
+                {/* Ngày sinh | Giới tính */}
+                <div className="grid grid-cols-2 gap-4">
+                  <FormFieldWrapper
+                    label="Ngày sinh"
+                    error={errors.date_of_birth?.message}
+                  >
+                    <Input {...register('date_of_birth')} type="date" />
+                  </FormFieldWrapper>
 
-            {/* Address — optional */}
-            <FormFieldWrapper label="Địa chỉ" error={errors.address?.message}>
-              <Textarea
-                {...register('address')}
-                placeholder="Nhập địa chỉ (tùy chọn)"
-                rows={2}
-              />
-            </FormFieldWrapper>
+                  <Controller
+                    name="gender"
+                    control={control}
+                    render={({ field }) => (
+                      <div className="space-y-2">
+                        <Label>Giới tính</Label>
+                        <Select
+                          value={field.value || '__none__'}
+                          onValueChange={(val) =>
+                            field.onChange(val === '__none__' ? '' : val)
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Chọn giới tính" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="__none__">— Chọn giới tính —</SelectItem>
+                            {GENDER_OPTIONS.map((opt) => (
+                              <SelectItem key={opt.value} value={opt.value}>
+                                {opt.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.gender?.message && (
+                          <p className="text-sm text-destructive">
+                            {errors.gender.message}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  />
+                </div>
+              </FormSection>
 
-            {/* Notes — optional */}
-            <FormFieldWrapper label="Ghi chú" error={errors.notes?.message}>
-              <Textarea
-                {...register('notes')}
-                placeholder="Ghi chú thêm (tùy chọn)"
-                rows={2}
-              />
-            </FormFieldWrapper>
+              <FormSection title="Giấy tờ & Địa chỉ">
+                {/* CMND/CCCD — full width */}
+                <FormFieldWrapper
+                  label="CMND/CCCD"
+                  error={errors.id_card_number?.message}
+                >
+                  <Input
+                    {...register('id_card_number')}
+                    placeholder="Nhập số CMND/CCCD (tùy chọn)"
+                  />
+                </FormFieldWrapper>
+
+                {/* Địa chỉ — full width */}
+                <FormFieldWrapper label="Địa chỉ" error={errors.address?.message}>
+                  <Textarea
+                    {...register('address')}
+                    placeholder="Nhập địa chỉ (tùy chọn)"
+                    rows={2}
+                  />
+                </FormFieldWrapper>
+
+                {/* Ghi chú — full width */}
+                <FormFieldWrapper label="Ghi chú" error={errors.notes?.message}>
+                  <Textarea
+                    {...register('notes')}
+                    placeholder="Ghi chú thêm (tùy chọn)"
+                    rows={2}
+                  />
+                </FormFieldWrapper>
+              </FormSection>
+            </div>
           </div>
 
           {errors.root && (
