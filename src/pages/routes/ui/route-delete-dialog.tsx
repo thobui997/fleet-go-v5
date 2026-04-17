@@ -38,9 +38,10 @@ export function RouteDeleteDialog({
     try {
       await deleteMutation.mutateAsync(route.id);
       onOpenChange(false);
-      toast({ description: 'Đã xóa tuyến đường' });
+      toast({ title: 'Thành công', description: 'Đã xóa tuyến đường', variant: 'success' });
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {

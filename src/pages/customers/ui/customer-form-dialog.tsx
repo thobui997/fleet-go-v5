@@ -117,15 +117,16 @@ export function CustomerFormDialog({
     try {
       if (customer === null) {
         await createMutation.mutateAsync(payload);
-        toast({ description: 'Đã tạo khách hàng', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã tạo khách hàng', variant: 'success' });
       } else {
         await updateMutation.mutateAsync({ id: customer.id, input: payload });
-        toast({ description: 'Đã cập nhật khách hàng', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật khách hàng', variant: 'success' });
       }
       onOpenChange(false);
       reset();
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {

@@ -241,8 +241,8 @@ Status: ✅ Complete (2026-04-18)
 ### Phase 13: Toast Message Standardization
 
 Focus: Standardize toast messages across the app — consistent titles, descriptions, colors, layout, and icons for success/error/warning states
-Plans: TBD (defined during /paul:plan)
-Status: Not started
+Plans: 2 plans (13-01: dialogs, 13-02: pages)
+Status: Planning (2026-04-18)
 
 ---
 *Roadmap created: 2026-04-10*

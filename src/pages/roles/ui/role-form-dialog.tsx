@@ -117,10 +117,10 @@ export function RoleFormDialog({
     try {
       if (role === null) {
         await createMutation.mutateAsync(payload);
-        toast({ description: 'Tạo vai trò thành công', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Tạo vai trò thành công', variant: 'success' });
       } else {
         await updateMutation.mutateAsync({ id: role.id, input: payload });
-        toast({ description: 'Cập nhật vai trò thành công', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Cập nhật vai trò thành công', variant: 'success' });
       }
       onOpenChange(false);
     } catch (error) {

@@ -241,16 +241,25 @@ export function RouteStopsDialog({
       { routeId: route!.id, stops: insertPayload },
       {
         onSuccess: () => {
-          toast({ title: 'Đã lưu điểm dừng' });
+          toast({ title: 'Thành công', description: 'Đã lưu điểm dừng', variant: 'success' });
           onOpenChange(false);
         },
-        onError: (err) =>
+        onError: (err) => {
+          toast({
+            title: 'Lỗi',
+            description: mapRouteStopError(
+              err as { code?: string; message?: string; details?: string; status?: number },
+              'save'
+            ),
+            variant: 'destructive',
+          });
           setSaveError(
             mapRouteStopError(
               err as { code?: string; message?: string; details?: string; status?: number },
-              'save' // audit-added: 'save' context for non-atomic save risk
+              'save'
             )
-          ),
+          );
+        },
       }
     );
   }

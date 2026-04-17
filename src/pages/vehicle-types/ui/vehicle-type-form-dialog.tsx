@@ -165,11 +165,12 @@ export function VehicleTypeFormDialog({
       }
       onOpenChange(false);
       toast({
-        title: mode === 'create' ? 'Thêm thành công' : 'Cập nhật thành công',
+        title: 'Thành công',
         description:
           mode === 'create'
             ? `Loại xe "${values.name}" đã được thêm.`
             : `Loại xe "${values.name}" đã được cập nhật.`,
+        variant: 'success',
       });
     } catch (error) {
       toast({

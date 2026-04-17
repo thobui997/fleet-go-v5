@@ -99,15 +99,16 @@ export function StationFormDialog({
     try {
       if (station === null) {
         await createMutation.mutateAsync(payload);
-        toast({ description: 'Đã tạo trạm', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã tạo trạm', variant: 'success' });
       } else {
         await updateMutation.mutateAsync({ id: station.id, input: payload });
-        toast({ description: 'Đã cập nhật trạm', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật trạm', variant: 'success' });
       }
       onOpenChange(false);
       reset();
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {

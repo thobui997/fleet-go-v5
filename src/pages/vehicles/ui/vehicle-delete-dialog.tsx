@@ -40,8 +40,9 @@ export function VehicleDeleteDialog({
       await deleteMutation.mutateAsync(vehicle.id);
       onOpenChange(false);
       toast({
-        title: 'Xóa thành công',
+        title: 'Thành công',
         description: `Xe "${vehicle.license_plate}" đã được xóa.`,
+        variant: 'success',
       });
     } catch (error) {
       toast({

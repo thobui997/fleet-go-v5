@@ -38,9 +38,10 @@ export function StationDeleteDialog({
     try {
       await deleteMutation.mutateAsync(station.id);
       onOpenChange(false);
-      toast({ description: 'Đã xóa trạm' });
+      toast({ title: 'Thành công', description: 'Đã xóa trạm', variant: 'success' });
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {

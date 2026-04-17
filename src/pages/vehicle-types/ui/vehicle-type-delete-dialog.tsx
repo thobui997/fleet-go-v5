@@ -33,8 +33,9 @@ export function VehicleTypeDeleteDialog({
       await deleteMutation.mutateAsync(vehicleType.id);
       onOpenChange(false);
       toast({
-        title: 'Xóa thành công',
+        title: 'Thành công',
         description: `Loại xe "${vehicleType.name}" đã được xóa.`,
+        variant: 'success',
       });
     } catch (error) {
       const mappedMessage = mapSupabaseError(error as { code?: string });

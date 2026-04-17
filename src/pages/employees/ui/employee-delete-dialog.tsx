@@ -38,9 +38,10 @@ export function EmployeeDeleteDialog({
     try {
       await deleteMutation.mutateAsync(employee.id);
       onOpenChange(false);
-      toast({ description: 'Xóa nhân viên thành công', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Xóa nhân viên thành công', variant: 'success' });
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapEmployeeError(error),
       });

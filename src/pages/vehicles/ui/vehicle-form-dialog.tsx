@@ -134,11 +134,12 @@ export function VehicleFormDialog({
       }
       onOpenChange(false);
       toast({
-        title: mode === 'create' ? 'Thêm thành công' : 'Cập nhật thành công',
+        title: 'Thành công',
         description:
           mode === 'create'
             ? `Xe "${values.license_plate}" đã được thêm.`
             : `Xe "${values.license_plate}" đã được cập nhật.`,
+        variant: 'success',
       });
     } catch (error) {
       toast({

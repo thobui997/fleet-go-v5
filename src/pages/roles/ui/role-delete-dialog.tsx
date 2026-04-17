@@ -42,7 +42,7 @@ export function RoleDeleteDialog({
     try {
       await deleteMutation.mutateAsync(role.id);
       onOpenChange(false);
-      toast({ description: 'Xóa vai trò thành công', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Xóa vai trò thành công', variant: 'success' });
     } catch (error) {
       setDeleteError(mapRoleError(error));
     }

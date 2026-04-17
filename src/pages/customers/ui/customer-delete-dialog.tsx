@@ -38,9 +38,10 @@ export function CustomerDeleteDialog({
     try {
       await deleteMutation.mutateAsync(customer.id);
       onOpenChange(false);
-      toast({ description: 'Đã xóa khách hàng' });
+      toast({ title: 'Thành công', description: 'Đã xóa khách hàng', variant: 'success' });
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {

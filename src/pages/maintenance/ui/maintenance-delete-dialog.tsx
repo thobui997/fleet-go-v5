@@ -38,7 +38,7 @@ export function MaintenanceDeleteDialog({
     try {
       await deleteMutation.mutateAsync(log.id);
       onOpenChange(false);
-      toast({ title: 'Đã xóa lịch bảo trì' });
+      toast({ title: 'Thành công', description: 'Đã xóa lịch bảo trì', variant: 'success' });
     } catch (error) {
       toast({
         title: 'Lỗi',

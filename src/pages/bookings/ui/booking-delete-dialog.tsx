@@ -36,9 +36,10 @@ export function BookingDeleteDialog({
     try {
       await deleteMutation.mutateAsync(booking.id);
       onOpenChange(false);
-      toast({ description: 'Đã xóa đặt vé thành công' });
+      toast({ title: 'Thành công', description: 'Đã xóa đặt vé', variant: 'success' });
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapBookingError(
           error as {

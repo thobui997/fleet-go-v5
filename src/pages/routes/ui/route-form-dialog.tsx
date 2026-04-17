@@ -129,15 +129,16 @@ export function RouteFormDialog({
     try {
       if (mode === 'create') {
         await createMutation.mutateAsync(payload);
-        toast({ description: 'Đã tạo tuyến đường', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã tạo tuyến đường', variant: 'success' });
       } else if (route) {
         await updateMutation.mutateAsync({ id: route.id, input: payload });
-        toast({ description: 'Đã cập nhật tuyến đường', variant: 'success' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật tuyến đường', variant: 'success' });
       }
       onOpenChange(false);
       reset();
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapSupabaseError(
           error as {
