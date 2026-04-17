@@ -5,7 +5,7 @@ import { LoginPage } from '@pages/login';
 import { DashboardPage } from '@pages/dashboard';
 import { VehicleTypesPage } from '@pages/vehicle-types';
 import { VehiclesPage } from '@pages/vehicles';
-import { MaintenancePage } from '@pages/maintenance';
+import { MaintenancePage, MaintenanceFormPage } from '@pages/maintenance';
 import { StationsPage } from '@pages/stations';
 import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
@@ -42,6 +42,9 @@ export const router = createBrowserRouter([
       { path: ROUTES.VEHICLES, element: <VehiclesPage /> },
       { path: ROUTES.VEHICLE_TYPES, element: <VehicleTypesPage /> },
       { path: ROUTES.MAINTENANCE, element: <MaintenancePage /> },
+      // MAINTENANCE_NEW must come before MAINTENANCE_EDIT — literal segments beat dynamic
+      { path: ROUTES.MAINTENANCE_NEW, element: <MaintenanceFormPage /> },
+      { path: ROUTES.MAINTENANCE_EDIT, element: <MaintenanceFormPage /> },
       { path: ROUTES.ROUTES, element: <RoutesPage /> },
       { path: ROUTES.STATIONS, element: <StationsPage /> },
       { path: ROUTES.TRIPS, element: <TripsPage /> },

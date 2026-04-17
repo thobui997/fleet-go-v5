@@ -10,22 +10,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: Post-MVP / UX Improvements — **IN PROGRESS**
-Phase: 10 (Form UX Redesign) — **IN PROGRESS** (1/5 plans)
-Plan: 10-01 complete — loop closed
-Status: Ready for Plan 10-02
-Last activity: 2026-04-17 — Plan 10-01 UNIFY complete. FormSection + 5 dialog updates shipped.
+Phase: 10 (Form UX Redesign) — **IN PROGRESS** (2/5 plans)
+Plan: 10-02 complete (UNIFY closed)
+Status: Ready for next plan (10-03)
+Last activity: 2026-04-17 — Plan 10-02 loop closed. Maintenance form migrated to full pages at /maintenance/new and /maintenance/:id/edit. 2-column section layout, sticky action bar, dirty-state blocker, context-aware fetch errors. All 8 AC passed. Build clean.
 
 ## Loop Position
 
-Current loop state:
+Current loop state (10-02):
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for Plan 10-02]
+  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
 ```
 
 Progress:
 - Phase 9: [██████████] 100% (2/2 plans complete)
-- Phase 10: [██░░░░░░░░] 20% (1/5 plans complete)
+- Phase 10: [████░░░░░░] 40% (2/5 plans complete)
 
 ## Accumulated Context
 
@@ -86,6 +86,7 @@ Progress:
 - 2026-04-16: Plan 08-01 executed — Dashboard Page with KPI stat cards, recent bookings table, upcoming trips list. All acceptance criteria met. Key patterns: Promise.allSettled for partial failure tolerance, auth-expiry detection with signOut trigger, inline status badge helpers. Build passes with zero errors.
 - 2026-04-16: Enterprise audit on 08-02-PLAN.md. Applied 1 must-have (error/retry states on all chart components — consistent with 08-01 dashboard error pattern), 5 strongly-recommended (auth-expiry explicit for chart API functions; abbreviated YAxis format instead of formatCurrency; empty data guard before Pie/BarChart; concrete hex colors instead of CSS variables in SVG; regression checkpoint for 08-01 sections). Deferred 4 (bundle size, ARIA, dark mode, tooltip positioning). Verdict: conditionally acceptable (now ready).
 - 2026-04-17: Enterprise audit on 10-01-PLAN.md. Applied 1 must-have (React import in FormSection snippet — React.ReactNode unresolved without it), 4 strongly-recommended (remove existing manual VehicleTypes section header before FormSection wrap; remove hedge language on description field; add dialog width grep to Task 2 verify; add submit tests to human-verify checkpoint). Deferred 3 (className prop; ARIA role=separator; description subtitle prop). Verdict: conditionally acceptable (now ready).
+- 2026-04-17: Enterprise audit on 10-02-PLAN.md. Applied 1 must-have (reset() before navigate() after successful submit — useBlocker intercepts post-submit navigation if isDirty not cleared), 3 strongly-recommended (mapFetchError distinguishes PGRST116/auth-expiry on entity fetch; useBlocker callback form with pathname guard; explicit route ordering comment MAINTENANCE_NEW before MAINTENANCE_EDIT). Deferred 2 (ARIA on dirty-state dialog; page transition animation). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -97,9 +98,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Plan 10-01 UNIFY complete
-Next action: Run /paul:plan for Phase 10 Plan 10-02 (Maintenance form → full page)
-Resume file: .paul/phases/10-form-ux-redesign/10-01-SUMMARY.md
+Stopped at: Plan 10-02 loop closed (UNIFY complete)
+Next action: /paul:plan for Phase 10, Plan 03
+Resume file: .paul/phases/10-form-ux-redesign/10-02-SUMMARY.md
 Git strategy: main
 
 ---

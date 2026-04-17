@@ -5,6 +5,8 @@ export const ROUTES = {
   VEHICLES: '/vehicles',
   VEHICLE_TYPES: '/vehicle-types',
   MAINTENANCE: '/maintenance',
+  MAINTENANCE_NEW: '/maintenance/new',
+  MAINTENANCE_EDIT: '/maintenance/:id/edit',
   ROUTES: '/routes',
   STATIONS: '/stations',
   EMPLOYEES: '/employees',

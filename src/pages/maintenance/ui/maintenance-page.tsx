@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
 import {
   Button,
@@ -26,7 +27,7 @@ import type {
   MaintenanceLog,
   MaintenanceType,
 } from '@entities/maintenance-log';
-import { MaintenanceFormDialog } from './maintenance-form-dialog';
+import { ROUTES } from '@shared/config/routes';
 import { MaintenanceDeleteDialog } from './maintenance-delete-dialog';
 import { MaintenanceTypeBadge } from './maintenance-type-badge';
 import { FK_DROPDOWN_PAGE_SIZE } from '../model/maintenance-form-schema';
@@ -45,14 +46,13 @@ const MAINTENANCE_TYPE_LABELS: Record<MaintenanceType, string> = {
 
 export function MaintenancePage() {
   const { toast: _toast } = useToast();
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [vehicleFilter, setVehicleFilter] = React.useState<VehicleFilter>('all');
   const [typeFilter, setTypeFilter] = React.useState<TypeFilter>('all');
-  const [formOpen, setFormOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [selectedLog, setSelectedLog] = React.useState<MaintenanceLog | null>(null);
-  const [mode, setMode] = React.useState<'create' | 'edit'>('create');
 
   const { data, isLoading, isError, refetch } = useMaintenanceLogs({
     page,
@@ -131,9 +131,7 @@ export function MaintenancePage() {
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                setSelectedLog(row as MaintenanceLog);
-                setMode('edit');
-                setFormOpen(true);
+                navigate(`/maintenance/${row.id}/edit`);
               }}
             >
               Chỉnh sửa
@@ -163,13 +161,7 @@ export function MaintenancePage() {
               Quản lý lịch sử bảo trì của đội xe
             </p>
           </div>
-          <Button
-            onClick={() => {
-              setSelectedLog(null);
-              setMode('create');
-              setFormOpen(true);
-            }}
-          >
+          <Button onClick={() => navigate(ROUTES.MAINTENANCE_NEW)}>
             <Plus className="mr-2 h-4 w-4" />
             Thêm bảo trì
           </Button>
@@ -251,13 +243,6 @@ export function MaintenancePage() {
           />
         )}
       </div>
-
-      <MaintenanceFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        mode={mode}
-        log={selectedLog}
-      />
 
       <MaintenanceDeleteDialog
         open={deleteOpen}
