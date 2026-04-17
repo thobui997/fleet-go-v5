@@ -21,6 +21,7 @@ import {
   SelectValue,
   useToast,
 } from '@shared/ui';
+import { DatePicker } from '@shared/ui/form';
 import { useCreateCustomer, useUpdateCustomer } from '@entities/customer';
 import type { Customer } from '@entities/customer';
 import {
@@ -187,12 +188,12 @@ export function CustomerFormDialog({
 
                 {/* Ngày sinh | Giới tính */}
                 <div className="grid grid-cols-2 gap-4">
-                  <FormFieldWrapper
+                  <DatePicker
+                    control={control}
+                    name="date_of_birth"
                     label="Ngày sinh"
                     error={errors.date_of_birth?.message}
-                  >
-                    <Input {...register('date_of_birth')} type="date" />
-                  </FormFieldWrapper>
+                  />
 
                   <Controller
                     name="gender"

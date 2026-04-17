@@ -24,6 +24,7 @@ import {
   Label,
   useToast,
 } from '@shared/ui';
+import { DatePicker } from '@shared/ui/form';
 import {
   useProfiles,
   useEmployeeRole,
@@ -349,12 +350,12 @@ export function EmployeeFormPage() {
                       </FormFieldWrapper>
 
                       {/* Hire date */}
-                      <FormFieldWrapper
+                      <DatePicker
+                        control={control}
+                        name="hire_date"
                         label="Ngày vào làm"
                         error={errors.hire_date?.message}
-                      >
-                        <Input {...register('hire_date')} type="date" />
-                      </FormFieldWrapper>
+                      />
 
                       {/* is_active */}
                       <div className="flex items-center gap-3">
@@ -447,12 +448,12 @@ export function EmployeeFormPage() {
                     </FormFieldWrapper>
 
                     {/* License expiry */}
-                    <FormFieldWrapper
+                    <DatePicker
+                      control={control}
+                      name="license_expiry"
                       label="Ngày hết hạn"
                       error={errors.license_expiry?.message}
-                    >
-                      <Input {...register('license_expiry')} type="date" />
-                    </FormFieldWrapper>
+                    />
                   </FormSection>
 
                 </div>

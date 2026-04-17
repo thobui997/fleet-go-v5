@@ -21,6 +21,7 @@ import {
   Skeleton,
 } from '@shared/ui';
 import { FormSection } from '@shared/ui/form-section';
+import { DateTimePicker } from '@shared/ui/form';
 import { ROUTES } from '@shared/config/routes';
 import { useRoutes } from '@entities/route';
 import { useVehicles } from '@entities/vehicle';
@@ -341,21 +342,21 @@ export function TripFormPage() {
                   <div className="space-y-8">
                     <FormSection title="Thời gian">
                       <div className="grid grid-cols-2 gap-4">
-                        <FormFieldWrapper
+                        <DateTimePicker
+                          control={control}
+                          name="departure_time"
                           label="Giờ đi"
                           error={errors.departure_time?.message}
                           required
-                        >
-                          <Input {...register('departure_time')} type="datetime-local" />
-                        </FormFieldWrapper>
+                        />
 
-                        <FormFieldWrapper
+                        <DateTimePicker
+                          control={control}
+                          name="estimated_arrival_time"
                           label="Giờ đến dự kiến"
                           error={errors.estimated_arrival_time?.message}
                           required
-                        >
-                          <Input {...register('estimated_arrival_time')} type="datetime-local" />
-                        </FormFieldWrapper>
+                        />
                       </div>
                     </FormSection>
 

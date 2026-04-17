@@ -21,6 +21,7 @@ import {
   SelectValue,
   useToast,
 } from '@shared/ui';
+import { DatePicker } from '@shared/ui/form';
 import { useRoles } from '@entities/role';
 import {
   useProfiles,
@@ -229,15 +230,12 @@ export function EmployeeFormDialog({
 
             {/* Hire date | License number */}
             <div className="grid grid-cols-2 gap-4">
-              <FormFieldWrapper
+              <DatePicker
+                control={control}
+                name="hire_date"
                 label="Ngày vào làm"
                 error={errors.hire_date?.message}
-              >
-                <Input
-                  {...register('hire_date')}
-                  type="date"
-                />
-              </FormFieldWrapper>
+              />
 
               <FormFieldWrapper
                 label="Số bằng lái"
@@ -252,15 +250,12 @@ export function EmployeeFormDialog({
             </div>
 
             {/* License expiry */}
-            <FormFieldWrapper
+            <DatePicker
+              control={control}
+              name="license_expiry"
               label="Ngày hết hạn bằng lái"
               error={errors.license_expiry?.message}
-            >
-              <Input
-                {...register('license_expiry')}
-                type="date"
-              />
-            </FormFieldWrapper>
+            />
 
             {/* Role dropdown */}
             <FormFieldWrapper

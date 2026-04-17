@@ -22,6 +22,7 @@ import {
   Textarea,
   useToast,
 } from '@shared/ui';
+import { DatePicker } from '@shared/ui/form';
 import {
   useCreateMaintenanceLog,
   useMaintenanceLog,
@@ -87,6 +88,7 @@ export function MaintenanceFormPage() {
     reset,
     setValue,
     watch,
+    control,
     formState: { errors, isDirty },
   } = useForm<MaintenanceFormValues>({
     resolver: zodResolver(maintenanceFormSchema),
@@ -346,20 +348,20 @@ export function MaintenanceFormPage() {
                     </FormSection>
 
                     <FormSection title="Lịch bảo trì">
-                      <FormFieldWrapper
+                      <DatePicker
+                        control={control}
+                        name="performed_at"
                         label="Ngày thực hiện"
                         error={errors.performed_at?.message}
                         required
-                      >
-                        <Input {...register('performed_at')} type="date" />
-                      </FormFieldWrapper>
+                      />
 
-                      <FormFieldWrapper
+                      <DatePicker
+                        control={control}
+                        name="next_due_date"
                         label="Ngày bảo trì kế tiếp"
                         error={errors.next_due_date?.message}
-                      >
-                        <Input {...register('next_due_date')} type="date" />
-                      </FormFieldWrapper>
+                      />
 
                       <FormFieldWrapper
                         label="Số km (đồng hồ)"

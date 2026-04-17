@@ -3,7 +3,7 @@
 import { Controller } from "react-hook-form"
 import { format } from "date-fns"
 import { vi, type Locale } from "date-fns/locale"
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock } from "lucide-react"
 import { cn } from "../../lib/cn"
 import { Button } from "../button"
 import {
@@ -14,9 +14,9 @@ import {
 import * as React from "react"
 
 /**
- * DatePicker component props for React Hook Form integration
+ * DateTimePicker component props for React Hook Form integration
  */
-export interface DatePickerFormProps {
+export interface DateTimePickerFormProps {
   /** Form control from React Hook Form useForm */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: any
@@ -30,14 +30,14 @@ export interface DatePickerFormProps {
   required?: boolean
   /** Whether field is disabled */
   disabled?: boolean
-  /** Placeholder text when no date selected */
+  /** Placeholder text when no datetime selected */
   placeholder?: string
 }
 
 /**
  * Serialize a local Date to YYYY-MM-DD without UTC conversion.
- * Using toISOString() would shift the date in UTC+N timezones —
- * e.g. June 17 local midnight becomes "2025-06-16T17:00Z" in UTC+7.
+ * toISOString() shifts the date in UTC+N timezones — e.g. June 17
+ * local midnight becomes "2025-06-16T17:00Z" in UTC+7.
  */
 function toLocalISODate(date: Date): string {
   const y = date.getFullYear()
@@ -48,9 +48,6 @@ function toLocalISODate(date: Date): string {
 
 /**
  * Parse a YYYY-MM-DD string as a local date (not UTC midnight).
- * new Date("2025-06-17") parses as UTC midnight, which in UTC+7
- * is correct for date-only display but causes isSameDay to fail
- * when compared against dates created with new Date(y, m, d).
  */
 function fromLocalISODate(value: string): Date {
   const [y, m, d] = value.split('-').map(Number)
@@ -58,7 +55,27 @@ function fromLocalISODate(value: string): Date {
 }
 
 /**
- * Custom Calendar component with high-contrast modern design
+ * Split a stored "YYYY-MM-DDTHH:mm" value into its date and time parts.
+ */
+function parseDateTime(value: string): { date: string; time: string } {
+  if (!value) return { date: "", time: "" }
+  const [date = "", time = ""] = value.split("T")
+  return { date, time }
+}
+
+/**
+ * Combine date (YYYY-MM-DD) and time (HH:mm) into the stored format.
+ * Returns whichever part is available so partial state is preserved.
+ * Complete value "YYYY-MM-DDTHH:mm" is only produced when both are set.
+ */
+function buildDateTime(date: string, time: string): string {
+  if (date && time) return `${date}T${time}`
+  if (date) return date
+  return ""
+}
+
+/**
+ * Calendar with navigation — shared internal component.
  */
 function ModernCalendar({
   selected,
@@ -66,18 +83,16 @@ function ModernCalendar({
   locale,
 }: {
   selected?: Date
-  onSelect?: (date: Date | undefined) => void
+  onSelect?: (date: Date) => void
   locale?: Locale
 }) {
   const [currentMonth, setCurrentMonth] = React.useState(selected || new Date())
 
-  const goToPreviousMonth = () => {
+  const goToPreviousMonth = () =>
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
-  }
 
-  const goToNextMonth = () => {
+  const goToNextMonth = () =>
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
-  }
 
   const goToToday = () => {
     const today = new Date()
@@ -89,8 +104,7 @@ function ModernCalendar({
     const year = date.getFullYear()
     const month = date.getMonth()
     const firstDay = new Date(year, month, 1)
-    const lastDay = new Date(year, month + 1, 0)
-    const daysInMonth = lastDay.getDate()
+    const daysInMonth = new Date(year, month + 1, 0).getDate()
     const startDayOfWeek = firstDay.getDay() // 0 = Sunday
 
     const days: Array<{ date: Date; isCurrentMonth: boolean }> = []
@@ -182,17 +196,13 @@ function ModernCalendar({
               className={cn(
                 "relative h-9 w-9 mx-auto flex items-center justify-center rounded-xl",
                 "text-sm font-medium transition-colors duration-150",
-                // Default state
                 isCurrentMonth
                   ? "text-foreground hover:bg-muted"
                   : "text-muted-foreground/30 cursor-default pointer-events-none",
-                // Today — subtle ring, slightly bolder
                 isToday && !isSelected && "ring-1 ring-primary/60 text-primary font-semibold",
-                // Selected — solid brand fill
                 isSelected && [
                   "bg-primary text-primary-foreground font-semibold",
-                  "hover:bg-primary/90",
-                  "ring-0 shadow-sm",
+                  "hover:bg-primary/90 ring-0 shadow-sm",
                 ],
               )}
             >
@@ -209,45 +219,58 @@ function ModernCalendar({
 }
 
 /**
- * DatePicker wrapper component for React Hook Form integration
+ * DateTimePicker — single trigger, calendar + time in one popover.
  *
- * Features:
- * - Returns ISO string (YYYY-MM-DD) using local date — timezone-safe, no UTC shift
- * - Handles null/undefined by returning empty string
- * - Vietnamese locale support via date-fns
- * - Validation error display
+ * The trigger shows the full formatted datetime ("17/06/2025, 14:30") when a
+ * value is set, or the placeholder when empty. Opening the popover reveals the
+ * calendar at the top and a time input at the bottom, separated by a divider.
+ *
+ * Stores "YYYY-MM-DDTHH:mm" — date part serialized from local time (no UTC
+ * shift), time part taken directly from the <input type="time"> value.
  *
  * @example
  * ```tsx
- * <DatePicker
+ * <DateTimePicker
  *   control={control}
- *   name="dateOfBirth"
- *   label="Ngày sinh"
+ *   name="departure_time"
+ *   label="Giờ khởi hành"
  *   required
- *   error={errors.dateOfBirth?.message}
+ *   error={errors.departure_time?.message}
  * />
  * ```
  */
-export function DatePicker({
+export function DateTimePicker({
   control,
   name,
   label,
   error,
   required = false,
   disabled = false,
-  placeholder = "Chọn ngày",
-}: DatePickerFormProps) {
+  placeholder = "Chọn ngày giờ",
+}: DateTimePickerFormProps) {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field }) => {
-        const hasValue = !!field.value
-        // Parse stored YYYY-MM-DD as local date to avoid UTC-midnight display shift
-        const selectedDate = hasValue ? fromLocalISODate(field.value) : undefined
-        const displayValue = selectedDate
-          ? format(selectedDate, "dd/MM/yyyy", { locale: vi })
-          : placeholder
+        const { date, time } = parseDateTime(field.value || "")
+        const selectedDate = date ? fromLocalISODate(date) : undefined
+
+        // Trigger label: full datetime when complete, date-only when partial, placeholder when empty
+        const triggerLabel = (() => {
+          if (date && time) return format(fromLocalISODate(date), "dd/MM/yyyy", { locale: vi }) + ",  " + time
+          if (date) return format(fromLocalISODate(date), "dd/MM/yyyy", { locale: vi })
+          return placeholder
+        })()
+        const hasValue = !!date
+
+        const handleDateSelect = (newDate: Date) => {
+          field.onChange(buildDateTime(toLocalISODate(newDate), time))
+        }
+
+        const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          field.onChange(buildDateTime(date, e.target.value))
+        }
 
         return (
           <div className="space-y-1.5">
@@ -257,6 +280,7 @@ export function DatePicker({
                 {required && <span className="text-destructive ml-0.5">*</span>}
               </label>
             )}
+
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -274,29 +298,55 @@ export function DatePicker({
                   )}
                   disabled={disabled}
                 >
-                  <span className="truncate">{displayValue}</span>
+                  <span className="truncate">{triggerLabel}</span>
                   <CalendarIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
                 </Button>
               </PopoverTrigger>
+
               <PopoverContent
                 className="w-auto p-0 rounded-xl shadow-lg border border-border"
                 align="start"
               >
+                {/* Calendar */}
                 <ModernCalendar
                   selected={selectedDate}
-                  onSelect={(date) => {
-                    // Use local date serialization — avoids UTC offset shifting the date
-                    field.onChange(date ? toLocalISODate(date) : '')
-                  }}
+                  onSelect={handleDateSelect}
                   locale={vi}
                 />
+
+                {/* Divider */}
+                <div className="border-t border-border mx-1" />
+
+                {/* Time input */}
+                <div className="flex items-center gap-3 px-4 py-3">
+                  <Clock className="h-4 w-4 text-muted-foreground shrink-0" />
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={handleTimeChange}
+                    disabled={disabled}
+                    step="60"
+                    aria-label="Chọn giờ"
+                    className={cn(
+                      "h-8 w-[110px] rounded-lg border border-input bg-background px-2 text-sm font-medium",
+                      "text-foreground transition-colors duration-150",
+                      "hover:border-ring focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+                      "disabled:cursor-not-allowed disabled:opacity-50",
+                    )}
+                  />
+                  <span className="text-xs text-muted-foreground">Giờ khởi hành</span>
+                </div>
               </PopoverContent>
             </Popover>
+
             {error && (
               <p className="text-sm text-destructive mt-1 flex items-center gap-1.5">
                 <span className="w-0.5 h-3.5 bg-destructive rounded-full shrink-0" />
                 {error}
               </p>
+            )}
+            {date && !time && (
+              <p className="text-xs text-muted-foreground mt-1">Vui lòng chọn thời gian</p>
             )}
           </div>
         )

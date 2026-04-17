@@ -20,6 +20,7 @@ import {
   SelectValue,
   useToast,
 } from '@shared/ui';
+import { DatePicker } from '@shared/ui/form';
 import { useCreateVehicle, useUpdateVehicle } from '@entities/vehicle';
 import { useVehicleTypes } from '@entities/vehicle-type';
 import type { Vehicle } from '@entities/vehicle';
@@ -63,6 +64,7 @@ export function VehicleFormDialog({
     reset,
     setValue,
     watch,
+    control,
     formState: { errors },
   } = useForm<VehicleFormValues>({
     resolver: zodResolver(vehicleFormSchema),
@@ -293,19 +295,19 @@ export function VehicleFormDialog({
 
                 {/* Ngày bảo trì gần nhất | Ngày bảo trì kế tiếp */}
                 <div className="grid grid-cols-2 gap-4">
-                  <FormFieldWrapper
+                  <DatePicker
+                    control={control}
+                    name="last_maintenance_date"
                     label="Ngày bảo trì gần nhất"
                     error={errors.last_maintenance_date?.message}
-                  >
-                    <Input {...register('last_maintenance_date')} type="date" />
-                  </FormFieldWrapper>
+                  />
 
-                  <FormFieldWrapper
+                  <DatePicker
+                    control={control}
+                    name="next_maintenance_date"
                     label="Ngày bảo trì kế tiếp"
                     error={errors.next_maintenance_date?.message}
-                  >
-                    <Input {...register('next_maintenance_date')} type="date" />
-                  </FormFieldWrapper>
+                  />
                 </div>
 
                 {/* Ghi chú — full width */}
