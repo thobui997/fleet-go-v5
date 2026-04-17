@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
+import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Pencil, Trash2 } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   Badge,
 } from '@shared/ui';
@@ -102,8 +103,10 @@ export function StationsPage() {
                 setFormOpen(true);
               }}
             >
-              Sửa
+              <Pencil className="mr-2 h-4 w-4" />
+              Chỉnh sửa
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
               onClick={() => {
@@ -111,6 +114,7 @@ export function StationsPage() {
                 setDeleteOpen(true);
               }}
             >
+              <Trash2 className="mr-2 h-4 w-4" />
               Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>

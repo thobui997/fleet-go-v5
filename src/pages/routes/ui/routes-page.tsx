@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
+import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Pencil, Trash2, MapPin } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   Badge,
 } from '@shared/ui';
@@ -142,13 +143,16 @@ export function RoutesPage() {
             <DropdownMenuItem
               onClick={() => navigate(ROUTES.ROUTES_EDIT.replace(':id', row.id))}
             >
-              Sửa
+              <Pencil className="mr-2 h-4 w-4" />
+              Chỉnh sửa
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => navigate(ROUTES.ROUTES_STOPS.replace(':id', row.id))}
             >
+              <MapPin className="mr-2 h-4 w-4" />
               Điểm dừng
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
               onClick={() => {
@@ -156,6 +160,7 @@ export function RoutesPage() {
                 setDeleteOpen(true);
               }}
             >
+              <Trash2 className="mr-2 h-4 w-4" />
               Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>

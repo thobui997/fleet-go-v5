@@ -9,28 +9,22 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 ## Current Position
 
-Milestone: Post-MVP / UX Improvements — **COMPLETE** ✅
-Phase: 11 (Date Input Migration) — **COMPLETE** ✅
-Plan: 11-03 — UNIFY complete
-Status: Milestone complete — awaiting next milestone definition
-Last activity: 2026-04-17 — Phase 11 complete. 11-03 UNIFY: toLocalISODate/fromLocalISODate extracted to @shared/lib; trips/payments/bookings migrated to DateRangePicker (redesigned to single unified trigger with range band + hover preview). v0.1.1 Post-MVP UX Improvements milestone complete.
+Milestone: v0.1.2 UI Polish — **In Progress** 🚧
+Phase: 13 (Toast Message Standardization) — Not started
+Plan: Not started
+Status: Ready to plan Phase 13
+Last activity: 2026-04-18 — Phase 12 complete. Action Dropdown Standardization delivered across all 11 list pages. Transitioned to Phase 13.
 
 Progress:
-- Milestone: [██████████] 100% (3/3 phases complete) ✅
-- Phase 11: [██████████] 100% (3/3 plans complete) ✅
+- v0.1.2 UI Polish: [█████░░░░░] 50% (1/2 phases complete)
+- Phase 13: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Phase 11 complete — milestone complete]
-```
-
-```
-11-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
-11-02: PLAN ✓ → APPLY ✓ → UNIFY ✓
-11-03: PLAN ✓ → APPLY ✓ → UNIFY ✓
+  ✓        ✓        ✓     [Loop complete - ready for next PLAN]
 ```
 ```
 10-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
@@ -51,6 +45,9 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Context-aware fetch error mapping: PGRST116→not found, 401/403/PGRST301→auth-expiry
 - FK dropdown empty state pattern: Show message + disable submit when no FK options available
 - 2026-04-17: **Phase 10 Complete** — All forms migrated from dialogs to full-page layout; FormSection component established across Maintenance, Trip, Employee, Route, Booking forms
+
+### Recent Decisions (Phase 12)
+- 2026-04-18: **Phase 12 Complete** — Action Dropdown Standardization delivered. All 11 list pages now have Lucide icons, consistent "Chỉnh sửa" labels, DropdownMenuSeparator before Xóa, and Eye icon on Xem buttons. Pattern established: Pencil+edit → (contextual) → separator → Trash2+delete.
 
 ### Recent Decisions (Phase 11)
 - 2026-04-17: **Added Phase 11 (Date Input Migration)** — Scope expansion to replace native `input type="date"` with Shadcn DatePicker/DateRangePicker for consistent UI/UX
@@ -126,17 +123,16 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Focus trapping in mobile sidebar overlay — keyboard accessibility gap, deferred from 01-04 audit
 
 ### Git State
-Last commit: 91d5b70
+Last commit: bff9450
 Branch: master
 Feature branches merged: none
 
 ## Session Continuity
 
-Last session: 2026-04-17
-Stopped at: v0.1.1 Post-MVP UX Improvements milestone complete
-Next action: /paul:milestone to define next milestone
+Last session: 2026-04-18
+Stopped at: Phase 12 complete, transitioned to Phase 13
+Next action: /paul:plan for Phase 13 (Toast Message Standardization)
 Resume file: .paul/ROADMAP.md
-Git commit: pending (phase 11 commit not yet created)
 
 ---
 *STATE.md — Updated after every significant action*

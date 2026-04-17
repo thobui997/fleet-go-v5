@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Users } from 'lucide-react';
+import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Users, Pencil, Trash2 } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@shared/ui';
 import { DateRangePicker } from '@shared/ui/form';
@@ -137,8 +138,10 @@ export function TripsPage() {
             <DropdownMenuItem
               onClick={() => navigate(`/trips/${row.id}/edit`)}
             >
-              Sửa
+              <Pencil className="mr-2 h-4 w-4" />
+              Chỉnh sửa
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
               onClick={() => {
@@ -146,6 +149,7 @@ export function TripsPage() {
                 setDeleteOpen(true);
               }}
             >
+              <Trash2 className="mr-2 h-4 w-4" />
               Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -52,14 +52,15 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Viewport-Constrained Layout:** All 11 list pages on flex viewport layout (chrome fixed, table body scrolls independently, sticky column headers); 4 non-list pages with opt-in h-full overflow-y-auto scroll; global slim auto-hide scrollbar — Phase 9
 - **Form UX Redesign (Complete):** FormSection component for consistent field grouping; All 5 forms migrated to full-page layout (Maintenance, Trip, Employee, Route, Booking) with sticky footer; Dirty state blocker using useBlocker with pathname guard; reset() before navigate() to prevent blocker interception; FK dropdown patterns (__none__ sentinel, truncation warning, empty state handling); Context-aware error mapping; StaffAssignmentPage and RouteStopsPage created — Phase 10
 - **Date Input Migration (Complete):** Shadcn DatePicker + custom ModernCalendar (timezone-safe, Vietnamese locale); DateTimePicker with combined calendar + time input; DateRangePicker as unified single-trigger with range band and live hover preview; `toLocalISODate`/`fromLocalISODate` in `@shared/lib/date-utils`; all form date fields migrated; all list-page date range filters migrated; zero native `type="date"` inputs remain — Phase 11
+- **Action Dropdown Standardization (Complete):** All 11 list pages standardized — Pencil+Chỉnh sửa, DropdownMenuSeparator before destructive, Trash2+Xóa on 9 dropdown pages; MapPin on Routes Điểm dừng; Users on Trips Phân công preserved; Eye icon on Bookings+Payments inline Xem button — Phase 12
 
 ### Active (In Progress)
 
-- None — **v0.1.1 Post-MVP UX Improvements COMPLETE**
+- **Toast Message Standardization** — Phase 13 (v0.1.2)
 
 ### Planned (Next)
 
-- None — v0.1.1 delivered; await next milestone requirements
+- None — Phase 13 is next in v0.1.2 milestone
 
 ### Out of Scope
 
@@ -145,6 +146,8 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | toLocalISODate/fromLocalISODate in @shared/lib | Date utility functions extracted from inline duplication in DatePicker/DateTimePicker; single source of truth, timezone-safe (uses local date parts, not UTC) | 2026-04-17 | Active |
 | DateRangePicker unified single-trigger design | Single button showing "DD/MM/YYYY → DD/MM/YYYY"; opens range calendar popover; original two-input layout rejected at checkpoint for fragmented UX | 2026-04-17 | Active |
 | Range band via left/right half-span segments | Each calendar cell has two independent `<span>` elements for left/right halves; avoids CSS pseudo-elements and creates continuous band without cross-row artifacts | 2026-04-17 | Active |
+| Standard dropdown action pattern | Pencil+Chỉnh sửa → (contextual items) → DropdownMenuSeparator → Trash2+Xóa; destructive action visually separated from safe actions | 2026-04-18 | Active |
+| Inline view button pattern | Eye + "Xem" (variant="ghost", size="sm"); consistent icon-first layout for non-destructive inline actions | 2026-04-18 | Active |
 
 ## Success Metrics
 
@@ -205,4 +208,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-17 after Phase 11 complete — Date Input Migration delivered (all native date inputs replaced, DateRangePicker redesigned with unified trigger + range band)*
+*Last updated: 2026-04-18 after Phase 12 complete — Action Dropdown Standardization delivered (all 11 list pages standardized with Lucide icons, separators, and consistent labels)*

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AlertCircle, RefreshCw } from 'lucide-react';
+import { AlertCircle, RefreshCw, Eye } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -126,6 +126,7 @@ export function PaymentsPage() {
             setDetailOpen(true);
           }}
         >
+          <Eye className="mr-2 h-4 w-4" />
           Xem
         </Button>
       ),

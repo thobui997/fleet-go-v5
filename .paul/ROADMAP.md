@@ -6,23 +6,17 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 
 ## Current Milestone
 
+**v0.1.2 UI Polish**
+Status: 🚧 In Progress
+Phases: 1 of 2 complete
+
+## Past Milestones
+
 **v0.1 MVP** (v0.1.0)
 Status: ✅ **COMPLETE** (8 of 8 phases complete)
-Phases: 8 of 8 complete
 
-## Post-MVP: UX Improvements
-
-**Milestone:** Post-MVP / UX Improvements (v0.1.1)
+**Post-MVP: UX Improvements** (v0.1.1)
 Status: ✅ **COMPLETE** (2026-04-17) — 3 of 3 phases complete
-
-**Phase 9** — Layout Refactor
-Status: ✅ Complete (2026-04-17)
-
-**Phase 10** — Form UX Redesign
-Status: ✅ Complete (2026-04-17)
-
-**Phase 11** — Date Input Migration
-Status: ✅ Complete (2026-04-17)
 
 ## Phases
 
@@ -39,6 +33,8 @@ Status: ✅ Complete (2026-04-17)
 | 9 | Layout Refactor | 2 | ✅ Complete | 2026-04-17 |
 | 10 | Form UX Redesign | 6 | ✅ Complete | 2026-04-17 |
 | 11 | Date Input Migration | 3 | ✅ Complete | 2026-04-17 |
+| 12 | Action Dropdown Standardization | 1 | ✅ Complete | 2026-04-18 |
+| 13 | Toast Message Standardization | TBD | Not started | - |
 
 ## Phase Details
 
@@ -231,8 +227,23 @@ Status: ✅ Complete (2026-04-17)
 **Plans:**
 - [x] 11-01: DatePicker component setup + shared wrapper
 - [x] 11-02: Form migration — replace date inputs in all 6 forms
-- [🔄] 11-03: List page filter migration — replace date range inputs
+- [x] 11-03: List page filter migration — replace date range inputs
+
+### Phase 12: Action Dropdown Standardization
+
+Focus: Standardize action dropdown items across all list pages — consistent labels, ordering, and icons for all actions (View, Edit, Delete, etc.)
+Plans: 1/1 complete
+Status: ✅ Complete (2026-04-18)
+
+**Plans:**
+- [x] 12-01: Action Dropdown Standardization — all 11 list pages (icons, labels, separators)
+
+### Phase 13: Toast Message Standardization
+
+Focus: Standardize toast messages across the app — consistent titles, descriptions, colors, layout, and icons for success/error/warning states
+Plans: TBD (defined during /paul:plan)
+Status: Not started
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — Phase 11 complete: Date Input Migration delivered. v0.1.1 Post-MVP UX Improvements milestone complete.*
+*Last updated: 2026-04-18 — Milestone v0.1.2 UI Polish created: Phase 12 (Action Dropdown Standardization) + Phase 13 (Toast Message Standardization).*

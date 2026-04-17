@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
+import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Pencil, Trash2 } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   useToast,
 } from '@shared/ui';
@@ -134,8 +135,10 @@ export function MaintenancePage() {
                 navigate(`/maintenance/${row.id}/edit`);
               }}
             >
+              <Pencil className="mr-2 h-4 w-4" />
               Chỉnh sửa
             </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive focus:text-destructive"
               onClick={() => {
@@ -143,6 +146,7 @@ export function MaintenancePage() {
                 setDeleteOpen(true);
               }}
             >
+              <Trash2 className="mr-2 h-4 w-4" />
               Xóa
             </DropdownMenuItem>
           </DropdownMenuContent>

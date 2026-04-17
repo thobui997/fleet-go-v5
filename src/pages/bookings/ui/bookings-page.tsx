@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, AlertCircle, RefreshCw } from 'lucide-react';
+import { Plus, AlertCircle, RefreshCw, Eye } from 'lucide-react';
 import {
   Button,
   DataTable,
@@ -126,6 +126,7 @@ export function BookingsPage() {
             setDetailOpen(true);
           }}
         >
+          <Eye className="mr-2 h-4 w-4" />
           Xem
         </Button>
       ),
