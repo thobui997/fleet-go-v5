@@ -132,122 +132,126 @@ export function PaymentsPage() {
   ];
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Thanh toán</h1>
-          <p className="text-muted-foreground">
-            Quản lý thanh toán và hoàn tiền
-          </p>
+    <div className="flex flex-col h-full">
+      <div className="flex-none space-y-4 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Thanh toán</h1>
+            <p className="text-muted-foreground">
+              Quản lý thanh toán và hoàn tiền
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-wrap items-center gap-4">
-        <Input
-          placeholder="Tìm theo mã đặt vé..."
-          value={searchInput}
-          onChange={(e) => {
-            setSearchInput(e.target.value);
-            setPage(1);
-          }}
-          className="max-w-sm"
-        />
-        <Select
-          value={statusFilter}
-          onValueChange={(val) => {
-            setStatusFilter(val);
-            setPage(1);
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Trạng thái" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả trạng thái</SelectItem>
-            {PAYMENT_STATUSES.map((status) => (
-              <SelectItem key={status} value={status}>
-                {STATUS_LABELS[status]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select
-          value={methodFilter}
-          onValueChange={(val) => {
-            setMethodFilter(val);
-            setPage(1);
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Phương thức" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả phương thức</SelectItem>
-            {PAYMENT_METHODS.map((method) => (
-              <SelectItem key={method} value={method}>
-                {METHOD_LABELS[method]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Input
-          type="date"
-          placeholder="Từ ngày"
-          value={dateFrom}
-          onChange={(e) => {
-            setDateFrom(e.target.value);
-            setPage(1);
-          }}
-          className="w-[160px]"
-        />
-        <Input
-          type="date"
-          placeholder="Đến ngày"
-          value={dateTo}
-          onChange={(e) => {
-            setDateTo(e.target.value);
-            setPage(1);
-          }}
-          className="w-[160px]"
-        />
-      </div>
-
-      {isError ? (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
-          <AlertCircle className="h-8 w-8 text-destructive" />
-          <p className="text-sm font-medium text-destructive">
-            {mapPaymentError(
-              error as {
-                code?: string;
-                message?: string;
-                details?: string;
-                status?: number;
-              }
-            )}
-          </p>
-          <Button variant="outline" size="sm" onClick={() => refetch()}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Thử lại
-          </Button>
-        </div>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={payments}
-          isLoading={isLoading}
-          emptyMessage="Chưa có thanh toán nào"
-          pagination={{
-            page,
-            pageSize,
-            total,
-            onPageChange: setPage,
-            onPageSizeChange: (size) => {
-              setPageSize(size);
+        <div className="flex flex-wrap items-center gap-4">
+          <Input
+            placeholder="Tìm theo mã đặt vé..."
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
               setPage(1);
-            },
-          }}
-        />
-      )}
+            }}
+            className="max-w-sm"
+          />
+          <Select
+            value={statusFilter}
+            onValueChange={(val) => {
+              setStatusFilter(val);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Trạng thái" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả trạng thái</SelectItem>
+              {PAYMENT_STATUSES.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {STATUS_LABELS[status]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value={methodFilter}
+            onValueChange={(val) => {
+              setMethodFilter(val);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Phương thức" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả phương thức</SelectItem>
+              {PAYMENT_METHODS.map((method) => (
+                <SelectItem key={method} value={method}>
+                  {METHOD_LABELS[method]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Input
+            type="date"
+            placeholder="Từ ngày"
+            value={dateFrom}
+            onChange={(e) => {
+              setDateFrom(e.target.value);
+              setPage(1);
+            }}
+            className="w-[160px]"
+          />
+          <Input
+            type="date"
+            placeholder="Đến ngày"
+            value={dateTo}
+            onChange={(e) => {
+              setDateTo(e.target.value);
+              setPage(1);
+            }}
+            className="w-[160px]"
+          />
+        </div>
+      </div>
+
+      <div className="flex-1 min-h-0">
+        {isError ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-destructive" />
+            <p className="text-sm font-medium text-destructive">
+              {mapPaymentError(
+                error as {
+                  code?: string;
+                  message?: string;
+                  details?: string;
+                  status?: number;
+                }
+              )}
+            </p>
+            <Button variant="outline" size="sm" onClick={() => refetch()}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Thử lại
+            </Button>
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={payments}
+            isLoading={isLoading}
+            emptyMessage="Chưa có thanh toán nào"
+            pagination={{
+              page,
+              pageSize,
+              total,
+              onPageChange: setPage,
+              onPageSizeChange: (size) => {
+                setPageSize(size);
+                setPage(1);
+              },
+            }}
+          />
+        )}
+      </div>
 
       {selectedPayment && (
         <PaymentDetailDialog

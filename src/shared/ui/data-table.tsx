@@ -106,10 +106,10 @@ export function DataTable<TData>({
   const totalPages = Math.ceil(pagination.total / pagination.pageSize);
 
   return (
-    <div className="space-y-4">
-      <div className="rounded-md border">
+    <div className="flex flex-col h-full gap-4">
+      <div className="flex-1 min-h-[200px] overflow-auto rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-0 z-10 bg-card">
             <TableRow>
               {columns.map((column) => (
                 <TableHead key={column.key} className={column.className}>
@@ -167,7 +167,7 @@ export function DataTable<TData>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between px-2">
+      <div className="flex-none flex items-center justify-between px-2">
         <div className="text-sm text-muted-foreground">
           Page {pagination.page} of {totalPages} ({pagination.total} total)
         </div>

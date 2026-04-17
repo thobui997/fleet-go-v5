@@ -5,27 +5,26 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** Phase 7 — Customer, Ticketing & Payment
+**Current focus:** Post-MVP milestone complete — awaiting next milestone definition
 
 ## Current Position
 
-Milestone: v0.1 MVP
-Phase: 8 of 8 (Dashboard & Analytics) — COMPLETE
-Plan: 08-02 executed and unified
-Status: Phase complete, ready for milestone completion
-Last activity: 2026-04-17 — Plan 08-02 complete: Charts & Analytics
+Milestone: Post-MVP / UX Improvements — **COMPLETE**
+Phase: 9 (Layout Refactor) — **COMPLETE** (2/2 plans)
+Plan: 09-02 complete (UNIFY closed)
+Status: Phase 9 complete — Post-MVP milestone complete
+Last activity: 2026-04-17 — 09-02 loop closed (all pages viewport-constrained, sticky headers fixed, global scrollbar)
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - Phase 8 done]
+  ✓        ✓        ✓     [Phase 9 complete — milestone complete]
 ```
 
 Progress:
-- Milestone: [█████████] 100% (8 of 8 phases complete)
-- Phase 8: [██████████] 100% (plans 08-01, 08-02 complete)
+- Phase 9: [██████████] 100% (2/2 plans complete)
 
 ## Accumulated Context
 
@@ -96,15 +95,10 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Phase 8 complete, ready for milestone completion
-Next action: Run /paul:complete-milestone to finalize v0.1 MVP
-Resume file: .paul/phases/08-dashboard-analytics/08-02-SUMMARY.md
-Git strategy: main (commit: 0ae5e4c)
-Resume context:
-- Phase 8 (Dashboard & Analytics) — COMPLETE
-- Plan 08-01: ✓ COMPLETE — Dashboard Page with Stats & Quick Views
-- Plan 08-02: ✓ COMPLETE — Charts & Analytics (revenue trend, trip status donut, booking status bar)
-- v0.1 MVP milestone: ALL 8 PHASES COMPLETE
+Stopped at: Phase 9 complete — Post-MVP / UX Improvements milestone complete
+Next action: /paul:discuss-milestone to define next milestone, or /paul:milestone to create it
+Resume file: .paul/phases/09-layout-refactor/09-02-SUMMARY.md
+Git strategy: main
 
 ---
 *STATE.md — Updated after every significant action*

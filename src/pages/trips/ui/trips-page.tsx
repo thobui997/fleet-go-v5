@@ -158,27 +158,28 @@ export function TripsPage() {
   ];
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Quản lý chuyến đi</h1>
-          <p className="text-muted-foreground">
-            Quản lý danh sách chuyến đi theo lịch trình
-          </p>
+    <div className="flex flex-col h-full">
+      <div className="flex-none space-y-4 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Quản lý chuyến đi</h1>
+            <p className="text-muted-foreground">
+              Quản lý danh sách chuyến đi theo lịch trình
+            </p>
+          </div>
+          <Button
+            onClick={() => {
+              setSelectedTrip(null);
+              setFormMode('create');
+              setFormOpen(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Thêm chuyến đi
+          </Button>
         </div>
-        <Button
-          onClick={() => {
-            setSelectedTrip(null);
-            setFormMode('create');
-            setFormOpen(true);
-          }}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Thêm chuyến đi
-        </Button>
-      </div>
 
-      <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-center gap-4 flex-wrap">
         <Select
           value={statusFilter}
           onValueChange={(val) => {
@@ -246,44 +247,47 @@ export function TripsPage() {
           }}
           className="max-w-[150px]"
         />
+        </div>
       </div>
 
-      {isError ? (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
-          <AlertCircle className="h-8 w-8 text-destructive" />
-          <p className="text-sm font-medium text-destructive">
-            {mapTripError(
-              error as {
-                code?: string;
-                message?: string;
-                details?: string;
-                status?: number;
-              }
-            )}
-          </p>
-          <Button variant="outline" size="sm" onClick={() => refetch()}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Thử lại
-          </Button>
-        </div>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={trips}
-          isLoading={isLoading}
-          emptyMessage="Không có chuyến đi nào"
-          pagination={{
-            page,
-            pageSize,
-            total,
-            onPageChange: setPage,
-            onPageSizeChange: (size) => {
-              setPageSize(size);
-              setPage(1);
-            },
-          }}
-        />
-      )}
+      <div className="flex-1 min-h-0">
+        {isError ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-destructive" />
+            <p className="text-sm font-medium text-destructive">
+              {mapTripError(
+                error as {
+                  code?: string;
+                  message?: string;
+                  details?: string;
+                  status?: number;
+                }
+              )}
+            </p>
+            <Button variant="outline" size="sm" onClick={() => refetch()}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Thử lại
+            </Button>
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={trips}
+            isLoading={isLoading}
+            emptyMessage="Không có chuyến đi nào"
+            pagination={{
+              page,
+              pageSize,
+              total,
+              onPageChange: setPage,
+              onPageSizeChange: (size) => {
+                setPageSize(size);
+                setPage(1);
+              },
+            }}
+          />
+        )}
+      </div>
 
       <TripFormDialog
         open={formOpen}

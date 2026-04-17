@@ -121,52 +121,56 @@ export function VehicleTypesPage() {
   ];
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Loại xe</h1>
-          <p className="text-muted-foreground">Quản lý các loại xe trong hệ thống</p>
+    <div className="flex flex-col h-full">
+      <div className="flex-none space-y-4 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Loại xe</h1>
+            <p className="text-muted-foreground">Quản lý các loại xe trong hệ thống</p>
+          </div>
+          <Button
+            onClick={() => {
+              setSelectedType(null);
+              setMode('create');
+              setFormOpen(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Thêm loại xe
+          </Button>
         </div>
-        <Button
-          onClick={() => {
-            setSelectedType(null);
-            setMode('create');
-            setFormOpen(true);
-          }}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Thêm loại xe
-        </Button>
+
+        <div className="flex items-center gap-4">
+          <Input
+            placeholder="Tìm kiếm theo tên..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
+            className="max-w-sm"
+          />
+        </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <Input
-          placeholder="Tìm kiếm theo tên..."
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setPage(1);
+      <div className="flex-1 min-h-0">
+        <DataTable
+          columns={columns}
+          data={vehicleTypes}
+          isLoading={isLoading}
+          emptyMessage="Chưa có loại xe nào"
+          pagination={{
+            page,
+            pageSize,
+            total,
+            onPageChange: setPage,
+            onPageSizeChange: (size) => {
+              setPageSize(size);
+              setPage(1);
+            },
           }}
-          className="max-w-sm"
         />
       </div>
-
-      <DataTable
-        columns={columns}
-        data={vehicleTypes}
-        isLoading={isLoading}
-        emptyMessage="Chưa có loại xe nào"
-        pagination={{
-          page,
-          pageSize,
-          total,
-          onPageChange: setPage,
-          onPageSizeChange: (size) => {
-            setPageSize(size);
-            setPage(1);
-          },
-        }}
-      />
 
       <VehicleTypeFormDialog
         open={formOpen}

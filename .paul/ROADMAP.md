@@ -10,6 +10,11 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 Status: ✅ **COMPLETE** (8 of 8 phases complete)
 Phases: 8 of 8 complete
 
+## Post-MVP: UX Improvements
+
+**Phase 9** — Layout Refactor
+Status: ✅ Complete (2026-04-17)
+
 ## Phases
 
 | Phase | Name | Plans | Status | Completed |
@@ -22,6 +27,7 @@ Phases: 8 of 8 complete
 | 6 | Trip Scheduling | 3 | ✅ Complete | 2026-04-16 |
 | 7 | Customer, Ticketing & Payment | 4 | ✅ Complete | 2026-04-16 |
 | 8 | Dashboard & Analytics | 2 | ✅ Complete | 2026-04-17 |
+| 9 | Layout Refactor | 2 | ✅ Complete | 2026-04-17 |
 
 ## Phase Details
 
@@ -156,6 +162,22 @@ Phases: 8 of 8 complete
 - [x] 08-01: Dashboard Page — Stats & Quick Views (stat cards, recent bookings, upcoming trips)
 - [x] 08-02: Charts & Analytics (revenue trend, trip status donut, booking status bar)
 
+### Phase 9: Layout Refactor
+
+**Goal:** Viewport-constrained layout for all list pages — table body scrolls, chrome stays fixed
+**Depends on:** Phase 1 (AppLayout, DataTable, all list pages)
+**Research:** Not needed (approach defined in CONTEXT.md)
+
+**Scope:**
+- AppLayout: `h-screen overflow-hidden`, `<main>` is `flex-1 overflow-hidden`
+- DataTable: sticky header, `overflow-auto flex-1 min-h-[200px]`, `flex flex-col h-full`
+- 11 list pages: `flex flex-col h-full` / `flex-none` / `flex-1 min-h-0` pattern
+- 4 non-list pages: `h-full overflow-y-auto` opt-in scroll
+
+**Plans:**
+- [x] 09-01: AppLayout + DataTable foundation (2 files, autonomous, wave 1)
+- [x] 09-02: Page adoption — 11 list pages + 4 non-list pages (15 files, human-verify, wave 2)
+
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — v0.1 MVP complete*
+*Last updated: 2026-04-17 — Phase 9 Layout Refactor added*

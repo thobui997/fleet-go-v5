@@ -132,82 +132,86 @@ export function VehiclesPage() {
   ];
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Xe</h1>
-          <p className="text-muted-foreground">Quản lý danh sách xe trong đội xe</p>
-        </div>
-        <Button
-          onClick={() => {
-            setSelectedVehicle(null);
-            setMode('create');
-            setFormOpen(true);
-          }}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Thêm xe
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <Input
-          placeholder="Tìm theo biển số…"
-          value={searchInput}
-          onChange={(e) => {
-            setSearchInput(e.target.value);
-            setPage(1);
-          }}
-          className="max-w-sm"
-        />
-        <Select
-          value={statusFilter}
-          onValueChange={(val) => {
-            setStatusFilter(val as StatusFilter);
-            setPage(1);
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Trạng thái" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả</SelectItem>
-            <SelectItem value="active">Đang hoạt động</SelectItem>
-            <SelectItem value="maintenance">Đang bảo trì</SelectItem>
-            <SelectItem value="retired">Đã ngừng sử dụng</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {isError ? (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
-          <AlertCircle className="h-8 w-8 text-destructive" />
-          <p className="text-sm font-medium text-destructive">
-            Không thể tải danh sách xe. Vui lòng thử lại.
-          </p>
-          <Button variant="outline" size="sm" onClick={() => refetch()}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Thử lại
+    <div className="flex flex-col h-full">
+      <div className="flex-none space-y-4 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Xe</h1>
+            <p className="text-muted-foreground">Quản lý danh sách xe trong đội xe</p>
+          </div>
+          <Button
+            onClick={() => {
+              setSelectedVehicle(null);
+              setMode('create');
+              setFormOpen(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Thêm xe
           </Button>
         </div>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={vehicles}
-          isLoading={isLoading}
-          emptyMessage="Chưa có xe nào"
-          pagination={{
-            page,
-            pageSize,
-            total,
-            onPageChange: setPage,
-            onPageSizeChange: (size) => {
-              setPageSize(size);
+
+        <div className="flex items-center gap-4">
+          <Input
+            placeholder="Tìm theo biển số…"
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
               setPage(1);
-            },
-          }}
-        />
-      )}
+            }}
+            className="max-w-sm"
+          />
+          <Select
+            value={statusFilter}
+            onValueChange={(val) => {
+              setStatusFilter(val as StatusFilter);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Trạng thái" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả</SelectItem>
+              <SelectItem value="active">Đang hoạt động</SelectItem>
+              <SelectItem value="maintenance">Đang bảo trì</SelectItem>
+              <SelectItem value="retired">Đã ngừng sử dụng</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="flex-1 min-h-0">
+        {isError ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-destructive" />
+            <p className="text-sm font-medium text-destructive">
+              Không thể tải danh sách xe. Vui lòng thử lại.
+            </p>
+            <Button variant="outline" size="sm" onClick={() => refetch()}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Thử lại
+            </Button>
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={vehicles}
+            isLoading={isLoading}
+            emptyMessage="Chưa có xe nào"
+            pagination={{
+              page,
+              pageSize,
+              total,
+              onPageChange: setPage,
+              onPageSizeChange: (size) => {
+                setPageSize(size);
+                setPage(1);
+              },
+            }}
+          />
+        )}
+      </div>
 
       <VehicleFormDialog
         open={formOpen}

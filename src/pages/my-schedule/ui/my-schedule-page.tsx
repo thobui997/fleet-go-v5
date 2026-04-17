@@ -65,7 +65,7 @@ export function MySchedulePage() {
   const hasNoEmployeeRecord = schedule.length === 0 && !isLoading && !error;
 
   return (
-    <div className="space-y-6">
+    <div className="h-full overflow-y-auto space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-foreground">Lịch trình của tôi</h1>

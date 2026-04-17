@@ -49,6 +49,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Customer & Ticketing:** Customer CRUD with search and phone validation; Booking CRUD with seat map, auto-generated codes (BKG-XXXXX), ticket creation, cancellation with payment status sync; Check-in page with QR scanning and context-aware error mapping; Seat Map component with multi-floor support and runtime validation; QR code generation (deterministic: booking_code-seat_number) — Phase 7
 - **Payment Management:** Payment entity slice (types, API, queries); Payment list page with filters (status, method, date range, search); Status update workflows (pending→completed/failed with paid_at logic; completed→refunded with notes); Booking detail payment integration (method, status, amount, dates, transaction reference); processed_by audit trail for cash handling — Phase 7
 - **Dashboard & Analytics:** Dashboard page with stat cards (vehicles, trips, bookings, revenue), quick views (recent bookings, upcoming trips), chart components (revenue trend line, trip status donut, booking status bar) using recharts, TanStack Query hooks with 5min staleTime, error/retry states — Phase 8
+- **Viewport-Constrained Layout:** All 11 list pages on flex viewport layout (chrome fixed, table body scrolls independently, sticky column headers); 4 non-list pages with opt-in h-full overflow-y-auto scroll; global slim auto-hide scrollbar — Phase 9
 
 ### Active (In Progress)
 
@@ -131,6 +132,8 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Chart component pattern: {data, loading, error, onRetry} | Consistent props across all charts; Skeleton/Error/Empty/Chart states for UX; error state includes retry button | 2026-04-17 | Active |
 | Concrete hex colors for SVG stroke/fill | CSS variables (hsl(var(--primary))) don't resolve in SVG context; use #2563eb instead for reliable chart rendering | 2026-04-17 | Active |
 | Abbreviated Y-axis format for charts | "tr" (million) and "k" (thousand) suffixes instead of full formatCurrency for cleaner axis labels | 2026-04-17 | Active |
+| Remove overflow-auto from Table wrapper for sticky headers | Shadcn Table wraps `<table>` in `overflow-auto` div — this nested scroll context breaks `sticky top-0` on `<thead>`; removing it makes DataTable's outer container the sole scroll ancestor | 2026-04-17 | Active |
+| Global scrollbar via `*` in @layer base | Slim 5px scrollbar hidden by default, revealed on hover using theme `--border` color; applied globally so no per-element class is needed | 2026-04-17 | Active |
 
 ## Success Metrics
 
@@ -191,4 +194,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-17 after Phase 8 complete — v0.1 MVP delivered*
+*Last updated: 2026-04-17 after Phase 9 complete — Post-MVP UX improvements delivered*

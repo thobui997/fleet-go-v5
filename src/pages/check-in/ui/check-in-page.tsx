@@ -70,7 +70,7 @@ export function CheckInPage() {
   const isCancelledBooking = booking?.status === 'cancelled' || booking?.status === 'refunded';
 
   return (
-    <div className="space-y-6">
+    <div className="h-full overflow-y-auto space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Check-in vé</h1>
         <p className="text-muted-foreground">Nhập mã đặt vé để thực hiện check-in</p>

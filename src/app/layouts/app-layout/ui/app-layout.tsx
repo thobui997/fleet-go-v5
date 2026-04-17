@@ -57,7 +57,7 @@ export function AppLayout() {
   }, [mobileOpen]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden bg-background">
       <Sidebar
         isCollapsed={collapsed}
         onToggleCollapse={toggleCollapse}
@@ -66,7 +66,7 @@ export function AppLayout() {
       />
       <div
         className={cn(
-          'transition-all duration-300',
+          'transition-all duration-300 h-screen flex flex-col',
           'md:ml-64', // md+: expanded default
           collapsed && 'md:ml-16', // md+: collapsed
           !collapsed && 'md:ml-64', // md+: expanded
@@ -74,7 +74,7 @@ export function AppLayout() {
         )}
       >
         <Header onMobileMenuToggle={openMobile} />
-        <main className="p-6 overflow-y-auto">
+        <main className="flex-1 overflow-hidden p-6 flex flex-col">
           <Outlet />
         </main>
       </div>

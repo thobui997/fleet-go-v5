@@ -154,99 +154,103 @@ export function MaintenancePage() {
   ];
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Bảo trì</h1>
-          <p className="text-muted-foreground">
-            Quản lý lịch sử bảo trì của đội xe
-          </p>
-        </div>
-        <Button
-          onClick={() => {
-            setSelectedLog(null);
-            setMode('create');
-            setFormOpen(true);
-          }}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Thêm bảo trì
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-4">
-        {/* Vehicle filter */}
-        <Select
-          value={vehicleFilter}
-          onValueChange={(val) => {
-            setVehicleFilter(val as VehicleFilter);
-            setPage(1);
-          }}
-        >
-          <SelectTrigger className="w-[220px]">
-            <SelectValue placeholder="Tất cả xe" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả xe</SelectItem>
-            {vehicles.map((v) => (
-              <SelectItem key={v.id} value={v.id}>
-                {v.license_plate}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {/* Type filter */}
-        <Select
-          value={typeFilter}
-          onValueChange={(val) => {
-            setTypeFilter(val as TypeFilter);
-            setPage(1);
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Tất cả loại" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả loại</SelectItem>
-            {MAINTENANCE_TYPES.map((t) => (
-              <SelectItem key={t} value={t}>
-                {MAINTENANCE_TYPE_LABELS[t]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      {isError ? (
-        <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
-          <AlertCircle className="h-8 w-8 text-destructive" />
-          <p className="text-sm font-medium text-destructive">
-            Không thể tải danh sách bảo trì. Vui lòng thử lại.
-          </p>
-          <Button variant="outline" size="sm" onClick={() => refetch()}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Thử lại
+    <div className="flex flex-col h-full">
+      <div className="flex-none space-y-4 pb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Bảo trì</h1>
+            <p className="text-muted-foreground">
+              Quản lý lịch sử bảo trì của đội xe
+            </p>
+          </div>
+          <Button
+            onClick={() => {
+              setSelectedLog(null);
+              setMode('create');
+              setFormOpen(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Thêm bảo trì
           </Button>
         </div>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={logs}
-          isLoading={isLoading}
-          emptyMessage="Chưa có lịch sử bảo trì"
-          pagination={{
-            page,
-            pageSize,
-            total,
-            onPageChange: setPage,
-            onPageSizeChange: (size) => {
-              setPageSize(size);
+
+        <div className="flex items-center gap-4">
+          {/* Vehicle filter */}
+          <Select
+            value={vehicleFilter}
+            onValueChange={(val) => {
+              setVehicleFilter(val as VehicleFilter);
               setPage(1);
-            },
-          }}
-        />
-      )}
+            }}
+          >
+            <SelectTrigger className="w-[220px]">
+              <SelectValue placeholder="Tất cả xe" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả xe</SelectItem>
+              {vehicles.map((v) => (
+                <SelectItem key={v.id} value={v.id}>
+                  {v.license_plate}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Type filter */}
+          <Select
+            value={typeFilter}
+            onValueChange={(val) => {
+              setTypeFilter(val as TypeFilter);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Tất cả loại" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Tất cả loại</SelectItem>
+              {MAINTENANCE_TYPES.map((t) => (
+                <SelectItem key={t} value={t}>
+                  {MAINTENANCE_TYPE_LABELS[t]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="flex-1 min-h-0">
+        {isError ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-md border border-destructive/30 bg-destructive/5 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-destructive" />
+            <p className="text-sm font-medium text-destructive">
+              Không thể tải danh sách bảo trì. Vui lòng thử lại.
+            </p>
+            <Button variant="outline" size="sm" onClick={() => refetch()}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Thử lại
+            </Button>
+          </div>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={logs}
+            isLoading={isLoading}
+            emptyMessage="Chưa có lịch sử bảo trì"
+            pagination={{
+              page,
+              pageSize,
+              total,
+              onPageChange: setPage,
+              onPageSizeChange: (size) => {
+                setPageSize(size);
+                setPage(1);
+              },
+            }}
+          />
+        )}
+      </div>
 
       <MaintenanceFormDialog
         open={formOpen}

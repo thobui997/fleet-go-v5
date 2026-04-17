@@ -40,7 +40,7 @@ export function CalendarPage() {
     : null;
 
   return (
-    <div className="space-y-6">
+    <div className="h-full overflow-y-auto space-y-6">
       {/* Header with title and navigation */}
       <div className="flex items-center justify-between">
         <div>

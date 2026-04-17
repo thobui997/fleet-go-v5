@@ -2,13 +2,13 @@
   "name": "fleet-go-v5",
   "version": "0.0.0",
   "milestone": {
-    "name": "v0.1 MVP",
-    "version": "0.1.0",
-    "status": "in_progress"
+    "name": "Post-MVP / UX Improvements",
+    "version": "0.1.1",
+    "status": "complete"
   },
   "phase": {
-    "number": 6,
-    "name": "Trip Scheduling",
+    "number": 9,
+    "name": "Layout Refactor",
     "status": "complete"
   },
   "loop": {
@@ -17,7 +17,7 @@
   },
   "timestamps": {
     "created_at": "2026-04-10T00:00:00.000Z",
-    "updated_at": "2026-04-16T00:00:00.000Z"
+    "updated_at": "2026-04-17T00:00:00.000Z"
   },
   "satellite": {
     "groom": true
