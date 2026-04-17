@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plus, MoreHorizontal, AlertCircle, RefreshCw, Users } from 'lucide-react';
 import {
   Button,
@@ -20,11 +21,11 @@ import { useVehicles } from '@entities/vehicle';
 import { useTrips, TRIP_STATUSES, type TripWithDetails } from '@entities/trip';
 import { formatDateTime } from '@shared/lib/format-date';
 import type { TripStatus } from '@entities/trip';
-import { TripFormDialog } from './trip-form-dialog';
 import { TripStatusBadge } from './trip-status-badge';
 import { TripDeleteDialog } from './trip-delete-dialog';
 import { StaffAssignmentDialog } from './staff-assignment-dialog';
 import { mapTripError, FK_DROPDOWN_PAGE_SIZE } from '../model/trip-form-schema';
+import { ROUTES } from '@shared/config/routes';
 
 type TripValue = TripWithDetails[keyof TripWithDetails];
 
@@ -43,17 +44,16 @@ function formatPrice(priceOverride: number | null): string {
 }
 
 export function TripsPage() {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [statusFilter, setStatusFilter] = React.useState<StatusFilter>('all');
   const [routeFilter, setRouteFilter] = React.useState<string>('__none__');
   const [dateFrom, setDateFrom] = React.useState('');
   const [dateTo, setDateTo] = React.useState('');
-  const [formOpen, setFormOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [staffDialogOpen, setStaffDialogOpen] = React.useState(false);
   const [selectedTrip, setSelectedTrip] = React.useState<TripWithDetails | null>(null);
-  const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
 
   // FK dropdown data
   const { data: routesData } = useRoutes({ page: 1, pageSize: FK_DROPDOWN_PAGE_SIZE });
@@ -134,11 +134,7 @@ export function TripsPage() {
               Phân công
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => {
-                setSelectedTrip(row);
-                setFormMode('edit');
-                setFormOpen(true);
-              }}
+              onClick={() => navigate(`/trips/${row.id}/edit`)}
             >
               Sửa
             </DropdownMenuItem>
@@ -168,11 +164,7 @@ export function TripsPage() {
             </p>
           </div>
           <Button
-            onClick={() => {
-              setSelectedTrip(null);
-              setFormMode('create');
-              setFormOpen(true);
-            }}
+            onClick={() => navigate(ROUTES.TRIPS_NEW)}
           >
             <Plus className="mr-2 h-4 w-4" />
             Thêm chuyến đi
@@ -288,13 +280,6 @@ export function TripsPage() {
           />
         )}
       </div>
-
-      <TripFormDialog
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        mode={formMode}
-        trip={selectedTrip}
-      />
 
       <TripDeleteDialog
         open={deleteOpen}

@@ -10,7 +10,7 @@ import { StationsPage } from '@pages/stations';
 import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
 import { EmployeesPage } from '@pages/employees';
-import { TripsPage } from '@pages/trips';
+import { TripsPage, TripFormPage, StaffAssignmentPage } from '@pages/trips';
 import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
@@ -48,6 +48,10 @@ export const router = createBrowserRouter([
       { path: ROUTES.ROUTES, element: <RoutesPage /> },
       { path: ROUTES.STATIONS, element: <StationsPage /> },
       { path: ROUTES.TRIPS, element: <TripsPage /> },
+      // TRIPS_NEW must come before TRIPS_EDIT — literal segments beat dynamic
+      { path: ROUTES.TRIPS_NEW, element: <TripFormPage /> },
+      { path: ROUTES.TRIPS_EDIT, element: <TripFormPage /> },
+      { path: ROUTES.TRIPS_STAFF, element: <StaffAssignmentPage /> },
       { path: ROUTES.TRIP_CALENDAR, element: <CalendarPage /> },
       { path: ROUTES.EMPLOYEES, element: <EmployeesPage /> },
       { path: ROUTES.ROLES, element: <RolesPage /> },

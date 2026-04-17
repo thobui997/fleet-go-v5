@@ -10,26 +10,40 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: Post-MVP / UX Improvements — **IN PROGRESS**
-Phase: 10 (Form UX Redesign) — **IN PROGRESS** (2/5 plans)
-Plan: 10-02 complete (UNIFY closed)
-Status: Ready for next plan (10-03)
-Last activity: 2026-04-17 — Plan 10-02 loop closed. Maintenance form migrated to full pages at /maintenance/new and /maintenance/:id/edit. 2-column section layout, sticky action bar, dirty-state blocker, context-aware fetch errors. All 8 AC passed. Build clean.
+Phase: 10 (Form UX Redesign) — **IN PROGRESS** (3/5 plans)
+Plan: 10-04
+Status: Ready to plan next plan
+Last activity: 2026-04-17 — Loop 10-03 closed. Trip form migrated to full page. StaffAssignmentPage created. UI follows MaintenanceFormPage pattern.
 
 ## Loop Position
 
-Current loop state (10-02):
+Current loop state (10-04):
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete — ready for next PLAN]
+  ○        ○        ○     [Ready to plan]
+```
+
+Previous loops complete:
+```
+10-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
+10-02: PLAN ✓ → APPLY ✓ → UNIFY ✓
+10-03: PLAN ✓ → APPLY ✓ → UNIFY ✓
 ```
 
 Progress:
 - Phase 9: [██████████] 100% (2/2 plans complete)
-- Phase 10: [████░░░░░░] 40% (2/5 plans complete)
+- Phase 10: [███████░░░] 60% (3/5 plans complete)
 
 ## Accumulated Context
 
-### Decisions
+### Recent Decisions (Phase 10)
+- FormSection component for consistent field grouping across all forms
+- Full-page form layout pattern: page header + scrollable content + sticky footer
+- useBlocker callback form with pathname guard for dirty state protection
+- reset() before navigate() to prevent blocker intercepting post-submit redirect
+- Context-aware fetch error mapping: PGRST116→not found, 401/403/PGRST301→auth-expiry
+
+### Core Decisions (All Phases)
 - Supabase as BaaS — reduces backend dev time
 - Feature-Sliced Design v2.1 — scalable architecture with clear boundaries
 - Dynamic roles — flexible permission without code changes
@@ -87,6 +101,7 @@ Progress:
 - 2026-04-16: Enterprise audit on 08-02-PLAN.md. Applied 1 must-have (error/retry states on all chart components — consistent with 08-01 dashboard error pattern), 5 strongly-recommended (auth-expiry explicit for chart API functions; abbreviated YAxis format instead of formatCurrency; empty data guard before Pie/BarChart; concrete hex colors instead of CSS variables in SVG; regression checkpoint for 08-01 sections). Deferred 4 (bundle size, ARIA, dark mode, tooltip positioning). Verdict: conditionally acceptable (now ready).
 - 2026-04-17: Enterprise audit on 10-01-PLAN.md. Applied 1 must-have (React import in FormSection snippet — React.ReactNode unresolved without it), 4 strongly-recommended (remove existing manual VehicleTypes section header before FormSection wrap; remove hedge language on description field; add dialog width grep to Task 2 verify; add submit tests to human-verify checkpoint). Deferred 3 (className prop; ARIA role=separator; description subtitle prop). Verdict: conditionally acceptable (now ready).
 - 2026-04-17: Enterprise audit on 10-02-PLAN.md. Applied 1 must-have (reset() before navigate() after successful submit — useBlocker intercepts post-submit navigation if isDirty not cleared), 3 strongly-recommended (mapFetchError distinguishes PGRST116/auth-expiry on entity fetch; useBlocker callback form with pathname guard; explicit route ordering comment MAINTENANCE_NEW before MAINTENANCE_EDIT). Deferred 2 (ARIA on dirty-state dialog; page transition animation). Verdict: conditionally acceptable (now ready).
+- 2026-04-17: Enterprise audit on 10-03-PLAN.md. Applied 0 must-have, 5 strongly-recommended (FK dropdown empty state with disable submit; datetime validation for new trips; loading skeleton specificity mapped to form sections; explicit !isPending in blocker condition; auth-expiry explicit for mutations). Deferred 2 (status transition validation; staff navigation after edit). Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
@@ -98,9 +113,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Plan 10-02 loop closed (UNIFY complete)
-Next action: /paul:plan for Phase 10, Plan 03
-Resume file: .paul/phases/10-form-ux-redesign/10-02-SUMMARY.md
+Stopped at: Loop 10-03 closed, ready for plan 10-04
+Next action: /paul:plan for 10-04 (Employee form page)
+Resume file: .paul/ROADMAP.md
 Git strategy: main
 
 ---

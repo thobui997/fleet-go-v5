@@ -16,7 +16,7 @@ Phases: 8 of 8 complete
 Status: ✅ Complete (2026-04-17)
 
 **Phase 10** — Form UX Redesign
-Status: 🔄 In Progress
+Status: 🔄 In Progress (3 of 5 plans complete)
 
 ## Phases
 
@@ -199,12 +199,12 @@ Status: 🔄 In Progress
 - Sub-page integration: Route Stops + Trip Staff linked from form pages
 
 **Plans:**
-- [ ] 10-01: Shared foundation — FormSection component + focus fix + dialog layout improvements
-- [ ] 10-02: Maintenance form page
-- [ ] 10-03: Trip form page
+- [x] 10-01: Shared foundation — FormSection component + focus fix + dialog layout improvements
+- [x] 10-02: Maintenance form page
+- [x] 10-03: Trip form page + StaffAssignmentPage
 - [ ] 10-04: Employee form page
 - [ ] 10-05: Route form page
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — Phase 10 Form UX Redesign added*
+*Last updated: 2026-04-17 — Phase 10 progress: 3/5 plans complete*

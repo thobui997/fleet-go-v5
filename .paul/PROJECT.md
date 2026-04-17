@@ -50,6 +50,7 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Payment Management:** Payment entity slice (types, API, queries); Payment list page with filters (status, method, date range, search); Status update workflows (pending→completed/failed with paid_at logic; completed→refunded with notes); Booking detail payment integration (method, status, amount, dates, transaction reference); processed_by audit trail for cash handling — Phase 7
 - **Dashboard & Analytics:** Dashboard page with stat cards (vehicles, trips, bookings, revenue), quick views (recent bookings, upcoming trips), chart components (revenue trend line, trip status donut, booking status bar) using recharts, TanStack Query hooks with 5min staleTime, error/retry states — Phase 8
 - **Viewport-Constrained Layout:** All 11 list pages on flex viewport layout (chrome fixed, table body scrolls independently, sticky column headers); 4 non-list pages with opt-in h-full overflow-y-auto scroll; global slim auto-hide scrollbar — Phase 9
+- **Form UX Redesign:** FormSection component for consistent field grouping; Maintenance and Trip forms migrated to full-page layout with sticky footer; Dirty state blocker using useBlocker; Context-aware error mapping; StaffAssignmentPage created — Phase 10
 
 ### Active (In Progress)
 
@@ -119,6 +120,11 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Composite PK on junction tables | Eliminates redundant surrogate keys, enforces uniqueness naturally | 2026-04-11 | Active |
 | JSONB permissions with GIN index | Dynamic permissions without schema changes, fast @> queries | 2026-04-11 | Active |
 | Dashboard user creation for seed | pgcrypto extension unreliable in Supabase Dashboard SQL Editor | 2026-04-11 | Active |
+| FormSection component for field grouping | Provides consistent visual structure across forms; reusable for all future forms | 2026-04-17 | Active |
+| Full-page form layout pattern | Page header + scrollable content + sticky footer; consistent with MaintenanceFormPage | 2026-04-17 | Active |
+| useBlocker callback form with pathname guard | Prevents same-page navigation from triggering blocker; !isPending prevents duplicate actions | 2026-04-17 | Active |
+| reset() before navigate() after submit | Clears isDirty to prevent blocker from intercepting post-submit redirect | 2026-04-17 | Active |
+| Context-aware fetch error mapping | PGRST116→not found, 401/403/PGRST301→auth-expiry; distinct Vietnamese messages | 2026-04-17 | Active |
 | Composite FK tickets(booking_id, trip_id) → bookings | Prevents trip-drift: ticket must belong to same trip as its booking | 2026-04-14 | Active |
 | Distinct SQLSTATE per violation class (FG001-FG004) | Machine-classifiable by clients without parsing message strings | 2026-04-14 | Active |
 | BEFORE UPDATE triggers + IS DISTINCT FROM | Cheaper than AFTER + rollback; NULL-aware comparison rejects NULL-ing a set column | 2026-04-14 | Active |
@@ -194,4 +200,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-17 after Phase 9 complete — Post-MVP UX improvements delivered*
+*Last updated: 2026-04-17 after Phase 10 complete — Form UX Redesign delivered*
