@@ -24,6 +24,7 @@ export const ROUTES = {
   MY_SCHEDULE: '/my-schedule',
   CUSTOMERS: '/customers',
   BOOKINGS: '/bookings',
+  BOOKINGS_NEW: '/bookings/new',
   CHECK_IN: '/check-in',
   PAYMENTS: '/payments',
 } as const;

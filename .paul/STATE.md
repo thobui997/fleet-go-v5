@@ -10,21 +10,21 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: Post-MVP / UX Improvements — **COMPLETE**
-Phase: 10 (Form UX Redesign) — **COMPLETE** (5/5 plans)
-Plan: 10-05 closed
-Status: UNIFY complete, ready for TRANSITION
-Last activity: 2026-04-17 — Closed loop 10-05; Phase 10 complete
+Phase: 10 (Form UX Redesign) — **COMPLETE** (6/6 plans)
+Plan: 10-06 complete
+Status: Loop closed, TRANSITION pending
+Last activity: 2026-04-17 — Plan 10-06 executed: Booking form migrated to full-page layout, Form UX Redesign phase complete
 
 Progress:
 - Milestone: [██████████] 100% (v0.1 MVP complete)
-- Phase 10: [██████████] 100% (5/5 plans complete)
+- Phase 10: [██████████] 100% (6/6 plans complete)
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete - ready for TRANSITION]
+  ✓        ✓        ✓     [Loop complete - TRANSITION pending]
 ```
 
 Loops complete in Phase 10:
@@ -34,9 +34,8 @@ Loops complete in Phase 10:
 10-03: PLAN ✓ → APPLY ✓ → UNIFY ✓
 10-04: PLAN ✓ → APPLY ✓ → UNIFY ✓
 10-05: PLAN ✓ → APPLY ✓ → UNIFY ✓
+10-06: PLAN ✓ → APPLY ✓ → UNIFY ✓
 ```
-
-Phase 10 COMPLETE - All loops closed.
 
 ## Accumulated Context
 
@@ -46,6 +45,8 @@ Phase 10 COMPLETE - All loops closed.
 - useBlocker callback form with pathname guard for dirty state protection
 - reset() before navigate() to prevent blocker intercepting post-submit redirect
 - Context-aware fetch error mapping: PGRST116→not found, 401/403/PGRST301→auth-expiry
+- FK dropdown empty state pattern: Show message + disable submit when no FK options available
+- 2026-04-17: **Phase 10 Complete** — All forms migrated from dialogs to full-page layout; FormSection component established across Maintenance, Trip, Employee, Route, Booking forms
 
 ### Core Decisions (All Phases)
 - Supabase as BaaS — reduces backend dev time
@@ -121,10 +122,10 @@ Feature branches merged: none
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: UNIFY complete for 10-05; Phase 10 complete
-Next action: Run TRANSITION to close Phase 10
-Resume file: .paul/phases/10-form-ux-redesign/10-05-SUMMARY.md
-Git strategy: phase commit
+Stopped at: Phase 10 complete, TRANSITION pending
+Next action: Run phase transition workflow (update ROADMAP, commit phase, determine next step)
+Resume file: .paul/phases/10-form-ux-redesign/10-06-SUMMARY.md
+Git commit: pending (phase commit after TRANSITION)
 
 ---
 *STATE.md — Updated after every significant action*

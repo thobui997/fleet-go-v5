@@ -14,7 +14,7 @@ import { RoutesPage, RouteFormPage, RouteStopsPage } from '@pages/routes';
 import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
 import { CustomersPage } from '@pages/customers';
-import { BookingsPage } from '@pages/bookings';
+import { BookingsPage, BookingFormPage } from '@pages/bookings';
 import { CheckInPage } from '@pages/check-in';
 import { PaymentsPage } from '@pages/payments';
 import { AppLayout } from '@app/layouts';
@@ -64,6 +64,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.ROLES, element: <RolesPage /> },
       { path: ROUTES.MY_SCHEDULE, element: <MySchedulePage /> },
       { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
+      // BOOKINGS_NEW must come before BOOKINGS — literal segments beat dynamic
+      { path: ROUTES.BOOKINGS_NEW, element: <BookingFormPage /> },
       { path: ROUTES.BOOKINGS, element: <BookingsPage /> },
       { path: ROUTES.CHECK_IN, element: <CheckInPage /> },
       { path: ROUTES.PAYMENTS, element: <PaymentsPage /> },

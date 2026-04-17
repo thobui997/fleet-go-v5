@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plus, AlertCircle, RefreshCw } from 'lucide-react';
 import {
   Button,
@@ -14,8 +15,8 @@ import type { ColumnDef } from '@shared/ui/data-table';
 import { useDebounce } from '@shared/lib';
 import { useBookings, BOOKING_STATUSES } from '@entities/booking';
 import type { BookingWithDetails } from '@entities/booking';
+import { ROUTES } from '@shared/config/routes';
 import { formatCurrency, formatDateTime } from '@shared/lib';
-import { BookingCreateDialog } from './booking-create-dialog';
 import { BookingDetailDialog } from './booking-detail-dialog';
 import { mapBookingError } from '../model/booking-form-schema';
 
@@ -38,6 +39,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export function BookingsPage() {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [statusFilter, setStatusFilter] = React.useState<string>('all');
@@ -47,7 +49,6 @@ export function BookingsPage() {
   const debouncedSearch = useDebounce(searchInput, 300);
 
   const [detailOpen, setDetailOpen] = React.useState(false);
-  const [createOpen, setCreateOpen] = React.useState(false);
   const [selectedBooking, setSelectedBooking] = React.useState<BookingWithDetails | null>(null);
 
   const { data, isLoading, isError, error, refetch } = useBookings({
@@ -140,7 +141,7 @@ export function BookingsPage() {
               Quản lý đặt vé của khách hàng
             </p>
           </div>
-          <Button onClick={() => setCreateOpen(true)}>
+          <Button onClick={() => navigate(ROUTES.BOOKINGS_NEW)}>
             <Plus className="mr-2 h-4 w-4" />
             Tạo đặt vé
           </Button>
@@ -236,11 +237,6 @@ export function BookingsPage() {
           />
         )}
       </div>
-
-      <BookingCreateDialog
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-      />
 
       {selectedBooking && (
         <BookingDetailDialog
