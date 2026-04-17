@@ -123,7 +123,7 @@ Loop 11-01:
 - Focus trapping in mobile sidebar overlay — keyboard accessibility gap, deferred from 01-04 audit
 
 ### Git State
-Last commit: 63fcb3d
+Last commit: 91d5b70
 Branch: master
 Feature branches merged: none
 
