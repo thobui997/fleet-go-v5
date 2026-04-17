@@ -20,6 +20,9 @@ export { FormFieldWrapper } from './form-field-wrapper';
 export { Switch } from './switch';
 
 export { FormSection } from './form-section';
+export { Calendar } from './calendar';
+export { Popover, PopoverTrigger, PopoverContent } from './popover';
+export { DatePicker } from './date-picker';
 
 // Existing from Plan 01-01
 export { ErrorBoundary } from './error-boundary';

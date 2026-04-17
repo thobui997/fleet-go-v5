@@ -13,8 +13,8 @@ Phases: 8 of 8 complete
 ## Post-MVP: UX Improvements
 
 **Milestone:** Post-MVP / UX Improvements (v0.1.1)
-Status: ✅ **COMPLETE** (2 of 2 phases complete)
-Phases: 2 of 2 complete
+Status: 🔄 **In Progress** (2 of 3 phases complete)
+Phases: 2 of 3 complete
 
 **Phase 9** — Layout Refactor
 Status: ✅ Complete (2026-04-17)
@@ -38,6 +38,7 @@ Status: ✅ Complete (2026-04-17)
 | 8 | Dashboard & Analytics | 2 | ✅ Complete | 2026-04-17 |
 | 9 | Layout Refactor | 2 | ✅ Complete | 2026-04-17 |
 | 10 | Form UX Redesign | 6 | ✅ Complete | 2026-04-17 |
+| 11 | Date Input Migration | 3 | 🔄 Planning | - |
 
 ## Phase Details
 
@@ -212,6 +213,26 @@ Status: ✅ Complete (2026-04-17)
 - [x] 10-05: Route form page + RouteStopsPage
 - [x] 10-06: Booking form page
 
+### Phase 11: Date Input Migration
+
+**Goal:** Replace all native `input type="date"` fields with Shadcn DatePicker/DateRangePicker components
+**Depends on:** Phase 1 (shared UI), Phase 10 (Form UX Redesign complete)
+**Research:** Unlikely (Shadcn DatePicker component available)
+
+**Scope:**
+- Audit all forms and pages for native date inputs
+- Install/configure Shadcn DatePicker component
+- Create shared DatePicker wrapper for React Hook Form integration
+- Replace date fields in all forms (Maintenance, Trip, Booking, Payment, Employee, Customer)
+- Replace date range filters in list pages (Dashboard, Trips, Bookings, Payments)
+- Ensure Vietnamese locale support (dayjs already configured)
+- Maintain existing validation and error handling
+
+**Plans:**
+- [🔄] 11-01: DatePicker component setup + shared wrapper
+- [ ] 11-02: Form migration — replace date inputs in all 6 forms
+- [ ] 11-03: List page filter migration — replace date range inputs
+
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-17 — Phase 10 complete: All 6 plans delivered, Form UX Redesign finished*
+*Last updated: 2026-04-17 — Plan 11-01 created: DatePicker component setup + shared wrapper*
