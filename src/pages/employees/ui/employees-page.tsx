@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plus, MoreHorizontal, AlertCircle, RefreshCw } from 'lucide-react';
 import dayjs from 'dayjs';
 import {
@@ -20,7 +21,7 @@ import type { ColumnDef } from '@shared/ui/data-table';
 import { useDebounce } from '@shared/lib';
 import { useEmployees } from '@entities/employee';
 import type { Employee } from '@entities/employee';
-import { EmployeeFormDialog } from './employee-form-dialog';
+import { ROUTES } from '@shared/config/routes';
 import { EmployeeDeleteDialog } from './employee-delete-dialog';
 import { mapEmployeeError } from '../model/employee-form-schema';
 
@@ -43,16 +44,13 @@ function getLicenseExpiryBadge(expiryDate: string | null) {
 }
 
 export function EmployeesPage() {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const [searchInput, setSearchInput] = React.useState('');
   const debouncedSearch = useDebounce(searchInput, 300);
 
   const [statusFilter, setStatusFilter] = React.useState<StatusFilter>('all');
-  const [formDialog, setFormDialog] = React.useState<{
-    open: boolean;
-    employee: Employee | null;
-  }>({ open: false, employee: null });
   const [deleteDialog, setDeleteDialog] = React.useState<{
     open: boolean;
     employee: Employee | null;
@@ -132,7 +130,7 @@ export function EmployeesPage() {
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() =>
-                setFormDialog({ open: true, employee: row })
+                navigate(ROUTES.EMPLOYEES_EDIT.replace(':id', row.id))
               }
             >
               Sửa
@@ -162,7 +160,7 @@ export function EmployeesPage() {
             </p>
           </div>
           <Button
-            onClick={() => setFormDialog({ open: true, employee: null })}
+            onClick={() => navigate(ROUTES.EMPLOYEES_NEW)}
           >
             <Plus className="mr-2 h-4 w-4" />
             Thêm nhân viên
@@ -229,14 +227,6 @@ export function EmployeesPage() {
           />
         )}
       </div>
-
-      <EmployeeFormDialog
-        open={formDialog.open}
-        onOpenChange={(open) =>
-          setFormDialog((prev) => ({ ...prev, open }))
-        }
-        employee={formDialog.employee}
-      />
 
       <EmployeeDeleteDialog
         open={deleteDialog.open}

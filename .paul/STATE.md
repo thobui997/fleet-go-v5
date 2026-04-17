@@ -10,29 +10,27 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 ## Current Position
 
 Milestone: Post-MVP / UX Improvements — **IN PROGRESS**
-Phase: 10 (Form UX Redesign) — **IN PROGRESS** (3/5 plans)
-Plan: 10-04
-Status: Ready to plan next plan
-Last activity: 2026-04-17 — Loop 10-03 closed. Trip form migrated to full page. StaffAssignmentPage created. UI follows MaintenanceFormPage pattern.
+Phase: 10 (Form UX Redesign) — **IN PROGRESS** (4/5 plans complete)
+Plan: None
+Status: Loop 10-04 complete, ready to plan 10-05
+Last activity: 2026-04-17 — Plan 10-04 unified: Employee form migrated to full-page layout.
 
 ## Loop Position
 
-Current loop state (10-04):
-```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ○        ○        ○     [Ready to plan]
-```
-
-Previous loops complete:
+Loops complete in Phase 10:
 ```
 10-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
 10-02: PLAN ✓ → APPLY ✓ → UNIFY ✓
 10-03: PLAN ✓ → APPLY ✓ → UNIFY ✓
+10-04: PLAN ✓ → APPLY ✓ → UNIFY ✓
 ```
+
+Remaining in Phase 10:
+- 10-05: Route form page (not started)
 
 Progress:
 - Phase 9: [██████████] 100% (2/2 plans complete)
-- Phase 10: [███████░░░] 60% (3/5 plans complete)
+- Phase 10: [████████░░] 80% (4/5 plans complete)
 
 ## Accumulated Context
 
@@ -102,19 +100,22 @@ Progress:
 - 2026-04-17: Enterprise audit on 10-01-PLAN.md. Applied 1 must-have (React import in FormSection snippet — React.ReactNode unresolved without it), 4 strongly-recommended (remove existing manual VehicleTypes section header before FormSection wrap; remove hedge language on description field; add dialog width grep to Task 2 verify; add submit tests to human-verify checkpoint). Deferred 3 (className prop; ARIA role=separator; description subtitle prop). Verdict: conditionally acceptable (now ready).
 - 2026-04-17: Enterprise audit on 10-02-PLAN.md. Applied 1 must-have (reset() before navigate() after successful submit — useBlocker intercepts post-submit navigation if isDirty not cleared), 3 strongly-recommended (mapFetchError distinguishes PGRST116/auth-expiry on entity fetch; useBlocker callback form with pathname guard; explicit route ordering comment MAINTENANCE_NEW before MAINTENANCE_EDIT). Deferred 2 (ARIA on dirty-state dialog; page transition animation). Verdict: conditionally acceptable (now ready).
 - 2026-04-17: Enterprise audit on 10-03-PLAN.md. Applied 0 must-have, 5 strongly-recommended (FK dropdown empty state with disable submit; datetime validation for new trips; loading skeleton specificity mapped to form sections; explicit !isPending in blocker condition; auth-expiry explicit for mutations). Deferred 2 (status transition validation; staff navigation after edit). Verdict: conditionally acceptable (now ready).
+- 2026-04-17: Enterprise audit on 10-04-PLAN.md. Applied 0 must-have, 6 strongly-recommended (mapFetchError function location; submit error rendering placement; FK dropdown empty states for profiles/roles; router regression checkpoint; auth-expiry for two-step save; regression checkpoint in verify). Deferred 0. Verdict: conditionally acceptable (now ready).
 
 ### Deferred Issues
 - ARIA accessibility attributes (sidebar, header, mobile overlay) — deferred from 01-04 audit, must address before public/regulated deployment
 - Focus trapping in mobile sidebar overlay — keyboard accessibility gap, deferred from 01-04 audit
 
-### Blockers/Concerns
-None.
+### Git State
+Last commit: c71d6c5
+Branch: master
+Feature branches merged: none
 
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Loop 10-03 closed, ready for plan 10-04
-Next action: /paul:plan for 10-04 (Employee form page)
+Stopped at: Loop 10-04 complete, ready to plan 10-05
+Next action: /paul:plan for Phase 10 plan 10-05 (Route form page)
 Resume file: .paul/ROADMAP.md
 Git strategy: main
 

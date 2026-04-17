@@ -9,7 +9,7 @@ import { MaintenancePage, MaintenanceFormPage } from '@pages/maintenance';
 import { StationsPage } from '@pages/stations';
 import { RoutesPage } from '@pages/routes';
 import { RolesPage } from '@pages/roles';
-import { EmployeesPage } from '@pages/employees';
+import { EmployeesPage, EmployeeFormPage } from '@pages/employees';
 import { TripsPage, TripFormPage, StaffAssignmentPage } from '@pages/trips';
 import { CalendarPage } from '@pages/trip-calendar';
 import { MySchedulePage } from '@pages/my-schedule';
@@ -53,6 +53,9 @@ export const router = createBrowserRouter([
       { path: ROUTES.TRIPS_EDIT, element: <TripFormPage /> },
       { path: ROUTES.TRIPS_STAFF, element: <StaffAssignmentPage /> },
       { path: ROUTES.TRIP_CALENDAR, element: <CalendarPage /> },
+      // EMPLOYEES_NEW must come before EMPLOYEES_EDIT — literal segments beat dynamic
+      { path: ROUTES.EMPLOYEES_NEW, element: <EmployeeFormPage /> },
+      { path: ROUTES.EMPLOYEES_EDIT, element: <EmployeeFormPage /> },
       { path: ROUTES.EMPLOYEES, element: <EmployeesPage /> },
       { path: ROUTES.ROLES, element: <RolesPage /> },
       { path: ROUTES.MY_SCHEDULE, element: <MySchedulePage /> },

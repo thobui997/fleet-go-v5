@@ -10,6 +10,8 @@ export const ROUTES = {
   ROUTES: '/routes',
   STATIONS: '/stations',
   EMPLOYEES: '/employees',
+  EMPLOYEES_NEW: '/employees/new',
+  EMPLOYEES_EDIT: '/employees/:id/edit',
   ROLES: '/roles',
   TRIPS: '/trips',
   TRIPS_NEW: '/trips/new',
