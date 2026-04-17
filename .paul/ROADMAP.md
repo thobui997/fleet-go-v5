@@ -12,11 +12,17 @@ Phases: 8 of 8 complete
 
 ## Post-MVP: UX Improvements
 
+**Milestone:** Post-MVP / UX Improvements (v0.1.1)
+Status: ✅ **COMPLETE** (2 of 2 phases complete)
+Phases: 2 of 2 complete
+
 **Phase 9** — Layout Refactor
 Status: ✅ Complete (2026-04-17)
 
 **Phase 10** — Form UX Redesign
 Status: ✅ Complete (2026-04-17)
+
+**Milestone Status:** ✅ **COMPLETE** (2026-04-17)
 
 ## Phases
 
