@@ -5,7 +5,7 @@
 See: .paul/PROJECT.md (updated 2026-04-10)
 
 **Core value:** Digitize and automate passenger coach fleet management into a single source of truth
-**Current focus:** v0.1.1 Post-MVP UX Improvements complete — awaiting next milestone definition
+**Current focus:** v0.1.2 UI Polish — Phase 13 (Toast Message Standardization) next
 
 ## Current Position
 

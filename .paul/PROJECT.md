@@ -13,9 +13,9 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Attribute | Value |
 |-----------|-------|
 | Type | Application |
-| Version | 0.1.1 |
+| Version | 0.1.2 |
 | Status | In Development |
-| Last Updated | 2026-04-16 |
+| Last Updated | 2026-04-18 |
 
 ## Requirements
 
