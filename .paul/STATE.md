@@ -9,26 +9,27 @@ See: .paul/PROJECT.md (updated 2026-04-10)
 
 ## Current Position
 
-Milestone: v0.1.2 UI Polish — **In Progress** 🚧
-Phase: 13 (Toast Message Standardization) — Complete ✅
-Plan: 13-01 complete, 13-02 complete
-Status: Phase 13 complete — all 26 files standardized with consistent toast messages. Toast pattern: success='Thành công'+description+success, error='Lỗi'+description+destructive, warning='Cảnh báo'+description+destructive.
-Last activity: 2026-04-18 — Phase 13 complete. All 2 plans executed (17 dialogs + 9 pages/mixed files). Toast standardization pattern established across entire application.
+Milestone: v0.1.2 UI Polish — **Complete** ✅
+Phase: 14 of 14 (Login Page UI Redesign) — Complete
+Plan: 14-01 complete
+Status: Phase complete, awaiting transition
+Last activity: 2026-04-18 — Plan 14-01 UNIFIED. Split-screen login page with branded cover area, password visibility toggle, soft shadow enhancement, and dark mode contrast delivered.
 
 Progress:
-- v0.1.2 UI Polish: [██████████] 100% (2/2 phases complete)
-- Phase 13: [██████████] 100% (13-01 complete, 13-02 complete)
+- v0.1.2 UI Polish: [██████████] 100% (3/3 phases complete)
+- Phase 14: [██████████] 100% (14-01 complete)
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 13-02 complete - Phase 13 complete]
+  ✓        ✓        ✓     [Loop complete - ready for transition]
 ```
 ```
 13-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
 13-02: PLAN ✓ → APPLY ✓ → UNIFY ✓
+14-01: PLAN ✓ → APPLY ✓ → UNIFY ✓
 ```
 
 ## Accumulated Context
@@ -45,6 +46,12 @@ PLAN ──▶ APPLY ──▶ UNIFY
 ### Recent Decisions (Phase 13)
 - 2026-04-18: **Plan 13-02 executed.** All 9 page/mixed files standardized with toast messages (maintenance, trip, route forms + route-stops, employee, booking form/detail, check-in, payment dialogs). Pattern: success='Thành công'+description+success, error='Lỗi'+description+destructive, warning='Cảnh báo'+description+destructive. TypeScript compilation passed. Human checkpoint approved. | Phase 13 | Toast standardization complete for all pages |
 - 2026-04-18: **Enterprise audit on 13-02-PLAN.md.** Applied 2 must-have (Task 0 for /frontend-design skill verification, multi-line grep -A 3 for toast detection), 3 strongly-recommended (error mapper null fallback check, TypeScript compilation after each task, concrete DevTools offline mocking steps). Deferred 3 (toast stacking, ARIA, rollback script). Verdict: Conditionally acceptable (now ready). | Phase 13 | Plan strengthened for enterprise standards |
+
+### Recent Decisions (Phase 14)
+- 2026-04-18: **Plan 14-01 UNIFIED** — Split-screen login page redesign complete. Cover area (50% width, hidden on mobile) with branded gradient from-primary via-primary/90 to-primary/80 (dark:from-slate-900 dark:via-slate-800 dark:to-slate-900), decorative pattern, and content (6xl logo, welcome message, three value dots). Form panel (50% desktop, 100% mobile) with centered card. Password visibility toggle with Eye/EyeOff icons. Email input auto-focuses with focus-visible:ring-2 focus-visible:ring-ring. Soft shadow enhancement (shadow-2xl shadow-foreground/10 border-2 border-border/80) for visual separation. Dark mode contrast fixed. All existing auth logic, validation, and error handling preserved. TypeScript compilation passed. Human checkpoints approved. | Phase 14 | Login UI redesign complete |
+- 2026-04-18: **Enterprise audit on 14-01-PLAN.md.** Applied 0 must-have, 5 strongly-recommended (password visibility toggle with Eye/EyeOff icons, auto-focus on email input, focus-visible ring utilities for WCAG AA, explicit scope deferral notes for remember me/forgot password, timeout handling documentation). Deferred 5. Verdict: Conditionally acceptable (now ready). | Phase 14 | Plan strengthened with UX improvements |
+- 2026-04-18: **Plan 14-01 created** — Split-screen login page layout redesign. Cover area (50% width, hidden on mobile) with gradient background, logo, and welcome message. Form panel (50% desktop, 100% mobile) with centered card. Preserves all existing auth logic, validation, and error handling. Required skill: /frontend-design. | Phase 14 | Plan created for login UI redesign |
+- 2026-04-18: **Added Phase 14 (Login Page UI Redesign)** — Modern split-screen layout redesign. Left section: full-height branded cover area (image/illustration/gradient). Right section: focused form panel with logo, welcome text, inputs, remember me, forgot password, submit. Target: professional, branded first impression with proper hierarchy and responsive design. | Phase 14 | Extends v0.1.2 milestone scope |
 
 ### Recent Decisions (Phase 12)
 - 2026-04-18: **Phase 12 Complete** — Action Dropdown Standardization delivered. All 11 list pages now have Lucide icons, consistent "Chỉnh sửa" labels, DropdownMenuSeparator before Xóa, and Eye icon on Xem buttons. Pattern established: Pencil+edit → (contextual) → separator → Trash2+delete.
@@ -123,16 +130,16 @@ PLAN ──▶ APPLY ──▶ UNIFY
 - Focus trapping in mobile sidebar overlay — keyboard accessibility gap, deferred from 01-04 audit
 
 ### Git State
-Last commit: bff9450
+Last commit: 00e1d53
 Branch: master
 Feature branches merged: none
 
 ## Session Continuity
 
 Last session: 2026-04-18
-Stopped at: Phase 13 complete, milestone v0.1.2 UI Polish complete
-Next action: Run /paul:complete-milestone or review accomplishments
-Resume file: .paul/ROADMAP.md
+Stopped at: Plan 14-01 UNIFY complete, Phase 14 complete, v0.1.2 UI Polish milestone complete
+Next action: Run transition workflow to close Phase 14 and v0.1.2 milestone
+Resume file: .paul/phases/14-login-ui-redesign/14-01-SUMMARY.md
 
 ---
 *STATE.md — Updated after every significant action*

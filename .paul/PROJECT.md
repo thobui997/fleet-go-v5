@@ -53,10 +53,12 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 - **Form UX Redesign (Complete):** FormSection component for consistent field grouping; All 5 forms migrated to full-page layout (Maintenance, Trip, Employee, Route, Booking) with sticky footer; Dirty state blocker using useBlocker with pathname guard; reset() before navigate() to prevent blocker interception; FK dropdown patterns (__none__ sentinel, truncation warning, empty state handling); Context-aware error mapping; StaffAssignmentPage and RouteStopsPage created — Phase 10
 - **Date Input Migration (Complete):** Shadcn DatePicker + custom ModernCalendar (timezone-safe, Vietnamese locale); DateTimePicker with combined calendar + time input; DateRangePicker as unified single-trigger with range band and live hover preview; `toLocalISODate`/`fromLocalISODate` in `@shared/lib/date-utils`; all form date fields migrated; all list-page date range filters migrated; zero native `type="date"` inputs remain — Phase 11
 - **Action Dropdown Standardization (Complete):** All 11 list pages standardized — Pencil+Chỉnh sửa, DropdownMenuSeparator before destructive, Trash2+Xóa on 9 dropdown pages; MapPin on Routes Điểm dừng; Users on Trips Phân công preserved; Eye icon on Bookings+Payments inline Xem button — Phase 12
+- **Toast Message Standardization (Complete):** All 9 page/mixed files standardized with toast messages — success='Thành công'+description+success, error='Lỗi'+description+destructive, warning='Cảnh báo'+description+destructive; Applied to MaintenanceFormPage, TripFormPage, RouteFormPage, RouteStopsPage, EmployeeFormPage, BookingFormPage, BookingDetailPage, CheckInDialog, PaymentDialog — Phase 13
+- **Login Page UI Redesign (Complete):** Split-screen login layout with branded cover area (50% width on desktop, hidden on mobile); Gradient from-primary via-primary/90 to-primary/80 (dark:from-slate-900 dark:via-slate-800 for contrast); Decorative pattern with 6xl logo, welcome message, three value dots; Form panel with password visibility toggle (Eye/EyeOff icons), email auto-focus, focus-visible:ring-2; Soft shadow enhancement (shadow-2xl shadow-foreground/10 border-2 border-border/80) — Phase 14
 
 ### Active (In Progress)
 
-- **Toast Message Standardization** — Phase 13 (v0.1.2)
+- None — v0.1.2 milestone complete
 
 ### Planned (Next)
 
@@ -148,6 +150,10 @@ Digitize and automate the manual, fragmented processes of managing a passenger c
 | Range band via left/right half-span segments | Each calendar cell has two independent `<span>` elements for left/right halves; avoids CSS pseudo-elements and creates continuous band without cross-row artifacts | 2026-04-17 | Active |
 | Standard dropdown action pattern | Pencil+Chỉnh sửa → (contextual items) → DropdownMenuSeparator → Trash2+Xóa; destructive action visually separated from safe actions | 2026-04-18 | Active |
 | Inline view button pattern | Eye + "Xem" (variant="ghost", size="sm"); consistent icon-first layout for non-destructive inline actions | 2026-04-18 | Active |
+| Toast message standardization pattern | success='Thành công'+description+success, error='Lỗi'+description+destructive, warning='Cảnh báo'+description+destructive; consistent structure across all UI feedback | 2026-04-18 | Active |
+| Split-screen authentication layout | Cover area (50% width, hidden on mobile) with branded gradient; Form panel (50% desktop, 100% mobile) with soft shadow elevation | 2026-04-18 | Active |
+| Dark mode gradient variant pattern | Use dark: prefix for dark mode backgrounds (dark:from-slate-900 dark:via-slate-800) to ensure white text remains visible | 2026-04-18 | Active |
+| Password visibility toggle pattern | Eye/EyeOff icons in absolute positioning inside input wrapper; toggles type between text/password with focus preservation | 2026-04-18 | Active |
 
 ## Success Metrics
 
@@ -208,4 +214,4 @@ Quick Reference:
 | Repository | (To be configured) |
 
 ---
-*Last updated: 2026-04-18 after Phase 12 complete — Action Dropdown Standardization delivered (all 11 list pages standardized with Lucide icons, separators, and consistent labels)*
+*Last updated: 2026-04-18 after Phase 14 complete — v0.1.2 UI Polish milestone complete; Login Page UI Redesign delivered with split-screen layout, password visibility toggle, and dark mode support*

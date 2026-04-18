@@ -8,7 +8,7 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 
 **v0.1.2 UI Polish**
 Status: ✅ **COMPLETE** (2026-04-18)
-Phases: 2 of 2 complete
+Phases: 4 of 4 complete
 
 ## Past Milestones
 
@@ -35,6 +35,7 @@ Status: ✅ **COMPLETE** (2026-04-17) — 3 of 3 phases complete
 | 11 | Date Input Migration | 3 | ✅ Complete | 2026-04-17 |
 | 12 | Action Dropdown Standardization | 1 | ✅ Complete | 2026-04-18 |
 | 13 | Toast Message Standardization | 2 | ✅ Complete | 2026-04-18 |
+| 14 | Login Page UI Redesign | 1 | ✅ Complete | 2026-04-18 |
 
 ## Phase Details
 
@@ -248,6 +249,23 @@ Status: ✅ Complete (2026-04-18)
 - [x] 13-01: Dialog Toast Standardization — all 17 dialog files (title + description + variant pattern)
 - [x] 13-02: Page/Mixed Toast Standardization — all 9 page/mixed files (consistent toast pattern)
 
+### Phase 14: Login Page UI Redesign
+
+**Goal:** Redesign login page with modern split-screen layout (cover image + form panel)
+**Depends on:** Phase 1 (Authentication System, existing login page)
+**Research:** Unlikely (Shadcn/ui components available, layout pattern defined)
+
+**Scope:**
+- Split-screen layout: left section with full-height cover background (branded image/illustration/gradient)
+- Right section with focused login form panel (logo, welcome text, inputs, remember me, forgot password, submit)
+- Responsive design for mobile/tablet/desktop
+- Modern, professional, branded first impression
+- Proper spacing, hierarchy, and usability
+
+**Plans:**
+- [ ] 14-01: Split-screen layout implementation (cover area + form panel)
+- [ ] 14-02: Form refinement and responsive polish (spacing, states, mobile handling)
+
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-18 — Milestone v0.1.2 UI Polish complete: Phase 12 (Action Dropdown Standardization) + Phase 13 (Toast Message Standardization).*
+*Last updated: 2026-04-18 — Added Phase 14: Login Page UI Redesign*
