@@ -235,7 +235,7 @@ export function RouteStopsPage() {
       { routeId: id, stops: insertPayload },
       {
         onSuccess: () => {
-          toast({ title: 'Đã lưu điểm dừng' });
+          toast({ title: 'Thành công', description: 'Đã lưu điểm dừng', variant: 'success' });
           navigate(ROUTES.ROUTES);
         },
         onError: (err) => {

@@ -128,10 +128,10 @@ export function TripFormPage() {
     try {
       if (id) {
         await updateMutation.mutateAsync({ id, input: payload });
-        toast({ title: 'Đã cập nhật chuyến đi' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật chuyến đi', variant: 'success' });
       } else {
         const result = await createMutation.mutateAsync(payload);
-        toast({ title: 'Đã tạo chuyến đi' });
+        toast({ title: 'Thành công', description: 'Đã tạo chuyến đi', variant: 'success' });
 
         if (saveAndAssign && result?.id) {
           reset(values);

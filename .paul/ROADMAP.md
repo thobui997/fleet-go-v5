@@ -7,8 +7,8 @@ Build a comprehensive passenger coach fleet management system, progressing from 
 ## Current Milestone
 
 **v0.1.2 UI Polish**
-Status: 🚧 In Progress
-Phases: 1 of 2 complete
+Status: ✅ **COMPLETE** (2026-04-18)
+Phases: 2 of 2 complete
 
 ## Past Milestones
 
@@ -34,7 +34,7 @@ Status: ✅ **COMPLETE** (2026-04-17) — 3 of 3 phases complete
 | 10 | Form UX Redesign | 6 | ✅ Complete | 2026-04-17 |
 | 11 | Date Input Migration | 3 | ✅ Complete | 2026-04-17 |
 | 12 | Action Dropdown Standardization | 1 | ✅ Complete | 2026-04-18 |
-| 13 | Toast Message Standardization | TBD | Not started | - |
+| 13 | Toast Message Standardization | 2 | ✅ Complete | 2026-04-18 |
 
 ## Phase Details
 
@@ -241,9 +241,13 @@ Status: ✅ Complete (2026-04-18)
 ### Phase 13: Toast Message Standardization
 
 Focus: Standardize toast messages across the app — consistent titles, descriptions, colors, layout, and icons for success/error/warning states
-Plans: 2 plans (13-01: dialogs, 13-02: pages)
-Status: Planning (2026-04-18)
+Plans: 2/2 complete
+Status: ✅ Complete (2026-04-18)
+
+**Plans:**
+- [x] 13-01: Dialog Toast Standardization — all 17 dialog files (title + description + variant pattern)
+- [x] 13-02: Page/Mixed Toast Standardization — all 9 page/mixed files (consistent toast pattern)
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-18 — Milestone v0.1.2 UI Polish created: Phase 12 (Action Dropdown Standardization) + Phase 13 (Toast Message Standardization).*
+*Last updated: 2026-04-18 — Milestone v0.1.2 UI Polish complete: Phase 12 (Action Dropdown Standardization) + Phase 13 (Toast Message Standardization).*

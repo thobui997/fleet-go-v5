@@ -189,8 +189,8 @@ export function EmployeeFormPage() {
         reset(values); // clear isDirty before redirect
         navigate(ROUTES.EMPLOYEES);
         toast({
-          title:
-            'Nhân viên đã được lưu, nhưng không thể cập nhật vai trò. Vui lòng thử lại.',
+          title: 'Cảnh báo',
+          description: 'Nhân viên đã được lưu, nhưng không thể cập nhật vai trò. Vui lòng thử lại.',
           variant: 'destructive',
         });
         return;
@@ -202,7 +202,8 @@ export function EmployeeFormPage() {
     reset(values); // clear isDirty before redirect
     navigate(ROUTES.EMPLOYEES);
     toast({
-      title: mode === 'edit' ? 'Cập nhật nhân viên thành công' : 'Tạo nhân viên thành công',
+      title: 'Thành công',
+      description: mode === 'edit' ? 'Cập nhật nhân viên thành công' : 'Tạo nhân viên thành công',
       variant: 'success',
     });
   };

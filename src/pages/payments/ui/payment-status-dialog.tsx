@@ -64,10 +64,11 @@ export function PaymentStatusDialog({
           processed_by: user?.id,
         },
       });
-      toast({ description: 'Đã cập nhật trạng thái thanh toán', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Đã cập nhật trạng thái thanh toán', variant: 'success' });
       onOpenChange(false);
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: mapPaymentError(
           error as {

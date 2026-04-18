@@ -129,10 +129,10 @@ export function RouteFormPage() {
     try {
       if (id) {
         await updateMutation.mutateAsync({ id, input: payload });
-        toast({ title: 'Đã cập nhật tuyến đường' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật tuyến đường', variant: 'success' });
       } else {
         const result = await createMutation.mutateAsync(payload);
-        toast({ title: 'Đã tạo tuyến đường' });
+        toast({ title: 'Thành công', description: 'Đã tạo tuyến đường', variant: 'success' });
 
         if (saveAndStops && result?.id) {
           reset(values);

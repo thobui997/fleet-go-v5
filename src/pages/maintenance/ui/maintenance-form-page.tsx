@@ -137,10 +137,10 @@ export function MaintenanceFormPage() {
     try {
       if (mode === 'create') {
         await createMutation.mutateAsync(payload);
-        toast({ title: 'Đã tạo lịch bảo trì' });
+        toast({ title: 'Thành công', description: 'Đã tạo lịch bảo trì', variant: 'success' });
       } else if (id) {
         await updateMutation.mutateAsync({ id, input: payload });
-        toast({ title: 'Đã cập nhật lịch bảo trì' });
+        toast({ title: 'Thành công', description: 'Đã cập nhật lịch bảo trì', variant: 'success' });
       }
       // reset() before navigate() to clear isDirty — prevents useBlocker from
       // intercepting the post-submit redirect

@@ -227,6 +227,7 @@ export function BookingFormPage() {
         })),
       });
       toast({
+        title: 'Thành công',
         description: `Tạo đặt vé thành công! Mã đặt vé: ${(result as any).booking_code}`,
         variant: 'success',
       });
@@ -244,8 +245,9 @@ export function BookingFormPage() {
         }
       );
       toast({
-        variant: 'destructive',
+        title: 'Lỗi',
         description: errorMessage,
+        variant: 'destructive',
       });
     }
   };

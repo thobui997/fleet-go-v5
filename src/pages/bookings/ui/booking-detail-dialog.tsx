@@ -81,10 +81,11 @@ export function BookingDetailDialog({
 
     try {
       await cancelMutation.mutateAsync(booking.id);
-      toast({ description: 'Đã hủy đặt vé', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Đã hủy đặt vé', variant: 'success' });
       onOpenChange(false);
     } catch (error) {
       toast({
+        title: 'Lỗi',
         variant: 'destructive',
         description: 'Không thể hủy đặt vé. Vui lòng thử lại.',
       });

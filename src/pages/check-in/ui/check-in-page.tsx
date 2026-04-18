@@ -31,8 +31,9 @@ export function CheckInPage() {
     const code = bookingCode.trim();
     if (!code) {
       toast({
-        variant: 'destructive',
+        title: 'Lỗi',
         description: 'Vui lòng nhập mã đặt vé',
+        variant: 'destructive',
       });
       return;
     }
@@ -42,10 +43,10 @@ export function CheckInPage() {
   const handleCheckIn = async (ticketId: string) => {
     try {
       await checkInMutation.mutateAsync(ticketId);
-      toast({ description: 'Check-in thành công', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Check-in thành công', variant: 'success' });
     } catch (error) {
       const message = mapCheckInError(error, 'check-in');
-      toast({ variant: 'destructive', description: message });
+      toast({ title: 'Lỗi', variant: 'destructive', description: message });
     }
   };
 
@@ -58,10 +59,10 @@ export function CheckInPage() {
 
     try {
       await checkInAllMutation.mutateAsync(data.booking.booking_code);
-      toast({ description: 'Check-in tất cả vé thành công', variant: 'success' });
+      toast({ title: 'Thành công', description: 'Check-in tất cả vé thành công', variant: 'success' });
     } catch (error) {
       const message = mapCheckInError(error, 'check-in');
-      toast({ variant: 'destructive', description: message });
+      toast({ title: 'Lỗi', variant: 'destructive', description: message });
     }
   };
 
