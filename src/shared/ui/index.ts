@@ -19,6 +19,8 @@ export { FormFieldWrapper } from './form-field-wrapper';
 
 export { Switch } from './switch';
 
+export { PageLoadingSkeleton } from './page-loading-skeleton';
+
 export { FormSection } from './form-section';
 export { Calendar } from './calendar';
 export { Popover, PopoverTrigger, PopoverContent } from './popover';
