@@ -1897,7 +1897,281 @@ Accountant --> UC_PAY
 @enduml
 ```
 
-## 11.2 Class Diagram (Entity Models)
+## 11.2 ERD Diagram (Entity Relationship Diagram)
+
+### ERD - Core Business (Bookings, Trips, Payments)
+
+```mermaid
+erDiagram
+    CUSTOMERS {
+        uuid id PK
+        text full_name
+        text phone_number UK
+        text email UK
+        date date_of_birth
+        text gender
+        text id_card_number UK
+        text address
+        int loyalty_points
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    BOOKINGS {
+        uuid id PK
+        text booking_code UK
+        uuid customer_id FK
+        uuid trip_id FK
+        timestamptz booking_date
+        text status
+        numeric total_amount
+        int passenger_count
+        uuid created_by FK
+        timestamptz cancelled_at
+        uuid cancelled_by FK
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    TICKETS {
+        uuid id PK
+        uuid booking_id FK
+        uuid trip_id FK
+        text seat_number
+        text passenger_name
+        text passenger_id_card
+        text passenger_phone
+        numeric price
+        text status
+        text qr_code
+        uuid issued_by FK
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    PAYMENTS {
+        uuid id PK
+        uuid booking_id FK
+        numeric amount
+        text method
+        text status
+        text transaction_reference
+        timestamptz paid_at
+        timestamptz refunded_at
+        uuid processed_by FK
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    TRIPS {
+        uuid id PK
+        uuid route_id FK
+        uuid vehicle_id FK
+        timestamptz departure_time
+        timestamptz estimated_arrival_time
+        timestamptz actual_arrival_time
+        text status
+        numeric price_override
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    CUSTOMERS ||--o{ BOOKINGS : "dat ve"
+    TRIPS ||--o{ BOOKINGS : "thuoc chuyen"
+    BOOKINGS ||--o{ TICKETS : "chua ve"
+    TRIPS ||--o{ TICKETS : "ghe tren chuyen"
+    BOOKINGS ||--o{ PAYMENTS : "thanh toan"
+```
+
+### ERD - Fleet Management (Vehicles, Routes, Stations)
+
+```mermaid
+erDiagram
+    VEHICLES {
+        uuid id PK
+        uuid vehicle_type_id FK
+        text license_plate UK
+        text vin_number UK
+        int year_manufactured
+        text status
+        int current_mileage
+        date last_maintenance_date
+        date next_maintenance_date
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    VEHICLE_TYPES {
+        uuid id PK
+        text name
+        text description
+        jsonb seat_layout
+        int total_floors
+        int total_seats
+        text_array amenities
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    MAINTENANCE_LOGS {
+        uuid id PK
+        uuid vehicle_id FK
+        text type
+        text description
+        numeric cost
+        uuid performed_by FK
+        date performed_at
+        date next_due_date
+        int odometer_reading
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    ROUTES {
+        uuid id PK
+        text name
+        uuid origin_station_id FK
+        uuid destination_station_id FK
+        numeric distance_km
+        interval estimated_duration
+        numeric base_price
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    ROUTE_STOPS {
+        uuid route_id PK_FK
+        uuid station_id PK_FK
+        int stop_order
+        interval estimated_arrival
+        boolean pickup_allowed
+        boolean dropoff_allowed
+    }
+
+    STATIONS {
+        uuid id PK
+        text name
+        text code UK
+        text address
+        text city
+        text province
+        numeric latitude
+        numeric longitude
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    TRIPS {
+        uuid id PK
+        uuid route_id FK
+        uuid vehicle_id FK
+        timestamptz departure_time
+        text status
+    }
+
+    VEHICLE_TYPES ||--o{ VEHICLES : "phan loai"
+    VEHICLES ||--o{ TRIPS : "su dung"
+    VEHICLES ||--o{ MAINTENANCE_LOGS : "bao tri"
+    ROUTES ||--o{ TRIPS : "tuyen"
+    STATIONS ||--o{ ROUTES : "diem di"
+    STATIONS ||--o{ ROUTES : "diem den"
+    ROUTES ||--o{ ROUTE_STOPS : "diem dung"
+    STATIONS ||--o{ ROUTE_STOPS : "tram dung"
+```
+
+### ERD - People Management (Employees, Roles, Trip Staff)
+
+```mermaid
+erDiagram
+    EMPLOYEES {
+        uuid id PK
+        uuid user_id FK
+        date hire_date
+        text license_number
+        date license_expiry
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    PROFILES {
+        uuid id PK
+        text full_name
+        text email
+        text phone
+        text avatar_url
+    }
+
+    ROLES {
+        uuid id PK
+        text name
+        text description
+        text_array permissions
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    USER_ROLES {
+        uuid user_id PK_FK
+        uuid role_id PK_FK
+    }
+
+    TRIP_STAFF {
+        uuid trip_id PK_FK
+        uuid employee_id PK_FK
+        text role
+        text notes
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    TRIPS {
+        uuid id PK
+        uuid route_id FK
+        uuid vehicle_id FK
+        timestamptz departure_time
+        text status
+    }
+
+    PROFILES ||--o{ EMPLOYEES : "lien ket"
+    EMPLOYEES ||--o{ TRIP_STAFF : "phan cong"
+    TRIPS ||--o{ TRIP_STAFF : "nhan vien"
+    PROFILES ||--o{ USER_ROLES : "co role"
+    ROLES ||--o{ USER_ROLES : "gan cho"
+```
+
+### ERD - Full System Overview (Simplified)
+
+```mermaid
+erDiagram
+    CUSTOMERS ||--o{ BOOKINGS : "has"
+    BOOKINGS ||--o{ TICKETS : "contains"
+    BOOKINGS ||--o{ PAYMENTS : "paid_by"
+    TRIPS ||--o{ BOOKINGS : "booked_on"
+    TRIPS ||--o{ TICKETS : "seat_on"
+    TRIPS ||--o{ TRIP_STAFF : "assigned"
+    ROUTES ||--o{ TRIPS : "scheduled_on"
+    VEHICLES ||--o{ TRIPS : "operated_by"
+    VEHICLE_TYPES ||--o{ VEHICLES : "categorized"
+    VEHICLES ||--o{ MAINTENANCE_LOGS : "maintained"
+    STATIONS ||--o{ ROUTES : "origin"
+    STATIONS ||--o{ ROUTES : "destination"
+    ROUTES ||--o{ ROUTE_STOPS : "has_stop"
+    STATIONS ||--o{ ROUTE_STOPS : "is_stop_at"
+    EMPLOYEES ||--o{ TRIP_STAFF : "works_on"
+    PROFILES ||--o{ EMPLOYEES : "linked"
+    ROLES ||--o{ USER_ROLES : "grants"
+    PROFILES ||--o{ USER_ROLES : "has_role"
+```
+
+## 11.3 Class Diagram (Entity Models)
 
 ```mermaid
 classDiagram
