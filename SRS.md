@@ -3244,8 +3244,3 @@ E:\ptit\fleet-go-v5\
 | BR-09 | Employee license expiry warning at 30 days | Employees | UI display logic |
 | BR-10 | Route stops use replace pattern (delete all + insert) | Route Stops | Application logic |
 
----
-
-*Tài liệu được tạo tự động từ phân tích source code.*
-*Phiên bản: 1.0 | Ngày: 2026-05-19*
-*Công cụ: Claude Code Analysis*
