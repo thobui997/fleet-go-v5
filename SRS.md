@@ -1608,63 +1608,293 @@ Page Component
 
 ## 11.1 Use Case Diagram
 
-```mermaid
-graph TB
-    subgraph System["Fleet Management System"]
-        UC1["Đăng nhập"]
-        UC2["Xem Dashboard"]
-        UC3["Quản lý chuyến đi"]
-        UC4["Phân công nhân viên"]
-        UC5["Xem lịch cá nhân"]
-        UC6["Check-in vé"]
-        UC7["Quản lý xe"]
-        UC8["Quản lý bảo trì"]
-        UC9["Quản lý tuyến đường"]
-        UC10["Quản lý trạm"]
-        UC11["Quản lý nhân viên"]
-        UC12["Quản lý phân quyền"]
-        UC13["Quản lý khách hàng"]
-        UC14["Đặt vé"]
-        UC15["Hủy vé"]
-        UC16["Quản lý thanh toán"]
-    end
+```plantuml
+@startuml Fleet Management System - Use Case Diagram
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
 
-    Admin["Admin"]
-    Manager["Manager"]
-    Dispatcher["Dispatcher"]
-    TicketAgent["Ticket Agent"]
-    Driver["Driver"]
-    Inspector["Inspector"]
+actor "Admin" as Admin
+actor "Manager" as Manager
+actor "Dispatcher" as Dispatcher
+actor "Ticket Agent" as TicketAgent
+actor "Driver" as Driver
+actor "Inspector" as Inspector
 
-    Admin --> UC1
-    Admin --> UC2
-    Admin --> UC11
-    Admin --> UC12
+rectangle "Fleet Management System" {
+    usecase "Dang nhap" as UC1
+    usecase "Xem Dashboard" as UC2
+    usecase "Quan ly chuyen di" as UC3
+    usecase "Phan cong nhan vien" as UC4
+    usecase "Xem lich ca nhan" as UC5
+    usecase "Check-in ve" as UC6
+    usecase "Quan ly xe" as UC7
+    usecase "Quan ly bao tri" as UC8
+    usecase "Quan ly tuyen duong" as UC9
+    usecase "Quan ly tram" as UC10
+    usecase "Quan ly nhan vien" as UC11
+    usecase "Quan ly phan quyen" as UC12
+    usecase "Quan ly khach hang" as UC13
+    usecase "Dat ve" as UC14
+    usecase "Huy ve" as UC15
+    usecase "Quan ly thanh toan" as UC16
+    usecase "Quan ly loai xe" as UC17
+    usecase "Quan ly diem dung" as UC18
+    usecase "Xem lich chuyen (Calendar)" as UC19
 
-    Manager --> UC1
-    Manager --> UC2
-    Manager --> UC3
-    Manager --> UC7
-    Manager --> UC8
-    Manager --> UC9
-    Manager --> UC10
-    Manager --> UC13
+    UC4 .> UC3 : <<extend>>
+    UC15 .> UC14 : <<extend>>
+    UC18 .> UC9 : <<extend>>
+    UC19 .> UC3 : <<extend>>
+}
 
-    Dispatcher --> UC1
-    Dispatcher --> UC3
-    Dispatcher --> UC4
+Admin --> UC1
+Admin --> UC2
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC11
+Admin --> UC12
+Admin --> UC17
 
-    TicketAgent --> UC1
-    TicketAgent --> UC13
-    TicketAgent --> UC14
-    TicketAgent --> UC15
-    TicketAgent --> UC16
+Manager --> UC1
+Manager --> UC2
+Manager --> UC3
+Manager --> UC7
+Manager --> UC8
+Manager --> UC9
+Manager --> UC10
+Manager --> UC13
+Manager --> UC17
 
-    Driver --> UC1
-    Driver --> UC5
+Dispatcher --> UC1
+Dispatcher --> UC3
+Dispatcher --> UC4
+Dispatcher --> UC19
 
-    Inspector --> UC1
-    Inspector --> UC6
+TicketAgent --> UC1
+TicketAgent --> UC13
+TicketAgent --> UC14
+TicketAgent --> UC15
+TicketAgent --> UC16
+
+Driver --> UC1
+Driver --> UC5
+
+Inspector --> UC1
+Inspector --> UC6
+@enduml
+```
+
+### Use Case Diagram chi tiết theo module
+
+#### Module: Operations
+
+```plantuml
+@startuml Operations Module
+left to right direction
+skinparam actorStyle awesome
+
+actor "Manager" as Manager
+actor "Dispatcher" as Dispatcher
+actor "Driver" as Driver
+actor "Inspector" as Inspector
+
+rectangle "Operations" {
+    usecase "Xem Dashboard" as UC_DASH
+    usecase "Xem KPI cards" as UC_KPI
+    usecase "Xem bieu do doanh thu" as UC_CHART
+    usecase "Quan ly chuyen di" as UC_TRIP
+    usecase "Tao chuyen di" as UC_TRIP_C
+    usecase "Sua chuyen di" as UC_TRIP_U
+    usecase "Xoa chuyen di" as UC_TRIP_D
+    usecase "Loc chuyen theo trang thai" as UC_TRIP_F
+    usecase "Phan cong nhan vien" as UC_STAFF
+    usecase "Kiem tra xung dot lich" as UC_CONFLICT
+    usecase "Xem lich chuyen (Calendar)" as UC_CAL
+    usecase "Xem lich ca nhan" as UC_SCHED
+    usecase "Check-in ve" as UC_CHECKIN
+    usecase "Check-in tat ca ve" as UC_CHECKIN_ALL
+
+    UC_DASH ..> UC_KPI : <<include>>
+    UC_DASH ..> UC_CHART : <<include>>
+    UC_TRIP_C .> UC_TRIP : <<extend>>
+    UC_TRIP_U .> UC_TRIP : <<extend>>
+    UC_TRIP_D .> UC_TRIP : <<extend>>
+    UC_TRIP_F .> UC_TRIP : <<extend>>
+    UC_STAFF ..> UC_CONFLICT : <<include>>
+    UC_CHECKIN_ALL .> UC_CHECKIN : <<extend>>
+}
+
+Manager --> UC_DASH
+Manager --> UC_TRIP
+
+Dispatcher --> UC_TRIP
+Dispatcher --> UC_STAFF
+Dispatcher --> UC_CAL
+
+Driver --> UC_SCHED
+
+Inspector --> UC_CHECKIN
+@enduml
+```
+
+#### Module: Management
+
+```plantuml
+@startuml Management Module
+left to right direction
+skinparam actorStyle awesome
+
+actor "Admin" as Admin
+actor "Manager" as Manager
+
+rectangle "Management" {
+    usecase "Quan ly xe" as UC_VEH
+    usecase "Them xe" as UC_VEH_C
+    usecase "Sua xe" as UC_VEH_U
+    usecase "Xoa xe" as UC_VEH_D
+    usecase "Tim kiem theo bien so" as UC_VEH_S
+
+    usecase "Quan ly loai xe" as UC_VT
+    usecase "Thiet ke so do ghe" as UC_SEAT
+
+    usecase "Quan ly bao tri" as UC_MAINT
+    usecase "Tao log bao tri" as UC_MAINT_C
+    usecase "Sua log bao tri" as UC_MAINT_U
+
+    usecase "Quan ly tuyen duong" as UC_ROUTE
+    usecase "Tao tuyen" as UC_ROUTE_C
+    usecase "Quan ly diem dung" as UC_STOPS
+    usecase "Sap xep thu tu diem dung" as UC_STOPS_ORDER
+
+    usecase "Quan ly tram" as UC_STATION
+    usecase "Them tram" as UC_STATION_C
+
+    UC_VEH_C .> UC_VEH : <<extend>>
+    UC_VEH_U .> UC_VEH : <<extend>>
+    UC_VEH_D .> UC_VEH : <<extend>>
+    UC_VEH_S .> UC_VEH : <<extend>>
+    UC_SEAT .> UC_VT : <<extend>>
+    UC_MAINT_C .> UC_MAINT : <<extend>>
+    UC_MAINT_U .> UC_MAINT : <<extend>>
+    UC_ROUTE_C .> UC_ROUTE : <<extend>>
+    UC_STOPS .> UC_ROUTE : <<extend>>
+    UC_STOPS_ORDER ..> UC_STOPS : <<include>>
+    UC_STATION_C .> UC_STATION : <<extend>>
+}
+
+Admin --> UC_VEH
+Admin --> UC_VT
+Admin --> UC_MAINT
+Admin --> UC_ROUTE
+Admin --> UC_STATION
+
+Manager --> UC_VEH
+Manager --> UC_VT
+Manager --> UC_MAINT
+Manager --> UC_ROUTE
+Manager --> UC_STATION
+@enduml
+```
+
+#### Module: People
+
+```plantuml
+@startuml People Module
+left to right direction
+skinparam actorStyle awesome
+
+actor "Admin" as Admin
+actor "Manager" as Manager
+
+rectangle "People" {
+    usecase "Quan ly nhan vien" as UC_EMP
+    usecase "Them nhan vien" as UC_EMP_C
+    usecase "Sua nhan vien" as UC_EMP_U
+    usecase "Xoa nhan vien" as UC_EMP_D
+    usecase "Gan role cho nhan vien" as UC_EMP_ROLE
+    usecase "Canh bao bang lai het han" as UC_LICENSE
+
+    usecase "Quan ly phan quyen" as UC_ROLE
+    usecase "Tao role" as UC_ROLE_C
+    usecase "Sua role" as UC_ROLE_U
+    usecase "Xoa role" as UC_ROLE_D
+    usecase "Cau hinh permissions" as UC_PERM
+
+    UC_EMP_C .> UC_EMP : <<extend>>
+    UC_EMP_U .> UC_EMP : <<extend>>
+    UC_EMP_D .> UC_EMP : <<extend>>
+    UC_EMP_ROLE .> UC_EMP : <<extend>>
+    UC_EMP ..> UC_LICENSE : <<include>>
+    UC_ROLE_C .> UC_ROLE : <<extend>>
+    UC_ROLE_U .> UC_ROLE : <<extend>>
+    UC_ROLE_D .> UC_ROLE : <<extend>>
+    UC_PERM ..> UC_ROLE_C : <<include>>
+}
+
+Admin --> UC_EMP
+Admin --> UC_ROLE
+
+Manager --> UC_EMP
+@enduml
+```
+
+#### Module: Business
+
+```plantuml
+@startuml Business Module
+left to right direction
+skinparam actorStyle awesome
+
+actor "Manager" as Manager
+actor "Ticket Agent" as TicketAgent
+actor "Accountant" as Accountant
+
+rectangle "Business" {
+    usecase "Quan ly khach hang" as UC_CUST
+    usecase "Them khach hang" as UC_CUST_C
+    usecase "Sua khach hang" as UC_CUST_U
+    usecase "Tim kiem khach hang" as UC_CUST_S
+
+    usecase "Dat ve" as UC_BOOK
+    usecase "Chon chuyen di" as UC_BOOK_TRIP
+    usecase "Chon ghe" as UC_BOOK_SEAT
+    usecase "Nhap thong tin hanh khach" as UC_BOOK_PAX
+    usecase "Tao QR code" as UC_QR
+    usecase "Huy ve" as UC_CANCEL
+    usecase "Cascade huy tickets" as UC_CASCADE_T
+    usecase "Cascade huy payments" as UC_CASCADE_P
+
+    usecase "Quan ly thanh toan" as UC_PAY
+    usecase "Cap nhat trang thai" as UC_PAY_U
+    usecase "Loc theo phuong thuc" as UC_PAY_F
+
+    UC_CUST_C .> UC_CUST : <<extend>>
+    UC_CUST_U .> UC_CUST : <<extend>>
+    UC_CUST_S .> UC_CUST : <<extend>>
+    UC_BOOK ..> UC_BOOK_TRIP : <<include>>
+    UC_BOOK ..> UC_BOOK_SEAT : <<include>>
+    UC_BOOK ..> UC_BOOK_PAX : <<include>>
+    UC_BOOK ..> UC_QR : <<include>>
+    UC_CANCEL .> UC_BOOK : <<extend>>
+    UC_CANCEL ..> UC_CASCADE_T : <<include>>
+    UC_CANCEL ..> UC_CASCADE_P : <<include>>
+    UC_PAY_U .> UC_PAY : <<extend>>
+    UC_PAY_F .> UC_PAY : <<extend>>
+}
+
+Manager --> UC_CUST
+Manager --> UC_BOOK
+Manager --> UC_PAY
+
+TicketAgent --> UC_CUST
+TicketAgent --> UC_BOOK
+TicketAgent --> UC_CANCEL
+TicketAgent --> UC_PAY
+
+Accountant --> UC_PAY
+@enduml
 ```
 
 ## 11.2 Class Diagram (Entity Models)
